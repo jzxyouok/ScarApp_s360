@@ -11,6 +11,7 @@
       <script src="${res}/scripts/xc/easydialog.js"></script>
     <script src="${res}/scripts/xc/mobile_common.js"></script>
     <script src="${res}/scripts/xc/pre_order.js"></script>
+    <script src="${res}/scripts/ggwash/selectProject.js?v=1"></script>
     <link href="${res}/css/xc/easydialog.css" rel="stylesheet" />
 <style type="text/css">
     div ul li{ display: block; width: 300px; border-bottom: 1px solid #CCC; float:left; line-height: 40px; font-size:16px;}
@@ -34,7 +35,7 @@
     <script>
     var sum=0;
     $(document).ready(function(e) {
-        /* 多选按钮 */
+/*        /!* 多选按钮 *!/
         $( ".radiooper").click( function(){
         	var sum_pirce=parseFloat($("#total").html());
             if($(this).hasClass("on")){
@@ -71,8 +72,13 @@
             });
 
             $("#total").html(parseFloat(sum_price).toFixed(2));
-        });
+        });*/
+        /**选择优惠券**/
+        $("#selectVipCouponBtn").click(function(){
 
+            $("#myform").hide();
+            $("#vipCouponIframe").show();
+        })
 
     });
      /*获取所有选中的服务*/
@@ -160,114 +166,177 @@ function callback(res){
     <span class="" id="turnPic"></span>
     <p class="tipTxt">数据处理中，请耐心等待...</p>
 </div>
-
-
+<form id="myform">
 <!-- the content -->
-<div id="wrapper">
-    <!-- 服务内容说明 -->
-    <!-- 预约时间 -->
+    <div id="wrapper">
+        <!-- 服务内容说明 -->
+        <!-- 预约时间 -->
 
-    <article class="crashintro">
-        [@serviceProjectListDirective]
-            [#if fwxmList?? && fwxmList?size>0]
-            [#list fwxmList as project]
-            <p class="singleoption clearfix">
-                <img class="radio i_b v_m" id="dfm_${project_index+1}" fname="${project.name!''}" ids="${project_index+1}" value="${project.carPrice!''}" src="${res}/css/xc/img/radio_unsel.png">
-                <span class="f_l">${project.name!''}</span>
-                <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">${project.jeepPrice!''}￥</span>
-                <span class="f_r color_orange" id="default_${project_index+1}">${project.carPrice!''}￥</span>
+        <article class="crashintro">
+            <!--[@serviceProjectListDirective]
+                [#if fwxmList?? && fwxmList?size>0]
+                [#list fwxmList as project]
+                <p class="singleoption clearfix">
+                    <img class="radio i_b v_m" id="dfm_${project_index+1}" fname="${project.name!''}" ids="${project_index+1}" value="${project.carPrice!''}" src="${res}/css/xc/img/radio_unsel.png">
+                    <span class="f_l">${project.name!''}</span>
+                    <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">${project.jeepPrice!''}￥</span>
+                    <span class="f_r color_orange" id="default_${project_index+1}">${project.carPrice!''}￥</span>
+                </p>
+                [/#list]
+                [/#if]
+            [/@serviceProjectListDirective]-->
+            [@FindWashCountByUserId userId="${(_user_key.userId)?default('')}"]
+                [@serviceProjectListDirective]
+                [#if fwxmList?? && fwxmList?size>0]
+                [#list fwxmList as project]
+                <p class="singleoption clearfix">
+                    <img class="radiooper i_b v_m" id="${project_index+1}" fname="${project.name!''}" ids="${project_index+1}" value="${project.carPrice!''}"   src="${res}/css/xc/img/radio_unsel.png"/>
+                    <span class="f_l">${project.name!''}</span>
+                    <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">${project.jeepPrice!''}￥</span>
+                    [#if project.washCount>0]
+                    <!--如果会员洗车的次数大于等于后台设定的优惠次数-->
+                    [#if count>0]
+                    [#if count gte project.washCount]
+                    <span class="f_r color_orange" value="${(project.discountPrice)?default('')}" id="default_${project_index+1}">${(project.discountPrice)?default('')?string('#.##')}￥</span><!--执行优惠价格-->
+                    [#else]
+                    <span class="f_r color_orange" value="${(project.carPrice)?default('')}" id="default_${project_index+1}">${(project.carPrice)?default('')}￥</span><!--执行原价-->
+                    [/#if]
+                    [#else]
+
+                    <span class="f_r color_orange" value="${project.firstPrice!'0'}" id="default_${project_index+1}">${project.firstPrice?default('0')?string('#.##')}￥</span><!--首次洗车-->
+                    [/#if]
+
+                    [#else]
+                    <span class="f_r color_orange" id="default_${project_index+1}" value="${project.carPrice!''}">${project.carPrice!''}￥</span>
+                    [/#if]
+                </p>
+                [/#list]
+                [/#if]
+                [/@serviceProjectListDirective]
+                <p class="payment clearfix">
+                   <span class="f_r brandsel timesel p_r">
+                        <font class="textwords v_m" id="vipCouponName">选择优惠券</font>
+                        <img class="i_b v_m arrow_down"  src="${res}/css/xc/img/arrow_down.png" id="selectVipCouponBtn">
+                        <input type="hidden" id="vipCouponId" name="vipCouponId"/>
+                   </span>
+                </p>
+
+            [/@FindWashCountByUserId]
+           <!-- <p class="singleoption clearfix">
+                <img class="radio i_b v_m on" id="dfm_1" fname="中国银行专用积分兑换洗车券" ids="1" value="0.01"  src="${res}/css/xc/img/radio_sel.png">
+                <span class="f_l">中国银行专用积分兑换洗车券</span>
+                <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">  29.8￥</span>
+                <span class="f_r color_orange" id="default_1">0.01￥</span>
             </p>
-            [/#list]
-            [/#if]
-        [/@serviceProjectListDirective]
-       <!-- <p class="singleoption clearfix">
-	        <img class="radio i_b v_m on" id="dfm_1" fname="中国银行专用积分兑换洗车券" ids="1" value="0.01"  src="${res}/css/xc/img/radio_sel.png">
-	        <span class="f_l">中国银行专用积分兑换洗车券</span>
-	        <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">  29.8￥</span>
-	        <span class="f_r color_orange" id="default_1">0.01￥</span>
-        </p>
-        <p class="singleoption clearfix">
-	        <img class="radio i_b v_m" id="dfm_2" fname="首单一元洗车体验" ids="2" value="1"  src="${res}/css/xc/img/radio_unsel.png">
-	        <span class="f_l">首单一元洗车体验</span>
-	         <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 19.8￥</span>
-	         <span class="f_r color_orange" id="default_2">1￥</span>
-        </p>-->
-        <p class="introwords clearfix">
-            <span>免打扰洗车是一种快捷服务，无需您到达现场，只需要您提供车辆的具体位置，我们便会完成洗车</span>
-        </p>
-    </article>
-
-    <!-- 附加服务项目（可选）
-    <article>
-        <p class="optiontitle">附加服务项目（可选）</p>
-        <section class="serviceoption">
             <p class="singleoption clearfix">
-                <img class="radiooper i_b v_m" ids="3" fname="清洁轮毂"  value="48" id="add_res_1" src="${res}/css/xc/img/radio_unsel.png">
-                <span class="i_b v_m">清洁轮毂</span>
+                <img class="radio i_b v_m" id="dfm_2" fname="首单一元洗车体验" ids="2" value="1"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="f_l">首单一元洗车体验</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 19.8￥</span>
+                 <span class="f_r color_orange" id="default_2">1￥</span>
+            </p>-->
+            <p class="introwords clearfix">
+                <span>免打扰洗车是一种快捷服务，无需您到达现场，只需要您提供车辆的具体位置，我们便会完成洗车</span>
+            </p>
+        </article>
+
+        <!-- 附加服务项目（可选）
+        <article>
+            <p class="optiontitle">附加服务项目（可选）</p>
+            <section class="serviceoption">
+                <p class="singleoption clearfix">
+                    <img class="radiooper i_b v_m" ids="3" fname="清洁轮毂"  value="48" id="add_res_1" src="${res}/css/xc/img/radio_unsel.png">
+                    <span class="i_b v_m">清洁轮毂</span>
+                     <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
+                     <span class="color_orange i_b v_m f_r">48.0￥</span>
+                </p>
+                <p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="4" fname="清洁发动机仓" value="48"  id="add_res_2" src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">清洁发动机仓</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
+                  <span class="color_orange i_b v_m f_r">48.0￥</span>
+            </p>
+            <p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="5" fname="清品打蜡（3M）" value="48" id="add_res_3"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">清品打蜡（3M）</span>
                  <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
                  <span class="color_orange i_b v_m f_r">48.0￥</span>
+            </p><p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="6" fname="清品打蜡（金装美光）" value="78" id="add_res_4"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">清品打蜡（金装美光）</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 90.0￥</span>
+                  <span class="color_orange i_b v_m f_r">78.0￥</span>
             </p>
             <p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="4" fname="清洁发动机仓" value="48"  id="add_res_2" src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">清洁发动机仓</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
-              <span class="color_orange i_b v_m f_r">48.0￥</span>
+                <img class="radiooper i_b v_m" ids="7" fname="臭氧杀菌 清洁空调风道" value="68" id="add_res_5"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">臭氧杀菌 清洁空调风道</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 80.0￥</span>
+                  <span class="color_orange i_b v_m f_r">68.0￥</span>
+            </p>
+             <p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="8" fname="漆面深度清洗 养护" value="168" id="add_res_6"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">漆面深度清洗 养护</span>
+                 <span style="text-decoration:line-through;padding-left:10px;" class="i_b v_m f_r"> 180￥</span>
+                  <span class="color_orange i_b v_m f_r">168￥</span>
+            </p>
+             <p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="9" fname="镀膜" value="248" id="add_res_7"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">镀膜</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 268￥</span>
+                 <span class="color_orange i_b v_m f_r">248￥</span>
+            </p>
+            <!--<p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="10" fname="清洗内饰 蒸汽臭氧消毒" value="358" id="add_res_8"  src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">清洗内饰 蒸汽臭氧消毒</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 380￥</span>
+                 <span class="color_orange i_b v_m f_r">358￥</span>
+            </p>
+            --></section>
         </p>
-        <p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="5" fname="清品打蜡（3M）" value="48" id="add_res_3"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">清品打蜡（3M）</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
-             <span class="color_orange i_b v_m f_r">48.0￥</span>
-        </p><p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="6" fname="清品打蜡（金装美光）" value="78" id="add_res_4"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">清品打蜡（金装美光）</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 90.0￥</span>
-              <span class="color_orange i_b v_m f_r">78.0￥</span>
-        </p>
-        <p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="7" fname="臭氧杀菌 清洁空调风道" value="68" id="add_res_5"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">臭氧杀菌 清洁空调风道</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 80.0￥</span>
-              <span class="color_orange i_b v_m f_r">68.0￥</span>
-        </p>
-         <p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="8" fname="漆面深度清洗 养护" value="168" id="add_res_6"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">漆面深度清洗 养护</span>
-             <span style="text-decoration:line-through;padding-left:10px;" class="i_b v_m f_r"> 180￥</span>
-              <span class="color_orange i_b v_m f_r">168￥</span>
-        </p>
-         <p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="9" fname="镀膜" value="248" id="add_res_7"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">镀膜</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 268￥</span>
-             <span class="color_orange i_b v_m f_r">248￥</span>
-        </p>
-        <!--<p class="singleoption clearfix">
-            <img class="radiooper i_b v_m" ids="10" fname="清洗内饰 蒸汽臭氧消毒" value="358" id="add_res_8"  src="${res}/css/xc/img/radio_unsel.png">
-            <span class="i_b v_m">清洗内饰 蒸汽臭氧消毒</span>
-             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 380￥</span>
-             <span class="color_orange i_b v_m f_r">358￥</span>
-        </p>
-        --></section>
-
         <section class="serviceoption">
             <p class="payment clearfix">
-                <span class="deductions">优惠码抵扣: <font class="deductprice color_green" id="coupon_price">0元</font></span>
-                <span class="sum">共计: <font class="color_orange"><span id="total">0</span>￥</font></span>
-                <input id="time1" name="time1" type="hidden" value=""  />
-                <input id="date" name="date" type="hidden" value="" />
-                <input type="hidden" value="116.460972" name="washLng" id="washLng" />
-                <input type="hidden" value="39.963256" name="washLat" id="washLat" />
-                <input type="hidden" value="" name="washAddrShow" id="washAddrShow" />
-                <span class="btn_wx" onclick="pay()"><a>微信支付</a></span>
-                <span class="btn_wx" onclick="money()" style="background-color:red;margin-right:15px;"><a>现金支付</a></span>
+
+                <span  class="sum">
+                    余额抵扣:<img class="yuepay"   src="${res}/css/xc/img/radio_unsel.png" id="yuepayRadio" style="height: 25px;vertical-align: bottom">
+                    <label id="yuemoney">[@find_user_byId userId="${_user_key.userId!''}"]
+                        [#if account??]
+                            ${account!'0'}
+                        [/#if]
+                     [/@find_user_byId]</label>
+                </span>￥
+                <span class="sum">
+                    <a href="${base}/order/chongzhi.html"><font color="#04BE02">余额不够点我充值</font></a>
+                </span>
             </p>
-        </section>
-    </article>
-    <a name="footer" id="footer"></a>
-</div>
+         </section>
+            <section class="serviceoption">
+                <p class="payment clearfix">
+                    <span class="sum"><font color="red">钱包抵扣:</font> <font class="color_orange"><span id="qbdk">0</span>￥</font></span>
+                    <input type="hidden" id="qianbao" name="qianbao"/>
+                    <span class="deductions">优惠码抵扣: <font class="deductprice color_green" id="coupon_price">0元</font></span>
+                    <span class="sum">共计: <font class="color_orange"><span id="total">0</span>￥</font></span>
+                    <input id="time1" name="time1" type="hidden" value=""  />
+                    <input id="date" name="date" type="hidden" value="" />
+                    <input type="hidden" value="" name="washAddrShow" id="washAddrShow" />
 
-
-
+                </p>
+                <p  class="payment clearfix" id="wxpayTr">
+                    <input type="hidden" id="totalPrice" name="totalPrice">
+                    <input type="hidden" id="projectName" name="projectName">
+                    <span class="btn_wx" onclick="pay()"><a>微信支付</a></span>
+                    <span class="btn_wx" onclick="money()" style="background-color:red;margin-right:15px;"><a>现金支付</a></span>
+                </p>
+                <div style="padding-top: 15px;"></div>
+                <article class="btnoper" id="qbpayTr" style="display: none;">
+                    <span class="btn_orange" onclick="pay()"><a>提交订单</a></span>
+                </article>
+                <article class="btnoper" id="youhuiquanTr" style="display: none;">
+                    <span class="btn_orange" onclick="yhqPay()"><a>提交订单</a></span>
+                </article>
+            </section>
+        </article>
+        <a name="footer" id="footer"></a>
+    </div>
+</form>
 </body>
 </html>
+<iframe src="${base}/order/mycoupon.html" id="vipCouponIframe" width="100%" height="600" frameborder="0" scrolling="auto" style="display: none"></iframe>

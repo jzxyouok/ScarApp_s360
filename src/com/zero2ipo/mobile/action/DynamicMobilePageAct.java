@@ -268,8 +268,8 @@ public class DynamicMobilePageAct {
 				Car car= (Car) request.getSession().getAttribute(MobileContants.CAR_SESSION_KEY);
 				mv.addObject("bo",car);
 				mv.addObject("couponMoney", couponMoney);
-				//List<String> preDates= (List<String>) request.getSession().getAttribute(MobileContants.PRE_DATES_KEY);//保存录入的车辆信息到缓存中
-				//mv.addObject("preDates",preDates);
+				List<String> preDates= (List<String>) request.getSession().getAttribute(MobileContants.PRE_DATES_KEY);//保存录入的车辆信息到缓存中
+				mv.addObject("preDates",preDates);
 				//if(user.getUserId().equals("13717625140")){
 					//mv.setViewName("mobile/xc/test");
 					//首先从缓存中获取appid

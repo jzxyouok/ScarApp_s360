@@ -86,7 +86,8 @@
 				<entry key="findWashCouponCount" value-ref="findWashCouponCount"></entry>
 				<entry key="findVipCouponCount" value-ref="findVipCouponCount"></entry>
 				<entry key="my_vip_couponlist" value-ref="my_vip_couponlist"></entry>
-
+				<entry key="love_address" value-ref="love_address"></entry>
+				<entry key="directory_code" value-ref="directory_code"></entry>
 			</map>
 		</property>
 		<property name="templateLoaderPath">
@@ -105,6 +106,7 @@
 		</property>
 	</bean>
 	<!-- 图片获取标签 -->
+
 	<bean id="portal_picture" class="com.zero2ipo.common.freemarker.directives.PortalPictureDirective" />
 	<bean id="pretime_car" class="com.zero2ipo.common.freemarker.directives.IsYuYueCarDirective" />
 	<bean id="history_car" class="com.zero2ipo.common.freemarker.directives.HistoryCarDirective" />
@@ -126,6 +128,8 @@
 	<bean id="findWashCouponCount" class="com.zero2ipo.common.freemarker.directives.qianbao.FindWashCouponCountDirective"/>
 	<bean id="findVipCouponCount" class="com.zero2ipo.common.freemarker.directives.qianbao.FindCouponCountDirective"/>
 	<bean id="my_vip_couponlist" class="com.zero2ipo.common.freemarker.directives.qianbao.MyVipCouponListDirective"/>
+	<bean id="directory_code" class="com.zero2ipo.common.freemarker.directives.FindDirectoryByCodeValueDirective"/>
+
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">

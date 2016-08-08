@@ -1,639 +1,244 @@
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-	<meta name="viewport" content="width=device-width, target-densitydpi=medium-dpi, initial-scale=1, user-scalable=no"/>
-	<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-		<title>下单洗车</title>
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/reset.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/style.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/button.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/button.default.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/map.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/images/foot/foot.css" />
-		<link rel="stylesheet" type="text/css"
-			  href="${res}/css/ggwash/time.css" />
-		<style type="text/css">
-			body, html{width: 100%;height: 100%;margin:0;}
-			#allmap {width:100%;height:360px;}
-			.amap-sug-result{
-				border: 0px solid #d1d1d1;
-			}
-		</style>
-		<link rel="stylesheet" href="${res}/css/webui/weui.css"/>
-		<link rel="stylesheet" href="${res}/css/webui/example.css"/>
-		<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
-		<script src="${res}/scripts/xc/easydialog.js"></script>
-		<script src="${res}/scripts/xc/mobile_common.js"></script>
-		<script src="${res}/scripts/xc/pre_order.js"></script>
-		<script src="${res}/scripts/ggwash/selectProject.js?v=1"></script>
-		<link href="${res}/css/xc/style2.css" rel="stylesheet" />
-		<link href="${res}/css/xc/main2.css" rel="stylesheet" />
-		<link href="${res}/css/xc/easydialog.css" rel="stylesheet" />
-	<link rel="stylesheet" href="${res}/css/load/css/fakeloader.css">
-	<script src="${res}/css/load/js/fakeloader.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>立刻洗车</title>
+    <link href="${res}/css/xc/main.css" rel="stylesheet" />
+    <link href="${res}/css/xc/style.css" rel="stylesheet" />
+    <script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="${res}/scripts/xc/easydialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="${res}/css/ggwash/map.css" />
+    <script src="${res}/scripts/xc/mobile_common.js"></script>
+    <script src="${res}/scripts/xc/pre_order.js"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=${_map_key!''}"></script>
+    <link href="${res}/css/xc/easydialog.css" rel="stylesheet" />
+<style type="" >
+    div ul li{ display: block; width: 300px; border-bottom: 1px solid #CCC; float:left; line-height: 40px; font-size:16px;}
+    div ul li a{ color:#000;}
+    .is_use{float:right; color:red; font-size:14px;}
+    .avtion{background-color:#CCC;}
+    .red{ color:#F00;}
+</style>
 
-	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=${_map_key!''}"></script>
-	<script>
+</head>
+<body onload="javascript:getMyCurrentLocation();">
+<div class="loading" style="display:none;">
+    <div class="loadmodal"></div>
+    <span class="" id="turnPic"></span>
+    <p class="tipTxt">数据处理中，请耐心等待...
+    [@directory_code codeValue="signature"]
+        	[#if code?? && codeName??]
+        		<input type="hidden" id="signature" value="${codeName}">
+        	[/#if]
+   [/@directory_code]
+    </p>
+</div>
 
-			function showLocation(){
-				$("#orderinfo").hide();
-				$("#locationMap").show();
-				// 百度地图API功能
-				getMyCurrentLocation();
-			}
-			function selectLocation(){
-				//点击确定的时候，判断选择的位置是否在洗车范围之内
-				var lat=$("#lat").val();
-				var lng=$("#lng").val();
-				queryAreaLogin(lng,lat);
-  				$("#orderinfo").show();
-				$("#locationMap").hide();
-				var value=$("#maplocation").val();
-				$("#washAddr").val(value);
-			}
-			//选择车型
-			function selectCarType(){
-				//选择车型的时候，要把手机号码，称呼，车牌号同时传递到后台
-				var mobile=$("#mobile").val();
-				var name=$("#name").val();
-				var carNo=$("#carNo").val();
-				$("#myform").hide();
-				$("#carTypeIframe").show();
-				var url="${base}/selectCarType.html";
-				//$("#myform").attr('action',url);
-				//$("#myform").submit();
-			}
-
-			$(document).ready(function(e) {
-				isHideCheckBox();
-				//getMyCurrentLocation();
-				$("#carColor").val("${bo.carColor!''}");
-				$("#carType option").each(function (){
-				    if($(this).text()=="${bo.carType!''}"){
-				        $(this).attr('selected',true);
-				    }
-				});
-				//基本信息控制开关
-				$("#info_switch").bind('click',function (r) {
-					var flg=$(this).is(':checked');
-					if(flg){
-						for(var j=1;j<=5;j++){
-							$("#info"+j).show();
-						}
-					}else{
-						for(var j=1;j<=5;j++){
-							$("#info"+j).hide();
-						}
-					}
-				})
-				//其他信息控制开关
-				$("#other_switch").bind('click',function (r) {
-					var flg=$(this).is(':checked');
-					if(flg){
-						$("#showmap").show();
-						$("#other1").show();
-						$("#other2").show();
-					}else{
-						$("#showmap").hide();
-						$("#other1").hide();
-						$("#other2").hide();
-					}
-				})
-				//服务项目控制开关
-				$("#service_switch").bind('click',function (r) {
-					var flg=$(this).is(':checked');
-					if(flg){
-						$("#service1").show();
-					}else{
-						$("#service1").hide();
-					}
-				})
-				//单选按钮控制开关
-				$(":radio").click(function(){
-					var isShare=$("#isShare").val();
-					var price=$(this).attr('data-price');
-					var name=$(this).attr('data-name');
-					if(1==isShare){
-						$("#sum").html(price);
-						$("#total").html(price);
-						$("#totalPrice").val(price);
-						$("#projectName").val(name);
-					}else{
-						$(this).removeAttr("checked");
-						shareFriend(price);
-					}
-
-				});
-			})
-
-		  	function coupon_buy(){
-		  		window.location.href="${base}/pay/buycouponPage.html";
-		  	}
-			//现金支付
-		   function money_pay(){
-		  		    //var carSeats=$("#carSeats").is(":checked");
-			        var carType=$("#carType").val();
-			        var carColor=$("#carColor").val();
-			        var carNo=$('#carNo').val();
-			        var washAddr=$('#washAddr').val();
-			        var mobile=$('#mobile').val();
-			        var name=$("#name").val();
-			         if(mobile==""||mobile==null){
-			            alert("请填写手机号码");
-			            return false;
-			        }
-			          /** if(name==""||name==null){
-			            alert("请填写称呼");
-			            return false;
-			        }else {
-						   if (!/^[\u4e00-\u9fa5]+$/gi.test(name.trim())) {
-									alert("只能输入中文");
-							         return false;
-						   }
-					   }**/
-			        if(carNo==""||carNo==null){
-			            alert("请填写车牌号");
-			            return false;
-			        }else if(carNo.length!=7){
-			        	alert("车牌号填写错误");
-			            return false;
-			        }
-
-			      /*  if(carColor==""||carColor==null){
-			            alert("请填写车颜色");
-			            return false;
-			        }*/
-			        if(carType==""||carType==null){
-			            alert("请填写车型");
-			           // hideloading();
-			            return false;
-			        }
-			        if(washAddr==""||washAddr==null||"定位中，请稍后......"==washAddr){
-			            alert("请填写洗车地点");
-			            return false;
-			        }
-			   /**var preTime=$("#preTime").val();
-				if(preTime==""||preTime==null){
-        alert("请选择预约时间");
-        return false;
-    }**/
-			       //下单换成ajax方式
-				   var projectName=$("#projectName").val();//服务项目
-				   var ids=getServicesProjectIds();
-				   if('首单外洗6元'==projectName ||  '整车洗16元'==projectName){
-
-				   }else{
-					   if(''==ids||null==ids){
-						   alert("请选择服务项目");
-						   return;
-					   }
-				   }
-			   		$("#totalPrice").val($("#total").html());
-			       var url="${base}/washcar/moneyPay.html";
-				   $('#myform').attr('action',url);
-			       //var data=$('#myform').serialize();
-			       //ajax(url,data);
-		  	      $("#myform").submit();
-		  	}
-			function save_order(){
-				//var carSeats=$("#carSeats").is(":checked");
-				var carType=$("#carType").val();
-				var carColor=$("#carColor").val();
-				var carNo=$('#carNo').val();
-				var washAddr=$('#washAddr').val();
-				var mobile=$('#mobile').val();
-				var name=$("#name").val();
-				if(mobile==""||mobile==null){
-					alert("请填写手机号码");
-					return false;
-				}
-				/**if(name==""||name==null){
-					alert("请填写称呼");
-					return false;
-				}else {
-					if (!/^[\u4e00-\u9fa5]+$/gi.test(name.trim())) {
-						alert("只能输入中文");
-						return false;
-					}
-				}**/
-				if(carNo==""||carNo==null){
-					alert("请填写车牌号");
-					return false;
-				}else if(carNo.length!=7){
-					alert("车牌号填写错误");
-					return false;
-				}
-
-				/*  if(carColor==""||carColor==null){
-				 alert("请填写车颜色");
-				 return false;
-				 }*/
-				if(carType==""||carType==null){
-					alert("请填写车型");
-					// hideloading();
-					return false;
-				}
-				if(washAddr==""||washAddr==null||"定位中，请稍后......"==washAddr){
-					alert("请填写洗车地点");
-					return false;
-				}
-				/*var preTime=$("#preTime").val();
-				if(preTime==""||preTime==null){
-					alert("请选择预约时间");
-					return false;
-				}*/
-				//获取 优惠券couponId
-				var couponId=$("#couponId").val();
-				if(couponId==""||couponId==null){
-					alert("请选择洗车券");
-					return false;
-				}
-				$("#sid").val(couponId);
-				var qbdk=$("#qbdk").html();
-				$("#qianbao").val(qbdk);
-				//下单换成ajax方式
-				var url=$("#myform").attr('action');
-				var data=$('#myform').serialize();
-				ajax(url,data);
-				//$("#myform").submit();
-			}
-			//是否隐藏基本信息和其他 checkbox
-			function isHideCheckBox(){
-				var name="${bo.carType!''}";
-				var carNo="${(bo.carNo)!''}";
-				if(''==name||null==name||''==carNo||null==carNo){
-				}else{
-					$("#info_switch").removeAttr("checked");
-					$("#other_switch").removeAttr("checked");
-					$("#other1").hide();
-					$("#other2").hide();
-					$("#showmap").hide();
-					for(var j=1;j<6;j++){
-						$("#info"+j).hide();
-					}
-				}
-
-			}
-		  </script>
-	</head>
-	<body onload="javascript:getMyCurrentLocation();">
-	<div class="fakeloader"></div>
-
-	<form action="${base}/xd.html" method="post" id="myform" style="display: block;">
-		<input type="hidden" id="sid" name="sid"/>
-		<input type="hidden" id="lng" name="lng" value="${bo.lng!''}">
-		<input type="hidden" id="lat" name="lat" value="${bo.lat!''}">
-
-		<div id="orderinfo" class="border_out">
-			<table class="infotable">
-				<tr>
-					<td colspan="2">
-						<div class="weui_cell weui_cell_switch">
-							<div class="weui_cell_hd weui_cell_primary">基本信息</div>
-							<div class="weui_cell_ft">
-								[#if bo.name?? && bo.name!='']
-								<input class="weui_switch" type="checkbox"  id="info_switch"/>
-								[#else]
-								<input class="weui_switch" type="checkbox"  id="info_switch" checked="ehecked"/>
-								[/#if]
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr id="info1">
-					<td class="lable">
-						<img src="${res}/images/ggwash/login_mobile.png" />
-						手机
-					</td>
-					<td colspan="2">
-						<input class='input-text' id='mobile' name="mobile" value="${bo.mobile!''}"
-							type='text'  />
-					</td>
-				 </tr>
-				<!--<tr id="info2">
-					<td class="lable">
-						<img src="${res}/images/ggwash/order_name.png" />
-						称呼
-					</td>
-					<td colspan='2'>
-						<input class='input-text' id='name' type='text' name="name" value="${bo.name!''}"
-							 placeholder='请输入称呼'/>
-					</td>
-				</tr>-->
-				<tr id="info3">
-					<td class="lable">
-						<img src="${res}/images/ggwash/car_plate.png" />
-						车牌
-					</td>
-					<td colspan='2'>
-						<input class='input-text'  id='carNo' type='text' name="carNo" value="${(bo.carNo)!'湘C'}"
-							 placeholder='请输入车牌号' />
-						<input id='carid' type='hidden' />
-					</td>
-				</tr>
-				<tr id="info4">
-					<td class="lable">
-						<img src="${res}/images/ggwash/car_model.png" />
-						车型
-					</td>
-					<td colspan='1' >
-						 <input class="input-text" placeholder="请选择车型"  id="carType" name="carType" value="${(bo.carType)!''}"/>
-						<input type="button" class="ui-btn green" value="选择" onclick="javascript:selectCarType()" style="cursor: pointer;width:50px;float:right"/>
-					</td>
-				</tr>
-				<!--<tr id="info5" style="display: none">
-					<td class="lable">
-						<img src="${res}/images/ggwash/car_color.png" />
-						颜色
-					</td>
-					<td colspan='1'>
-						 <select id="carColor" name="carColor"  class="input-text">
-							 <option value="">选择车辆颜色</option>
-							 <option value="红色">红色</option>
-							 <option value="白色">白色</option>
-							 <option value="绿色">绿色</option>
-							 <option value="黑色">黑色</option>
-							 <option value="蓝色">蓝色</option>
-							 <option value="银色">银色</option>
-						 </select>
-					</td>
-				</tr>-->
-			<!--	<tr>
-					<td colspan="2">
-
-						<div class="weui_cells weui_cells_form">
-							<div class="weui_cell weui_cell_switch">
-								<div class="weui_cell_hd weui_cell_primary">其他</div>
-								<div class="weui_cell_ft">
-									[#if bo.name?? && bo.name!='']
-										<input class="weui_switch" type="checkbox" id="other_switch"/>
-									[#else]
-									<input class="weui_switch" type="checkbox" id="other_switch" checked="checked"/>
-									[/#if]
-								</div>
-							</div>
-						</div>
-
-					</td>
-				</tr>-->
-				<!--<tr id="showmap">-->
-				<tr>
-					<td class="lable"  onclick="showLocation()">
-						<img src="${res}/images/ggwash/order_location.png" />
-						位置
-					</td>
-					<td colspan="1" >
-						<textarea id='washAddr' type='text' name="washAddr" class="input-text" onclick="showLocation()"
-							  placeholder='定位中，请稍后......' ></textarea>
-						<input type="button" class="ui-btn green" value="定位" onclick="javascript:getMyCurrentLocation()" style="cursor: pointer;width:50px;float:right"/>
-					</td>
-
-					</tr>
-				<!--<tr id="other2">
-						<td class="lable" nowrap="nowrap">
-						<img src="${res}/images/ggwash/123.png" />
-							时间
-						</td>
-						<td colspan='1'>
-							 <article class="editcar" style="border-bottom:none;">
-						        <div class="oneline appointmenttime">
-						            <p class="clearfix bb_none">
-						                        <span class="f_r brandsel timesel p_r">
-						                            <font class="textwords v_m" id="book_time_stock">${bo.preTime!''}</font>
-						                            <input type="hidden" id="preTime" name="preTime" value="${bo.preTime!''}"/>
-						                            <img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png"  id="book_time_div_new"/>
-												</span>
-						            </p>
-						        </div>
-						    </article>
-						</td>
-					</tr>
--->
-					<!--<tr id="other1">-->
-					<tr >
-						<td class="lable">
-							<img src="${res}/images/ggwash/456.png" width="20px" height="20px"/>
-							备注
-						</td>
-						<td colspan='2'>
-							<input id='washInfo' name="washInfo" style="width:90%;border: 1px" class="input-text"
-								type='text'  placeholder='如有特殊需求请填写' value="${bo.washInfo!''}" /></input>
-						</td>
-					</tr>
-				[@FindWashCountByUserId userId="${(_user_key.userId)?default('')}"]
-				<tr>
-					   <td class="lable" colspan="2" nowrap="nowrap">
-						   <!--选择服务项目-->
-						   <div class="weui_cell weui_cell_switch">
-							   <div class="weui_cell_hd weui_cell_primary">服务项目</div>
-							   <div class="weui_cell_ft">
-								   <input class="weui_switch" type="checkbox" id="service_switch" checked="false"/>
-							   </div>
-						   </div>
-
-						   <article class="crashintro" id="service1">
-							   [@serviceProjectListDirective]
-							   [#if fwxmList?? && fwxmList?size>0]
-							   [#list fwxmList as project]
-							   <p class="singleoption clearfix">
-								   <img class="radiooper i_b v_m" id="${project_index+1}" fname="${project.name!''}" ids="${project_index+1}" value="${project.carPrice!''}"   src="${res}/css/xc/img/radio_unsel.png"/>
-								   <span>${project.name!''}</span>
-								   <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">${project.jeepPrice!''}￥</span>
-								   [#if project.washCount>0]
-								   <!--如果会员洗车的次数大于等于后台设定的优惠次数-->
-								   [#if count>0]
-								   [#if count gte project.washCount]
-								   <span class="f_r color_orange" value="${(project.discountPrice)?default('')}" id="default_${project_index+1}">${(project.discountPrice)?default('')?string('#.##')}￥</span><!--执行优惠价格-->
-								   [#else]
-								   <span class="f_r color_orange" value="${(project.carPrice)?default('')}" id="default_${project_index+1}">${(project.carPrice)?default('')}￥</span><!--执行原价-->
-								   [/#if]
-								   [#else]
-
-								   <span class="f_r color_orange" value="${project.firstPrice!'0'}" id="default_${project_index+1}">${project.firstPrice?default('0')?string('#.##')}￥</span><!--首次洗车-->
-								   [/#if]
-
-								   [#else]
-								   <span class="f_r color_orange" id="default_${project_index+1}" value="${project.carPrice!''}">${project.carPrice!''}￥</span>
-								   [/#if]
-							   </p>
-							   [/#list]
-							   [/#if]
-							   [/@serviceProjectListDirective]
-
-						   </article>
+<!-- the content -->
+<div id="wrapper">
+    <form action="${base}/car/wait_washer.html" method="post" id="myform">
+    <input type="hidden" id="carColor" name="carColor"/>
+    <input type="hidden" id="rootUrl" name="rootUrl" value="${base}"/>
+        <!-- 历史车辆 -->
+        <article class="carrecord">
+            <header>历史车辆</header>
+            <section>
+            [@history_car userId="${_user_key.userId}"]
+            [#if historyCars?? &&historyCars?size>0]
+            [#list historyCars as car]
+            	 <div class="carinfo radioGroup">
+                    [#if car_index==0]
+                    <img class="radio theradio on" src="${res}/css/xc/img/radio_sel.png" id="${car.id!''}"   carNo="${car.carNo}"  carColor="${car.carColor}" carSeats="${car.carSeats}"  carColorId="${car.carColor}" carSeatsId="${car.carSeats}"/>
+                    [#else]
+                    <img class="radio theradio" src="${res}/css/xc/img/radio_unsel.png" id="${car.id!''}"  carNo="${car.carNo}"  carColor="${car.carColor}" carSeats="${car.carSeats}" carColorId="${car.carColor}" carSeatsId="${car.carSeats}"/>
+                    [/#if]
+                	<span class="carbrand v_m">
+                    	${car.carNo}
+                    </span>
+                    <span class="carcolor p_r">${car.carColor}</span>
+                    <span class="carseat v_m">${car.carSeats}</span>
+                </div>
+            [/#list]
+            [/#if]
+            [/@history_car]
+            </section>
 
 
-					   </td>
-				   </tr>
-					<tr style="display: none">
-						<td class="lable" nowrap="nowrap">
-							<img src="${res}/images/ggwash/property_index_coupon.png" style="width:42px;height:30px"/>
-							洗车券
-						</td>
-						<td  >
-						        <div class="oneline appointmenttime">
-						            <p class="clearfix bb_none">
-										<span class="f_r brandsel timesel p_r">
-											<font class="textwords v_m" id="couponName">${couponName!''}</font>
-										   <input type="hidden" id="couponId" name="couponId" value="${couponId!''}"/>
-											<img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png" id="selectCouponClickBtn">
+            <section>
+                <div class="addcar">
+                    <img class="radio" src="${res}/css/xc/img/addicon.png">
+                    <span class="">新增车辆</span>
+                </div>
+            </section>
+        </article>
 
-									   </span>
-						            </p>
-						        </div>
-						</td>
-					</tr>
-				<!--优惠券-->
-				[#if count>0]
-				<tr>
-					<td class="lable" nowrap="nowrap">
-						<img src="${res}/images/ggwash/property_index_discount.png" style="width:42px;height:30px"/>
-						优惠券
-					</td>
-					<td colspan='2' >
-						<div class="oneline appointmenttime">
-							<p class="clearfix bb_none">
-										<span class="f_r brandsel timesel p_r">
-											<font class="textwords v_m" id="vipCouponName"></font>
-											<img class="i_b v_m arrow_down"  src="${res}/css/xc/img/arrow_down.png" id="selectVipCouponClickBtn">
-											<input type="hidden" id="vipCouponId" name="vipCouponId"/>
-									   </span>
-							</p>
-						</div>
-					</td>
-				</tr>
-				[/#if]
-				<!--优惠券-->
-				[/@FindWashCountByUserId]
-				<!----选择服务项目end----------->
-				<!--账户余额-->
-				<tr>
-					<td class="lable" colspan="2" nowrap="nowrap">
-						<!--<p class="introwords clearfix" style="padding-top: 5px;padding-bottom: 5px">
-							<span></span>
-						</p>-->
-						<article class="crashintro">
-							<p class="singleoption clearfix">
-								余额抵扣:<img class="yuepay"   src="${res}/css/xc/img/radio_unsel.png" id="yuepayRadio">
-								<span id="yuemoney">
-									[@find_user_byId userId="${_user_key.userId!''}"]
-										[#if account??]
-											${account!'0'}
-										[/#if]
-									 [/@find_user_byId]
-								</span>￥
-								<span><a href="${base}/order/chongzhi.html"><font color="#04BE02">余额不够点我充值</font></a></span>
-							</p>
-						</article>
-					</td>
-				</tr>
-				<!--账户余额-->
-					<tr>
-						<td colspan="2">
-							<section class="serviceoption">
-								<p class="payment clearfix">
-									<span class="deductions">
-										原价:<font id="orignPrice" class="color_orange">0</font>￥
-									</span>
-									<span class="deductions">
-										<font color="red">优惠券抵扣:</font> <font class="deductprice color_green" id="coupon_price">${couponMoney!'0'}</font>￥
-									</span>
-									<span class="sum"><font color="red">钱包抵扣:</font> <font class="color_orange"><span id="qbdk">0</span>￥</font></span>
-									<input type="hidden" id="qianbao" name="qianbao"/>
-								</p>
-							</section>
-						</td>
-					</tr>
-					<tr id="wxpayTr">
-						<td >
-							<span class="sum">共计: <font class="color_orange"><span id="total">0</span>￥</font></span>
-							<input type="hidden" id="totalPrice" name="totalPrice">
-							<input type="hidden" id="projectName" name="projectName">
+        <!-- 编辑车辆信息（“2-3我要洗车-选择历史”页面需要删掉此模块） -->
+        <article class="editcar inputcarinfo" style="display:none;">
+            <div class="oneline">
+                <p class="clearfix">
+                    <span class="f_l">车牌号</span>
+                    <!--<span class="f_r color9">输入车牌号码</span>-->
 
-						</td>
-						<td>
-							<div class="button_sp_area">
-								<a href="javascript:void(0)" onclick="weixinPay()"  class="weui_btn weui_btn_mini weui_btn_primary">微信支付</a>
-								<a href="javascript:void(0)" onclick="money_pay()" class="weui_btn weui_btn_mini weui_btn_default">现金支付</a>
-							</div>
+                     [@directory_code codeValue="platenumber"]
+			        	[#if code?? && codeName??]
+			        		<input type="text" id="carNo" name="carNo" class="inputcarnun f_r color9" placeholder="输入车牌号码"  value="${codeName}">
+			        		 <input type="hidden" id="platenumber" name="platenumber" value="${codeName}">
+			        	[#else]
+			        			<input type="text" id="carNo" name="carNo" class="inputcarnun f_r color9" placeholder="输入车牌号码"  value="京A">
+			        	[/#if]
+			        [/@directory_code]
 
-							<!--<input  type='button' style="display: block;width: 90px;margin-right: 125px;float:left;background-color:#04BE02;color: white"
-									class='ui-btn green' value='微信支付'
-									onclick="weixinPay()" />
+                </p>
+               <!-- <p class="clearfix">
+                    <span class="f_l">品牌下拉框（选填）</span>
+                	<span class="f_r color9 brandsel p_r">
+                    	<font class="textwords v_m">品牌</font>
+                        <input type="hidden" id="carType" name="carType"/>
+                        <select class="dropdownlist" id="new_type_sel">
+                            <option value="0">请选择品牌</option>
+                            <option value="1">奥迪</option><option value="2">宝马</option><option value="3">保时捷</option><option value="5">奔驰</option><option value="6">奔腾</option><option value="7">本田</option><option value="8">比亚迪</option><option value="9">标致</option><option value="10">别克</option><option value="11">宾利</option><option value="12">长安</option><option value="13">长城</option><option value="14">大众</option><option value="15">道奇</option><option value="16">法拉利</option><option value="17">菲亚特</option><option value="18">丰田</option><option value="19">福特</option><option value="20">GMC</option><option value="21">Jeep</option><option value="22">吉利</option><option value="23">江淮</option><option value="24">捷豹</option><option value="25">凯迪拉克</option><option value="26">克莱斯勒</option><option value="27">雷克萨斯</option><option value="28">猎豹汽车</option><option value="29">陆风</option><option value="30">路虎</option><option value="31">MINI</option><option value="32">马自达</option><option value="33">玛莎拉蒂</option><option value="34">奇瑞</option><option value="35">起亚</option><option value="36">日产</option><option value="37">荣威</option><option value="38">smart</option><option value="39">萨博</option><option value="40">三菱</option><option value="41">斯巴鲁</option><option value="42">斯柯达</option><option value="43">特斯拉</option><option value="44">沃尔沃</option><option value="45">现代</option><option value="46">雪佛兰</option><option value="47">雪铁龙</option><option value="48">英菲尼迪</option><option value="10">雷诺</option><option value="10">林肯</option><option value="50">阿尔法罗密欧</option><option value="50">阿斯顿·马丁</option><option value="50">巴博斯</option><option value="50">布加迪</option><option value="50">DS</option><option value="50">东南汽车</option><option value="50">东风</option><option value="50">大发</option><option value="50">福田</option><option value="50">观致</option><option value="50">悍马</option><option value="50">海马</option><option value="50">红旗</option><option value="50">开瑞</option><option value="50">科尼赛克</option><option value="50">兰博基尼</option><option value="50">劳斯莱斯</option><option value="50">朗世</option><option value="50">莲花汽车</option><option value="50">铃木</option><option value="50">MG</option><option value="50">迈凯伦</option><option value="50">迈巴赫</option><option value="50">纳智捷</option><option value="50">欧宝</option><option value="50">讴歌</option><option value="50">启辰</option><option value="50">世爵</option><option value="50">西雅特</option><option value="50">野马汽车</option><option value="50">其他车型</option>                        </select>
+                		<img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png">
+                    </span>
+                </p>-->
+                <p class="clearfix">
+                    <span class="f_l">颜色（必填）</span>
+                	<span class="f_r brandsel p_r">
+                    	<font class="textwords v_m"></font>
+                        <i class="colorlump"></i>
+                        <select class="dropdownlist" id="new_color_sel">
+                            <option value="0">请选择颜色</option>
+                            <option value="1" data="#000000">黑色</option>
+                            <option value="3" data="#FF0000">红色</option>
+                            <option value="4" data="#FAFFF0">白色</option>
+                            <option value="5" data="#E6E8FA">银色</option>
+                            <option value="6" data="#4169E1">蓝色</option>
+                            <option value="7" data="#3D9140">绿色</option>
+                            <option value="8" data="#808069">灰色</option>
+                            <option value="9" data="#808069">棕色</option>
+                            <option value="10" data="#DA70D6">粉色</option>
+                            <option value="11" data="#9933FA">紫色</option>
+                            <option value="2" data="#FFD700">黄色</option>
+                        </select>
+                		<img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png">
+                    </span>
+                </p>
+                <p class="clearfix">
+                    <span class="f_l">车型</span>
+                	<span class="f_r brandsel p_r">
+                    	<font class="textwords v_m" id="carTypeHtml"></font>
+                        <input type="hidden" id="carType" name="carType" />
+                        <i class="colorlump" ></i>
+                        <select class="dropdownlist" placeholder="请选择车型"  onclick="selectCarType()">
+                        </select>
+                		<img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png">
+                    </span>
+                </p>
+                <p calss="clearfix" style="text-align: center;font-size:14px;padding-top:5px;">
+			            [@directory_code codeValue="service_car_message"]
+			        	[#if code?? && codeName??]
+			        		${codeName}
+			        	[#else]
+			        			 服务车辆为5座轿车和SUV
+			        	[/#if]
+			        [/@directory_code]
+                </p>
+            </div>
+        </article>
+        <p style="text-align: center;font-size: 15px;padding-top: 20px;">
+        [@directory_code codeValue="service_range"]
+        	[#if code?? && codeName??]
+        		${codeName}
+        	[#else]
+        			目前服务范围支持北京地区
+        	[/#if]
+        [/@directory_code]
 
-							<input id='moneyBtn' type='button' style="display: block;width: 90px;margin-right: 15px;float:right;background-color:#04BE02;color: white"
-								   class='ui-btn green' value='现金支付'
-								   onclick="money_pay()"/>
-							<input id='order' type='button' style="display: none;width:85px;margin-left: 125px"
-								   class='ui-btn green' value='洗车券下单'
-								   onclick="save_order()"/>-->
-						</td>
-					</tr>
-					<tr id="qbpayTr" style="display: none;">
-						<td style="width: 10%;">
-							<span class="sum">共计: <font class="color_orange">
-								<span id="sum">0</span>￥</font>
-							</span>
-						</td>
-						<td colspan='' style="border: 0;">
-							<!--<input id='o' type='button' style="display: block;width: 70px;float:left;background-color:#51AD8F;color: white"
-								   class='ui-btn green' value='提交订单'
-								   onclick="qbpay()" />-->
-							<input id='o' type='button' style="display: block;width: 90px;margin-right: 125px;float:left;background-color:#04BE02;color: white"
-								   class='ui-btn green' value='提交订单'
-								   onclick="qbpay()" />
-						</td>
-						<td>
+        </p>
 
-						</td>
-					</tr>
-				<tr id="youhuiquanTr" style="display: none;">
-					<td style="width: 10%;">
-							<span class="sum">共计: <font class="color_orange">
-								<span id="sum">0</span>￥</font>
-							</span>
-					</td>
-					<td colspan='' style="border: 0;">
-						<input  type='button' style="display: block;width: 90px;margin-right: 125px;float:left;background-color:#04BE02;color: white"
-							   class='ui-btn green' value='提交订单'
-							   onclick="yhqPay()" />
-					</td>
-					<td>
+        <!-- 选择位置 -->
+        <article class="editcar" style="border-bottom:none;">
+            <section class="sellocation clearfix">
+                <span class="f_l br_none"  id="select_history">
+                    <img class="alarm i_b v_m" onclick=""  src="${res}/css/xc/img/alarm.png"/>
+                    <font class="i_b" onclick="getAddrList()">选择历史位置</font>
 
-					</td>
-				</tr>
-					<tr style="height: 60px;">
-						<td colspan='3'></td>
-					</tr>
+                </span>
+                <div class="dropdownmodal" style="display:none">
 
-			</table>
-		</div>
-		        <!--填出层-->
-     <div id="imgBox" style="display: none; float: left; border: 1px solid rgb(204, 204, 204); width: 350px; margin: 0px;">
+                     </div>
+                <span class="f_r br_none" id="getLocation2"  onclick="javascript:getMyCurrentLocation()">
+                    <img class="location i_b v_m" src="${res}/css/xc/img/Location.png"/>
+                    <font class="i_b">定位我的位置</font>
+                </span>
+
+            </section>
+
+            <div class="oneline p_r">
+                <p class="clearfix">
+                    <input type="text" id="washAddrShow" placeholder="洗车地点"  >
+					<input type="hidden" id="washAddr" name="washAddr"/>
+                </p>
+                <p class="clearfix" >
+                    <input type="text" id="washInfoShow" placeholder="手机号码" value="${_user_key.phoneNum!''}">
+               		<input type="hidden" id="mobile" name="mobile" value="${_user_key.phoneNum!''}"/>
+                </p>
+
+
+
+            </div>
+            <p class="prompt" style="border-top: 0.07rem solid #ddd;">
+             [@directory_code codeValue="service_range_info"]
+        	[#if code?? && codeName??]
+        		${codeName}
+        	[#else]
+        			提示：地址越精确，洗车师傅越容易找到你的爱车,最好精确到小区前后门,地下车库车位号,若难描述"不清楚"电联。
+        	[/#if]
+        [/@directory_code]
+
+            </p>
+            <!-- 预约时间（我要洗车，去掉此项） -->
+             <!-- 预约时间 -->
+    <article class="editcar" style="border-bottom:none;">
+        <div class="oneline appointmenttime" id="book_time_div_new">
+            <p class="clearfix bb_none">
+                <span class="f_l">预约时间</span>
+                        <span class="f_r brandsel timesel p_r">
+                            <font class="textwords v_m" id="book_time_stock"></font>
+                            <input type="hidden" id="preTime" name="preTime"/>
+                            <img class="i_b v_m arrow_down" src="${res}/css/xc/img/arrow_down.png">
+                        </span>
+            </p>
+        </div>
+    </article>
+        </article>
+        <!-- 下一步 -->
+        <article class="btnoper">
+            <span class="btn_orange" onclick="sub_form()">下一步</span>
+        </article>
+
+        <!--填出层-->
+     <div id="imgBox" style="display: none;  border: 1px solid rgb(204, 204, 204); width: 310px; margin: 0px;">
   			<div style="margin:0 auto;background-color:#FFF;">
 				<div style="width:100%; height:45px;">
 					<div style="float:left">
-					<span style="padding:10px 0px 15px 88px; font-size:18px; "><strong>选择预约时间</strong></span>
+					<span style="padding:10px 0px 15px 20px; font-size:18px; "><strong>选择预约时间</strong></span>
 					</div>
                     <div style=" display:inline; float:right;">
                     <span id="cancel_sub" style="margin:12px 15px 15px 15px"><img src="${res}/css/xc/img/cancel.jpg" width="25px" height="25px"></span>
                     </div>
                 </div>
             	<div style="width:100%;min-height:350px; border-top:1px #CCC solid; background-color: #F7F7F7" id="nav">
-					<ul style="padding:10px 0px 10px 25px; height:350px;overflow: auto; width:320px" id="book_time_area1">
+					<ul style="padding:10px 0px 10px 25px; height:300px;overflow: auto; width:320px" id="book_time_area1">
 					[#list preDates as list]
-						<li class="nopre"><a href="javascript:void(0);" class="time1" data="${list}">${list}</a></li>
+                        [@pretime_car date=list]
+                            [#if precar?? && precar.preTime?? && precar.preTime!='' &&precar.preTime=list]
+                                <li class="avtion">${list}<span class="is_use">【已排满】</span></li>
+                                [#else]
+                                <li class="nopre"><a href="javascript:void(0);" class="time1" data="${list}">${list}</a></li>
+                            [/#if]
+                        [/@pretime_car]
 					[/#list]
-
 					</ul>
                 </div>
                 <div style="width:100%;height:85px; background:#FFF; margin-top:15px;">
@@ -644,140 +249,38 @@
             	</div>
             </div>
 		</div>
-		<div id="locationMap" style="display:none">
-		    <input type="text" id="maplocation" style="width: 250px"/>
-			<div id="allmap"> </div>
-		    <div id="mapdesc">
-		    		<div style="color:#F00;font-size:16px">重要提示</div>
-		    		<div>请在地图中调整并确认您的车辆位置，准确的位置有助于我们快速为您的爱车服务。</div>
-		    		<input id='order' type='button' class='ui-btn green' value='确认位置' onclick="selectLocation()"  style="width:100%;margin:5px 0;"/>
-		 	</div>
-   		</div>
-   	<div class="nav_fp">
-	<ul>
-        <li><a href="${base}/washcar/index.html" class="nav_cpjx">上门洗车</a></li>
-        <li><a href="${base}/order/myorderlist.html" class="nav_gkka">洗车订单</a></li>
-        <li><a href="${base}/mycoupon.html" class="nav_grzxa">洗车券</a></li>
-    </ul>
+    </form>
 </div>
-	</form>
-	</body>
-<iframe src="${base}/order/mycoupon.html" id="vipCouponIframe" width="100%" height="100%" frameborder="0" scrolling="auto" style="display: none"></iframe>
-<iframe src="${base}/selectCarType.html" id="carTypeIframe" width="100%" height="100%" frameborder="0" scrolling="auto" style="display: none"></iframe>
-<script src="${res}/scripts/xc/youhuiquan.js" type="text/javascript"></script>
-<script src="${res}/scripts/lib/map/gaodeMap.js" type="text/javascript"></script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script>
-	wx.config({
-		debug: false,
-		appId: '${appid}',
-		timestamp:'${timestamp}',
-		nonceStr: '${nonceStr}',
-		signature: '${signature}',
-		jsApiList: [
-			'checkJsApi',
-			'onMenuShareTimeline',
-			'onMenuShareAppMessage',
-			'onMenuShareQQ',
-			'onMenuShareWeibo',
-			'hideMenuItems',
-			'showMenuItems',
-			'hideAllNonBaseMenuItem',
-			'showAllNonBaseMenuItem',
-			'hideOptionMenu',
-			'showOptionMenu'
-		]
-	});
-	setTimeout(function(){
-		HiddenMenu();
-	},30);
-	wx.error(function (res) {
-		//alert('wx.error: '+JSON.stringify(res));
-	});
-	function shareFriend(value){
-		alert("请点击右上角分享到朋友圈,分享后可享受此价格");
-		wx.ready(function () {
-			wx.showMenuItems({
-				menuList: [
-					//'menuItem:readMode', // 阅读模式
-					'menuItem:share:timeline' // 分享到朋友圈
-					//'menuItem:copyUrl' // 复制链接
-				],
-				success: function (res) {
-					//alert('已显示“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
-				},
-				fail: function (res) {
-					alert(JSON.stringify(res));
-				}
-			});
-		})
+<div id="allmap" style="display:none">	</div>
 
-		$("#isShareFlag").val(value);
-		wxReady();
-	}
-	function HiddenMenu(){
-		wx.ready(function () {
-			wx.hideOptionMenu();
-			wx.checkJsApi({
-				jsApiList: [
-					'onMenuShareTimeline'
-				]
-			});
-		})
-	}
-	function wxReady(){
-		wx.ready(function () {
-			wx.checkJsApi({
-				jsApiList: [
-					'onMenuShareTimeline'
-				]
-			});
-			wx.onMenuShareTimeline({
-				title: '分享后可享受首单外洗6元整车洗16元优惠',
-				link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf9aab63ad5f52164&redirect_uri=http://xiche.suninpay.com/cwmws/oauth/do.html&response_type=code&scope=snsapi_base&state=bsb1#wechat_redirect',
-				imgUrl: 'http://blog.dqccc.com/upload/2015/10/28/6a4eb92f-4755-4faf-aadf-ff961c430422.jpg',
-				trigger: function (res) {
-					//alert('用户点击分享到朋友圈');
-				},
-				success: function (res) {
-					var value=$("#isShareFlag").val();
-					$("#isShare").val('1');
-					alert("分享成功");
-					if(value==6){
-						$("#projectName").val("首单外洗6元");
-						$("#x11").attr("checked","checked");
-					}
-					if(value==16){
-						//alert("选中");
-						$("#projectName").val("整车洗16元");
-						$("#x12").attr("checked","checked");
-					}
-					$("#sum").html(value);
-					$("#total").html(value);
-					$("#totalPrice").val(value);
-				},
-				cancel: function (res) {
-					//alert('已取消');
-				},
-				fail: function (res) {
-					//alert('wx.onMenuShareTimeline:fail: '+JSON.stringify(res));
-					//alert("${appid!''}");
-				}
-			});
-		});
-	}
-	document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
-	function subSomething()
-	{
-		$(".fakeloader").fakeLoader({
-			timeToHide:81200,
-			bgColor:"#2ecc71",
-			spinner:"spinner1"
-		});
-		if(document.readyState == "complete") //当页面加载状态
-		{
-			$(".fakeloader").fadeOut(2000)
-		}
-	}
-</script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+     <script type="text/javascript" src="${res}/scripts/lib/map/gaodeMap.js"></script>
+     <script type="text/javascript" src="${res}/scripts/xc/index.js"></script>
+</body>
+<iframe src="${base}/selectCarType.html" id="carTypeIframe" width="100%" height="600" frameborder="0" scrolling="auto" style="display: none"></iframe>
+<iframe src="${base}/car/selectService.html" id="serviceProjectframe" width="100%" height="600" frameborder="0" scrolling="auto" style="display: none"></iframe>
 </html>
+<script>
+    $('#carSeatsId').val($('img').eq(0).attr('carSeatsId'));
+    $('#carSeats').val($('img').eq(0).attr('carSeats'));
+    $('#carColor').val($('img').eq(0).attr('carColor'));
+    $('#carColorId').val($('img').eq(0).attr('carColorId'));
+    $('#carType').val($('img').eq(0).attr('carType'));
+    $('#carTypeId').val($('img').eq(0).attr('carTypeId'));
+    $('#userCarId').val($('img').eq(0).attr('userCarId'));
+    $('#carNo').val($('img').eq(0).attr('carNo'));
+    $('#id').val($('img').eq(0).attr('id'));
+    //选择车型
+    function selectCarType(){
+        //选择车型的时候，要把手机号码，称呼，车牌号同时传递到后台
+        var mobile=$("#mobile").val();
+        var name=$("#name").val();
+        var carNo=$("#carNo").val();
+        $("#myform").hide();
+        $("#carTypeIframe").show();
+        var url="${base}/selectCarType.html";
+        //$("#myform").attr('action',url);
+        //$("#myform").submit();
+    }
+
+</script>

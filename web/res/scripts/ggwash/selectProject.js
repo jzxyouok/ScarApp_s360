@@ -19,6 +19,7 @@ $(document).ready(function(e) {
     /* 多选按钮 */
     $( ".radiooper").click( function(){
         var sum_pirce=0;
+        var selectCount=0;
         if($(this).hasClass("on")){
             $( this ).removeClass( "on" )
             $( this ).attr( "src","../res/css/xc/img/radio_unsel.png" );
@@ -26,7 +27,20 @@ $(document).ready(function(e) {
             $( this ).addClass( "on" )
             $( this ).attr( "src","../res/css/xc/img/radio_sel.png" );
         }
-        getTotalPrice();
+        $(".radiooper").each(function(){
+            if($(this).hasClass("on")){
+                selectCount++;
+            }
+        });
+        if(0==selectCount){
+            $("#youhuiquanTr").hide();
+            $("#qbpayTr").hide();
+            $("#wxpayTr").hide();
+        }else{
+            getTotalPrice();
+        }
+
+
 
     });
     //单选按钮
@@ -106,16 +120,17 @@ function getTotalPrice(){
         if(flg){
             var qianbao=parseFloat($("#yuemoney").html()).toFixed(2);//钱包余额
             var f=qianbao-sumPrice;
-            console.log("f====================="+f);
             if(f>0){//钱包余额充足，就没必要使用微信支付了，直接下单扣除钱包余额就可以了
                 $("#qbdk").html(sumPrice);//余额抵扣
                 $("#sum").html(sumPrice);
+                $("#total").html(0);
                 $("#qbpayTr").show();
                 $("#wxpayTr").hide();
                 $("#youhuiquanTr").hide();
             }else{
                 $("#qbdk").html(qianbao);//余额抵扣
                 sumPrice=sumPrice-qianbao;
+                $("#total").html(sumPrice);
                 $("#qbpayTr").hide();
                 $("#youhuiquanTr").hide();
                 $("#wxpayTr").show();
@@ -128,18 +143,16 @@ function getTotalPrice(){
         //重置钱包余额
         chongzhiQianBao();
     }
-    var s=parseFloat(sumPrice).toFixed(2);
+   /* var s=parseFloat(sumPrice).toFixed(2);
     if(s<=0){
-        $("#total").html(0);
         $("#qbpayTr").hide();
         $("#wxpayTr").hide();
         $("#youhuiquanTr").show();
 
     }else {
         $("#youhuiquanTr").hide();
-        $("#total").html(sumPrice);
         $("#sum").html(sumPrice);
-    }
+    }*/
 
 }
 //不使用余额付款

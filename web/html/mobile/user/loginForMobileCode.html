@@ -119,7 +119,7 @@
 						if(data.success){
 							Dialog.show("登陆成功", 1, 2000);
 							setTimeout(function() {
-								var url="${base}/washcar/index.html";
+								var url="${base}"+data.page;
 								window.location.href=url;
 							},2000);
 						}else{

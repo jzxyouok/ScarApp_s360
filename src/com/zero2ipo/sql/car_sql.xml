@@ -43,7 +43,6 @@ FROM CAR
 	<isNotEmpty prepend="AND" property="userId">
 	USER_CAR_ID=#userId#
 	</isNotEmpty>
-	
 	<isNotEmpty prepend="AND" property="mobile">
 		MOBILE=#mobile#
 	</isNotEmpty>
@@ -58,7 +57,7 @@ FROM CAR
 	<isNotEmpty prepend="AND" property="userId">
 	USER_CAR_ID=#userId#
 	</isNotEmpty>
-	
+
 	<isNotEmpty prepend="AND" property="mobile">
 		MOBILE=#mobile#
 	</isNotEmpty>
@@ -139,8 +138,8 @@ FROM CAR
 </insert>
 <!-- 修改车辆信息 -->
 	<update id="updCar" parameterClass="carEntity">
-		
-			 UPDATE 
+
+			 UPDATE
 			 	CAR
 			SET
 				PRE_TIME=#preTime#,
@@ -156,12 +155,12 @@ FROM CAR
 				name=#name#,
 				lat=#lat#,
 				lng=#lng#
-	  	   WHERE 
+	  	   WHERE
 	            ID=#id#
 	</update>
 <!--删除-->
 <delete id="delCar" parameterClass="java.util.Map">
-	DELETE FROM 
+	DELETE FROM
 		car
 	<dynamic prepend="WHERE">
 		<isNotEmpty prepend="AND" property="id">

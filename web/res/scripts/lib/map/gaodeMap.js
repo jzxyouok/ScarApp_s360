@@ -6,6 +6,7 @@ var washAddr=$("#washAddr").val();
 initLocation();
 function getMyCurrentLocation(){
 	$("#washAddr").val("定位中，请稍后......");
+	$("#washAddrShow").val("定位中，请稍后......");
 	 map = new AMap.Map('allmap',{
 		resizeEnable: true
 	});
@@ -51,6 +52,7 @@ function onComplete(data) {
 				if(status=='complete'){
 					$("#washAddr").val(result.regeocode.formattedAddress);
 					$("#maplocation").val($("#washAddr").val());
+					$("#washAddrShow").val($("#washAddr").val());
 				}
 			})
 		})
@@ -61,6 +63,7 @@ function onComplete(data) {
 			//获得了有效的地址信息:
 			$("#washAddr").val(result.regeocode.formattedAddress);
 			$("#maplocation").val($("#washAddr").val());
+			$("#washAddrShow").val($("#washAddr").val());
 		}else{
 			//获取地址失败
 		}
@@ -100,6 +103,8 @@ function queryAreaLogin(lng,lat){
 
 		},
 		success: function(data){
+			$("#washAddrShow").val(data.areaName);
+			$("#washAddr").val(data.areaName);
 			if(data.success){
 				//可以下单
 				$("#order").bind("onclick","save_order()");
@@ -124,6 +129,7 @@ function queryAreaLogin(lng,lat){
 //点击位置时加载地图信息
 function loadMapData(){
 	$("#maplocation").val($("#washAddr").val());
+	$("#washAddrShow").val($("#washAddr").val());
 	var map = new AMap.Map('allmap',{
 		resizeEnable: true,
 		zoom: 13,
@@ -148,6 +154,7 @@ function loadMapData(){
 				if(status=='complete'){
 					$("#washAddr").val(result.regeocode.formattedAddress);
 					$("#maplocation").val($("#washAddr").val());
+					$("#washAddrShow").val($("#washAddr").val());
 				}
 			})
 		})

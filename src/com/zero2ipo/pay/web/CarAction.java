@@ -252,6 +252,17 @@ public class CarAction {
 		return "redirect:/car/selectService.html";
 
 	}
+	@RequestMapping(value = "/car/selectService.html", method = RequestMethod.GET)
+	public String addPost(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		FmUtils.FmData(request, model);
+		Object object=SessionHelper.getAttribute(request, MobileContants.USER_SESSION_KEY);
+		String page=MobilePageContants.SELECT_SERVICE_PROJECT_PAEG;
+		if(!(object instanceof Users)){
+			SessionHelper.setAttribute(request, MobileContants.PAGE_SESSION_KEY,"/car/selectService.html");
+			page=MobilePageContants.FM_USER_LOGIN;
+		}
+		return page;
+	}
 
 	/**
 	 * 首页下单

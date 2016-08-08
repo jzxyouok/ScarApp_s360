@@ -48,7 +48,10 @@ public class AreaAction {
 				String arealong=codeInfoEntity.getContent3();
 				if(!StringUtil.isNullOrEmpty(latstr)&&!StringUtil.isNullOrEmpty(lngstr)){
 					String quName= GetLocation.getQuname(String.valueOf(lng),String.valueOf(lat));
+					String detailName= GetLocation.getDetailName(String.valueOf(lng),String.valueOf(lat));
 					System.out.println("当前位置所在的区======================================="+quName);
+					System.out.println("当前位置======================================="+detailName);
+					map.put("areaName",detailName);
 					//double lng2=Double.parseDouble(lngstr);
 					//double lat2=Double.parseDouble(latstr);
 					//System.out.println("dangqian weizhi :"+lat+"\t"+lng);

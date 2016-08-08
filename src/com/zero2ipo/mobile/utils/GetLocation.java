@@ -29,6 +29,16 @@ public class GetLocation {
         String arr[] = allAdd.split(",");
         return arr[2];
     }
+    public static String getDetailName(String lon,String lat) {
+        String add = getAdd(lon,lat);
+        JSONObject jsonObject = JSONObject.fromObject(add);
+        JSONArray jsonArray = JSONArray.fromObject(jsonObject.getString("addrList"));
+        JSONObject j_2 = JSONObject.fromObject(jsonArray.get(0));
+        String allAdd = j_2.getString("admName");
+        String detail = j_2.getString("name");
+        String arr[] = allAdd.split(",");
+        return arr[2]+""+detail;
+    }
     public static String getAdd(String log, String lat ){
         //lat 小  log  大
         //参数解释: 纬度,经度 type 001 (100代表道路，010代表POI，001代表门址，111可以同时显示前三项)

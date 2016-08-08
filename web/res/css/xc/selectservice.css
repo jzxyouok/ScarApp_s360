@@ -19,7 +19,7 @@ html,body,#wrapper{
 }
 .introwords{
     color: #808080;
-   
+
 }
 .more{
     color: #4791ff;
@@ -42,7 +42,7 @@ html,body,#wrapper{
 }
 .singleoption img{
     margin: 0 1% 0 0;
-    width: 5%;
+    width: 25px;
 }
 .selectcoupon{
     color: #ffffff;
