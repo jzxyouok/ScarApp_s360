@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="format-detection" content="telephone=no">
+		<title>我的洗车券</title>
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/reset.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/style.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/button.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/button.default.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/login.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/couponbuy.css">
+		<link rel="stylesheet" type="text/css" href="${res}/css/ggwash/cl.css">
+		<link rel="stylesheet" type="text/css" href="${res}/images/foot/foot.css">
+
+		</head>
+	<body style="display: block;height:100%">
+		<div style="width: 100%;height:30px;">
+			<div id="d_bind" style="display:none">
+				<input class="input-text"
+					style="width: 75%; border: 1px solid #32c8a2;" type="text"
+					name="couponcode" id="couponcode" placeholder="请输入兑换码">
+				<input class="ui-btn green" style="width: 20%" type="button"
+					name="couponbind" id="couponbind" value="兑换">
+			</div>
+			<div id="buycoupon">
+				<input class="ui-btn green" style="width: 95%" type="button"
+					name="coupon_buy" id="coupon_buy" value="购买洗车券" onclick="buycoupon()";>
+			</div>
+
+		</div>
+		[@coupon_list mobile="${mobile!''}"]
+		[#if couponList?? &&couponList?size>0]
+		<div id="couponnum">您有${couponList?size}张洗车券</div>
+		[#list couponList as coupon]
+		<div id="couponlist" style="padding-bottom:40px;">
+           		<div class="sub_coupon" style="position:relative;" id="${coupon.id!''}">
+           			<a href="javascript:location.replace('${cmsReq}/washcar/index.html?couponId=${coupon.couponId}')">
+           				<img src="${res}/images/ggwash/${coupon.pic!''}">
+	           			<div style="width:60%;left:8%;bottom:20%;position: absolute;font-size:12px;">
+		           			<span style="float:left;">
+			           			[#if coupon.number??]
+			           				<font color="red">剩余次数:</font><font size="5">${coupon.number!''}</font>
+		           				[/#if]
+		           			</span>
+	           			</div>
+           			</a>
+           		</div>
+           		[/#list]
+		</div>
+
+		[#else]
+		<!--<div>您有0张洗车券</div>-->
+		<div id="nocoupon">
+				<img src="${res}/images/ggwash/coupon_no.png">
+			</div>
+		[/#if]
+		[/@coupon_list]
+           	<script>
+           	function buycoupon(){
+           		window.location.replace("${base}/pay/buycouponPage.html");
+           	}
+           	</script>
+           	<div class="nav_fp">
+	<ul>
+        <li><a href="${base}/washcar/index.html" class="nav_cpjxa">上门洗车</a></li>
+        <li><a href="${base}/order/myorderlist.html" class="nav_gkka">洗车订单</a></li>
+        <li><a href="${base}/mycoupon.html" class="nav_grzx">洗车券</a></li>
+    </ul>
+</div>
+
+	</body>
+</html>

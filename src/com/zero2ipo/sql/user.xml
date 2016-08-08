@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="zero2ipo.mobile.user">
+
+	<typeAlias alias="user" type="com.zero2ipo.module.entity.user.UserEntity" />
+
+	<!-- *********************************************多数据接收类型定义******************************************* -->
+
+	<resultMap id="userMap" class="user">
+		<result property="userId" column="USER_ID" />
+		<result property="openId" column="OPEN_ID" />
+		<result property="userIrId" column="USER_IR_ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userPassword" column="USER_PASSWORD" />
+		<result property="mobile" column="MOBILE" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="userGroup" column="USER_GROUP" />
+		<result property="userInputtime" column="USER_INPUTTIME" />
+		<result property="userLoginnum" column="USER_LOGINNUM" />
+		<result property="userLasttime" column="USER_LASTTIME" />
+		<result property="remark" column="REMARK" />
+		<result property="userRegisterStep" column="USER_REGISTER_STEP" />
+		<result property="userHeadPortrait" column="USER_HEAD_PORTRAIT" />
+	</resultMap>
+
+	
+
+	
+	<!-- *************************************************字段定义*************************************************** -->
+	<sql id="userCoreSqlColumn">
+		<![CDATA[
+			A.USER_ID,A.USER_IR_ID, A.USER_NAME, A.USER_PASSWORD, A.MOBILE, A.USER_STATUS, A.USER_GROUP, A.USER_INPUTTIME, A.USER_LOGINNUM, A.USER_LASTTIME, A.REMARK, A.USER_REGISTER_STEP, A.USER_HEAD_PORTRAIT,A.OPEN_ID
+		]]>
+	</sql>
+	
+<select id="findUserById" resultMap="userMap">
+		SELECT
+			<include refid="userCoreSqlColumn" />
+		FROM
+			CFJ_USER A
+		WHERE
+			A.USER_ID = #value#
+		
+	</select>
+		
+<select id="findUserByOpenId" resultMap="userMap">
+		SELECT
+			<include refid="userCoreSqlColumn" />
+		FROM
+			CFJ_USER A
+		WHERE
+			1=1
+			<isNotEmpty prepend="AND" property="openId">
+			A.OPEN_ID = #openId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderId">
+				user_id=(select open_id from bsb_order where id=#orderId#)
+			</isNotEmpty>
+		
+	</select>
+	
+	
+	<!-- 根据用户名称查找用户信息 -->
+	<select id="findUserByUsernameAndPassword" resultMap="userMap">
+		SELECT
+			<include refid="userCoreSqlColumn" />
+		FROM
+			CFJ_USER A
+		WHERE
+			A.MOBILE = #mobile#
+		
+		and A.USER_PASSWORD=#userPassword#
+	</select>
+		<select id="findUserByMobile" resultMap="userMap">
+		SELECT
+			<include refid="userCoreSqlColumn" />
+		FROM
+			CFJ_USER A
+		WHERE
+			A.MOBILE = #mobile#
+		
+	</select>
+	<!-- **************************************************增加**************************************************** -->
+	<!-- 插入用户基本信息 -->
+	<insert id="saveUser" parameterClass="user">
+		INSERT INTO 
+			CFJ_USER(USER_ID,USER_IR_ID, USER_NAME, USER_PASSWORD, MOBILE, USER_INPUTTIME, USER_LOGINNUM, USER_LASTTIME, USER_STATUS, USER_GROUP, OPEN_ID)
+		VALUES
+			(#userId#,#userIrId#, #userName#, #userPassword#, #mobile#, now(), 1, now(), 0, '3', #openId#);
+	</insert>
+	
+<update id="updateUserLoginNum" parameterClass="user">
+		
+			 UPDATE 
+			 	cfj_user
+			 set 
+			 	USER_LOGINNUM=USER_LOGINNUM+1
+			where
+				MOBILE=#mobile#
+	</update>
+	<update id="updateUserMobile" parameterClass="user">
+		
+			 UPDATE 
+			 	cfj_user
+			 set 
+			 MOBILE=#mobile#
+			where
+				USER_ID=#userId#
+	</update>
+
+	
+</sqlMap>

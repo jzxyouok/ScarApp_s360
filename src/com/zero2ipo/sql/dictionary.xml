@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="zero2ipo.mobile.dictionary">
+	
+	<!-- *************************************************别名***************************************************** -->
+	<typeAlias alias="codeSort" type="com.zero2ipo.module.entity.code.CodeSortEntity" />
+	<typeAlias alias="codeInfo" type="com.zero2ipo.module.entity.code.CodeInfoEntity" />
+
+
+	<!-- *********************************************多数据接收类型定义******************************************* -->
+	<resultMap id="codeInfoMap" class="codeInfo">
+		<result property="codeId" column="CODE_ID"/>
+		<result property="codeSortId" column="CODE_SORT_ID"/>
+		<result property="pcode" column="P_CODE"/>
+		<result property="codeType" column="CODE_TYPE"/>
+		<result property="codeValue" column="CODE_VALUE"/>
+		<result property="codeName" column="CODE_NAME"/>
+		<result property="dispSn" column="DISP_SN"/>
+		<result property="content1" column="CONTENT1"/>
+		<result property="content2" column="CONTENT2"/>
+		<result property="content3" column="CONTENT3"/>
+		<result property="validFlag" column="VALID_FLAG"/>
+		<result property="isMenu" column="IS_MENU"/>
+		<result property="children" column="CODE_VALUE" select="zero2ipo.mobile.dictionary.findCodeInfosByPcode"/>
+	</resultMap>
+	
+	<resultMap id="codeSortMap" class="codeSort">
+		<result property="codeSortId" column="CODE_SORT_ID"/>
+		<result property="codeSortName" column="CODE_SORT_NAME"/>
+		<result property="codeType" column="CODE_TYPE"/>
+		<result property="codeVn" column="CODE_VN"/>
+		<result property="validFlag" column="VALID_FLAG"/>
+		<result property="effectDate" column="EFFECT_DATE"/>
+	</resultMap>
+	
+	<!-- ************************************************查询************************************************* -->
+	<!-- 根据版本号与类型查找CodeSort -->
+	<select id="findCodeSortByVersionAndType" resultMap="codeSortMap">
+		<![CDATA[
+			SELECT 
+				CODE_SORT_ID, CODE_SORT_NAME, CODE_TYPE, CODE_VN, VALID_FLAG, EFFECT_DATE
+			FROM
+				S9_SYS_CODE_SORT
+			WHERE
+				CODE_VN = #version#
+			AND
+				CODE_TYPE = #type#
+			AND
+				VALID_FLAG = '1'
+		]]>
+	</select>
+	
+	
+	
+	<!-- 查找codeinfo子数据集合 -->
+	<select id="findCodeInfosByPcode" resultMap="codeInfoMap">
+		 <![CDATA[
+		 	SELECT 
+		 		CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+		 	FROM
+		 		S9_SYS_CODE
+		 	WHERE
+		 		VALID_FLAG = '1'
+		 	AND
+		 		P_CODE = #VALUE#
+		 	ORDER BY
+		 		DISP_SN	
+		 ]]>
+	</select>
+	
+	<!-- 根据codeSortId查找codeInfo数据集合 -->
+	<select id="findCodeInfoListBySortId" resultMap="codeInfoMap">
+
+			SELECT 
+				CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+			FROM
+				S9_SYS_CODE
+			WHERE
+				VALID_FLAG = '1'
+			<isNotEmpty prepend="AND" property="pcodeType">
+				CODE_SORT_ID = (
+					SELECT code_sort_id FROM S9_SYS_CODE_SORT WHERE code_type=#pcodeType#
+				)
+			</isNotEmpty>
+			ORDER BY 
+				DISP_SN
+
+	</select>
+	
+	<!-- 根据codeValue查找codeInfo信息 -->
+	<select id="findCodeInfoByCodeValues" resultMap="codeInfoMap">
+		SELECT 
+			CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+		FROM
+			S9_SYS_CODE
+		WHERE
+			CODE_VALUE IN
+			<iterate open="(" close=")" conjunction=",">
+				#[]#
+			</iterate>
+		AND
+			VALID_FLAG = '1'
+	</select>
+	
+	<!-- 根据codeType与版本号查找codeinfo信息type为参数的信息 -->
+	<select id="findCodeInfoByTypes" resultMap="codeInfoMap">
+		<![CDATA[
+			SELECT 
+				C.CODE_ID, C.CODE_NAME, C.CODE_VALUE, C.CODE_SORT_ID, C.CODE_TYPE, C.P_CODE, C.DISP_SN, C.VALID_FLAG, C.CONTENT1, C.CONTENT2, C.CONTENT3, C.IS_MENU
+			FROM
+				S9_SYS_CODE C, S9_SYS_CODE_SORT S
+			WHERE
+				C.CODE_SORT_ID = S.CODE_SORT_ID
+			AND
+				C.VALID_FLAG = '1'
+			AND
+				S.VALID_FLAG = '1'
+			AND
+				S.CODE_VN = #version#
+			AND
+				S.CODE_TYPE = #supType#
+			AND
+				C.CODE_TYPE = #subType#
+			ORDER BY 
+				C.DISP_SN
+		]]>
+	</select>
+	
+	<!-- 根据codeValue查找codeInfo -->
+	<select id="findCodeInfoByCodeValue" resultMap="codeInfoMap">
+		<![CDATA[	
+			SELECT 
+				CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+			FROM
+				S9_SYS_CODE
+			WHERE
+				CODE_VALUE = #value#
+			AND
+				VALID_FLAG = '1'
+		]]>
+	</select>
+	
+	<!-- 根据id查找codeInfo -->
+	<select id="findCodeInfoByCodeId" resultMap="codeInfoMap">
+		<![CDATA[	
+			SELECT 
+				CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+			FROM
+				S9_SYS_CODE
+			WHERE
+				CODE_ID = #value#
+			AND
+				VALID_FLAG = '1'
+		]]>
+	</select>
+	<!-- 根据id查找codeInfo -->
+	<select id="findCodeInfoByContent1" resultMap="codeInfoMap">
+		<![CDATA[
+			SELECT
+				CODE_ID, CODE_NAME, CODE_VALUE, CODE_SORT_ID, CODE_TYPE, P_CODE, DISP_SN, VALID_FLAG, CONTENT1, CONTENT2, CONTENT3, IS_MENU
+			FROM
+				S9_SYS_CODE
+			WHERE
+				CONTENT1 = #content1#
+			AND
+				VALID_FLAG = '1'
+			LIMIT 0,1
+		]]>
+	</select>
+
+</sqlMap>

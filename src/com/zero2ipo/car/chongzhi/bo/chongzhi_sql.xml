@@ -1,0 +1,88 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mobile.chongzhi">
+<typeAlias alias="ChongZhiBO" type="com.zero2ipo.car.chongzhi.bo.ChongZhiBo"/>
+<resultMap class="ChongZhiBO" id="ChongZhiMap">
+	<result property="id" column="id"/>
+	<result property="money" column="money"/>
+	<result property="zsmoney" column="zsmoney"/>
+	<result property="expDate" column="expDate"/>
+	<result property="remark" column="remark"/>
+	<result property="status" column="status"/>
+
+</resultMap>
+<select id='findChongZhiList' resultMap='ChongZhiMap'>
+SELECT
+	id,
+	money,
+	zsmoney,
+	expDate,
+	status,
+	remark
+FROM chongzhi
+<isNotEmpty prepend="limit" property="count">
+	0,#count#
+</isNotEmpty>
+</select>
+<select id='findChongZhi' resultMap='ChongZhiMap'>
+SELECT
+	id,
+	money,
+	zsmoney,
+	expDate,
+	status,
+	remark,
+	transactionId,
+	outTradeNo
+FROM
+	chongzhi
+where
+	id=#id#
+
+</select>
+<select id='findChongZhiCount' resultClass='java.lang.Integer'>
+SELECT
+	count(0)
+FROM
+ 	chongzhi
+
+</select>
+
+
+<insert id="addChongZhi" parameterClass="ChongZhiBO">
+	INSERT INTO chongzhi(
+	money,
+	zsmoney,
+	expDate,
+	status,
+	remark
+)VALUES(
+	#money#,
+	#zsmoney#,
+	#expDate#,
+	#status#,
+	#remark#
+)
+</insert>
+<update id="updChongZhi" parameterClass="ChongZhiBO">
+	UPDATE
+		chongzhi
+	SET
+		money=#money#,
+		zsmoney=#zsmoney#,
+		expDate=#expDate#,
+		status=#status#,
+		remark=#remark#
+ 	WHERE
+		ID=#id#
+</update>
+<delete id="delChongZhi" parameterClass="java.util.Map">
+	DELETE FROM
+		chongzhi
+	WHERE
+	ID IN
+	<iterate property="id" conjunction="," close=")" open="(">
+	#id[]#
+	</iterate>
+</delete>
+</sqlMap>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>优惠券</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+ 	 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+   	 <link href="${res}/css/xc/xiche.css" rel="stylesheet">
+     <link href="${res}/css/xc/main.css" rel="stylesheet" />
+     <link href="${res}/css/xc/normalize.css" rel="stylesheet" />  
+    </head>
+<body>
+<div class="loading" style="display:none;">
+		<div class="loadmodal"></div>	
+	    <span class="" id="turnPic"></span>
+	    <p class="tipTxt">数据处理中，请耐心等待...</p>
+	</div>
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- site or application content here begin -->
+<div id="wrapper">
+    
+    <!-- the content -->
+    <div id="content" role="main">
+        <div class="enter-exchange">
+            <input id="offlinecoupon_on" type="text" placeholder="请输入兑换码获取优惠券">
+            <a href="javascript:void(0);" onclick="exchange();">兑换</a>
+        </div>
+        <section>
+            <div class="my-coupon-main">
+                <ul>
+                    <li>
+                        <a href="/order/pre_order.html" class="clearfix">
+                            <em class="coupon-left-tip">
+                            	<font class="four">立即使用</font>
+                            </em>
+                            <div class="coupon-info clearfix">
+                                <div class="coupon-money">30元</div>
+                                <div class="coupon-time">
+                                    <p>优惠券</p>
+                                    <p>有效期至:2015-09-29</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>                
+                  </ul>
+            </div>
+        </section>
+    </div>
+    <!-- the content end -->
+    <!-- the footer begin -->
+    <footer role="contentinfo">
+        <div>
+            <a class="btn-buy" style="color:#fe8c41;" href="/order/buycouponindex.html">打包购买优惠券（6折）</a>
+        </div>
+    </footer>
+    
+</div>
+
+</body>

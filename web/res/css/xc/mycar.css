@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the mycar css.
+	Date: 2/2/2015
+*/
+
+/* General styling */
+.bluecar{
+	width: 8%;
+	margin-right: 2%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.carinfo span{
+	display: inline-block;
+	vertical-align: middle;
+}
+.carnum{
+	margin-right: 5%;
+}
+.carnum font{
+	display: block;
+}
+.carcolor{
+	width: 32%;
+	text-align: center;
+}
+.carsite{
+	width: 32%;
+	text-align: right;
+}
+.addresslist p{
+	border-top: none;
+	border-bottom: 0.07rem solid #E4E4E4;
+}
+.textwords{
+	margin-right: 4%;
+}
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	.carsite { width: 28%; }
+	#wrapper { font-size: 0.7rem; }
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	.carsite { width: 30%; }
+	#wrapper { font-size: 0.8rem; }
+}
+@media screen and (min-width: 700px){
+	.carsite { width: 30%; }
+}

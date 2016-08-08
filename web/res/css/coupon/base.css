@@ -1,0 +1,71 @@
+.u-dlbtn{ display: block;  text-align: center;  background: #32b06b;}
+.u-dlbtn:hover{background: #1bae5e;}
+.u-tcbtn{width: 50%; display: block; border-radius: 5px; line-height: 36px; font-size: 17px; text-align: center; color: #fff; background: #999;}
+.u-tcbtn:hover{background: #666;}
+
+
+.clearfix:after,
+.ifloat:after,
+.row:after {
+	content: '.';
+	clear: both;
+	display: block;
+	height: 0;
+	visibility: hidden
+}
+
+.clearfix,
+.ifloat,
+.row {
+	*zoom: 1
+}
+.fl,
+.ifloat>*,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+	float: left
+}
+
+.fr {
+	float: right
+}
+
+.di,
+.fl,
+.ifloat>*,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12,
+.fr {
+	display: inline
+}
+
+
+.f-yhbox input{ width: 100%; border: 1px solid #d9d7d6;
+	position: inherit; line-height: 23px; box-sizing:border-box; border-radius: 5px;}
+.mb10 {
+	margin-bottom: 10px
+}
+.p15 {
+	padding: 15px
+}
+

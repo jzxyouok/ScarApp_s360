@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>幸运大转盘抽奖</title>
+<meta name="viewport" content="width=320, maximum-scale=1, user-scalable=no">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<meta name="apple-touch-fullscreen" content="NO">
+<link href="${base}/html/plugins/dazhuanpan/css/wap_Lottery.css?v=1" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${base}/html/plugins/dazhuanpan/js/jquery-2.1.1.min.js"></script>
+<script>
+	var classid = 6;//最终中奖奖品位置1-6
+	function RandomChouJiang(){
+		var num=Math.ceil(Math.random()*1000);//随机抽取1-100数
+		//alert("你抽的号码为==="+num);
+		if(num<=1000&&num>999){
+			classid=3;
+			$("#jp").html("一次整车打蜡");
+			$("#content").val("一次整车打蜡");
+			$("#money").val("88");
+			$("#jpType").val(1);//代表优惠券
+		}
+		if(num<=999&&num>990){
+			classid=4;
+			$("#jp").html("一次整车洗");
+			$("#content").val("一次整车洗");
+			$("#money").val("30");
+			$("#jpType").val(1);//代表优惠券
+		}
+		if(num<=990&&num>400){
+			classid=6;
+			$("#jp").html("10元代金券");
+			$("#content").val("10元代金券");
+			$("#money").val("10");
+			$("#jpType").val(0);//代表优惠券
+		}
+		if(num<=400&&num>0){
+			classid=5;
+			flg=false;
+			$("#jp").html("20元代金券");
+			$("#content").val("20元代金券");
+			$("#money").val("20");
+			$("#jpType").val(0);//代表钱包
+
+		}
+
+	}
+
+function choujiangStart(){
+	//getZhongJiang();
+	RandomChouJiang();
+	//设置中奖概况
+	var Pnum=$(".prize").length;
+	if(Pnum<classid){alert("奖品不存在")}
+	$(".lotCenter").addClass("lotCenter-animation"+Pnum+"-"+classid);
+	$(".lotLight").removeClass("lotLight-animation2").addClass("lotLight-animation1");
+	setTimeout(function(){
+		$(".lotCenter").removeClass("lotCenter-animation"+Pnum+"-"+classid);
+		$(".lotLight").removeClass("lotLight-animation1").addClass("lotLight-animation2");
+	},8000);
+	setTimeout(function(){
+		saveChouJiangResult();
+	},6000);
+	//抽完奖品之后，再保存保存记录到数据库张
+
+}
+var isDisableBtn=true;
+$(document).ready(function(e) {
+	$(".lotCenter").click(function(){
+		var Pnum=$(".prize").length;
+		//判断是否抽过奖
+		if(isDisableBtn){
+			var url="${_domain_key!''}/hd/isChouJiang.html";
+			$.ajax({
+				url:url,
+				dataType:'json',
+				type:'post',
+				beforeSend:function(){//发送请求
+					//禁用点击按钮
+					isDisableBtn=false;
+				},
+				success:function(r){
+					if(r.result==0){
+						$("#msgupdata").hide();
+						$("#info").html("您还没下过单,下单1次后才可以抽奖");
+						$("#msgend").fadeIn(300);
+						isDisableBtn=true;
+					}else if(r.result==2){
+						$("#msgupdata").hide();
+						$("#info").html("您已经抽过奖了,把机会留给他人吧");
+						$("#msgend").fadeIn(300);
+						isDisableBtn=true;
+					}
+					else{
+						choujiangStart();
+					}
+				},error:function (error) {
+
+				}
+			})
+		}
+
+	});
+	var Pnum=$(".prize").length;
+	var deg=360/Pnum;
+	for(var i=1;i<=Pnum;i++){
+		var numdeg=deg*i-deg;
+		if(Pnum==6){var pdeg1=i*deg+deg;};
+		if(Pnum==5){
+			var pdeg1=i*deg+54;
+			$(".prize1 .prizebg").css("background","#fcb600");
+			$(".prize2 .prizebg").css("background","#f28501");
+			$(".prize3 .prizebg").css("background","#f9a700");
+			$(".prize4 .prizebg").css("background","#f69601");
+			$(".prize5 .prizebg").css("background","#fec000");
+			$(".prize6 .prizebg").css("background","#feb560");
+			$(".prize7 .prizebg").css("background","#bac600");
+			$(".prize8 .prizebg").css("background","#bac070");
+			$(".prize9 .prizebg").css("background","#mec830");
+			$(".prize10 .prizebg").css("background","#aec960");
+		};
+		if(Pnum==4){var pdeg1=i*deg+45;};
+		if(Pnum==3){
+			var pdeg1=i*deg+deg+30;
+			$(".prize1 .prizebg").css("background","#fcb600");
+			$(".prize2 .prizebg").css("background","#f28501");
+			$(".prize3 .prizebg").css("background","#f9a700");
+		};
+		if(Pnum==2){var pdeg1=i*deg+deg;};
+		var pdeg2=90-deg;
+		$(".img"+i).css("transform","rotate("+numdeg+"deg)");
+		$(".txt"+i).css("transform","rotate("+numdeg+"deg)");
+		$(".prize"+i).css("transform","rotate("+pdeg1+"deg)");
+		$(".prizebg").css("transform","rotate("+pdeg2+"deg)");
+	}
+	//页面大小
+	initialise();
+});
+$(window).resize(function(e) {
+	initialise();
+});
+function initialise(){
+	var windowwidth=$(window).width();
+	if(windowwidth>640){windowwidth=640;}
+	var scale=windowwidth/320;
+	$("#main").css("padding-top",scale*40);
+	$(".lotterynum").css({"margin-left":scale*30,"margin-right":scale*30});
+}
+function msgclose() {
+	$('.loginForm').fadeOut(300);
+}
+function msgupdata() {
+	//领取奖品
+	var url = "${_domain_key!''}/hd/dazhuanpan/get.html";
+	var data = $("#form1").serialize();
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		type: 'post',
+		data: data,
+		success: function (r) {
+			if (r.error) {
+				$("#msgupdata").hide();
+				$("#info").html("您已经抽过奖了,把机会留给他人吧");
+				$("#msgend").fadeIn(300);
+			} else {
+				$("#msgupdata").hide();
+				$("#msgend").fadeIn(300);
+			}
+		}, error: function (error) {
+			alert(error);
+		}
+	})
+}
+	function saveChouJiangResult() {
+		var url = "${_domain_key!''}/hd/dazhuanpan/save.html";
+		var data = $("#form1").serialize();
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: 'post',
+			data: data,
+			success: function (r) {
+				if(r.result==1){
+					//已经抽过奖了
+					$("#msgupdata").hide();
+					$("#info").html("您已经抽过奖了,把机会留给他人吧");
+					$("#msgend").fadeIn(300);
+					isDisableBtn=true;
+				}else{
+					//抽奖成功
+					$("#info").html("恭喜你抽中"+$("#jp").html());
+					$("#msgupdata").hide();
+					$("#msgend").fadeIn(300);
+					isDisableBtn=true;
+				}
+			}, error: function (error) {
+				alert(error);
+			}
+		})
+	}
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="container">
+        <div id="main" style="padding-top: 80px;">
+        	<div class="lotteryTitle">幸福大转盘</div>
+            <div id="lottery">
+            	<div class="lotBg">
+            		<div class="lotLight lotLight-animation2">
+                    	<li class="lotLight1"><i></i></li>
+                    	<li class="lotLight2"><i></i></li>
+                    	<li class="lotLight3"><i></i></li>
+                    	<li class="lotLight4"><i></i></li>
+                    	<li class="lotLight5"><i></i></li>
+                    	<li class="lotLight6"><i></i></li>
+                    	<li class="lotLight7"><i></i></li>
+                    	<li class="lotLight8"><i></i></li>
+                    	<li class="lotLight9"><i></i></li>
+                    	<li class="lotLight10"><i></i></li>
+                    	<li class="lotLight11"><i></i></li>
+                    	<li class="lotLight12"><i></i></li>
+                    	<li class="lotLight13"><i></i></li>
+                    	<li class="lotLight14"><i></i></li>
+                    	<li class="lotLight15"><i></i></li>
+                    	<li class="lotLight16"><i></i></li>
+                    	<li class="lotLight17"><i></i></li>
+                    	<li class="lotLight18"><i></i></li>
+                    	<li class="lotLight19"><i></i></li>
+                    	<li class="lotLight20"><i></i></li>
+                    	<li class="lotLight21"><i></i></li>
+                    	<li class="lotLight22"><i></i></li>
+                    	<li class="lotLight23"><i></i></li>
+                    	<li class="lotLight24"><i></i></li>
+                    	<li class="lotLight25"><i></i></li>
+                    	<li class="lotLight26"><i></i></li>
+                    	<li class="lotLight27"><i></i></li>
+                    	<li class="lotLight28"><i></i></li>
+                    	<li class="lotLight29"><i></i></li>
+                    	<li class="lotLight30"><i></i></li>
+                    	<li class="lotLight31"><i></i></li>
+                    	<li class="lotLight32"><i></i></li>
+                    	<li class="lotLight33"><i></i></li>
+                    	<li class="lotLight34"><i></i></li>
+                    	<li class="lotLight35"><i></i></li>
+                    	<li class="lotLight36"><i></i></li>
+
+                    </div>
+                    <div class="lotCon">
+                    	<div class="prize prize1" style="transform: rotate(120deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    	<div class="prize prize2" style="transform: rotate(180deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    	<div class="prize prize3" style="transform: rotate(240deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    	<div class="prize prize4" style="transform: rotate(300deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    	<div class="prize prize5" style="transform: rotate(360deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    	<div class="prize prize6" style="transform: rotate(420deg);"><div class="prizebg" style="transform: rotate(30deg);"></div></div>
+                    </div>
+                    <div class="lotTxt">
+                    	<p class="txt1" style="transform: rotate(0deg);"><span>500代金券</span></p>
+                    	<p class="txt2" style="transform: rotate(60deg);"><span>200元</span></p>
+                    	<p class="txt3" style="transform: rotate(120deg);"><span>1次整车打蜡</span></p>
+                    	<p class="txt4" style="transform: rotate(180deg);"><span>1次整车洗</span></p>
+                    	<p class="txt5" style="transform: rotate(240deg);"><span>20元代金券</span></p>
+                    	<p class="txt6" style="transform: rotate(300deg);"><span>10元代金券</span></p>
+
+                    </div>
+                    <div class="lotImg">
+                    	<p class="img1" style="transform: rotate(0deg);"><img src="${base}/html/plugins/dazhuanpan/img/TV.png"></p>
+                    	<p class="img2" style="transform: rotate(60deg);"><img src="${base}/html/plugins/dazhuanpan/img/2011050210463931.png"></p>
+                    	<p class="img3" style="transform: rotate(120deg);"><img src="${base}/html/plugins/dazhuanpan/img/dala.png"></p>
+                    	<p class="img4" style="transform: rotate(180deg);"><img src="${base}/html/plugins/dazhuanpan/img/yicizhengxi.png"></p>
+                    	<p class="img5" style="transform: rotate(240deg);"><img src="${base}/html/plugins/dazhuanpan/img/20yuan.png"></p>
+                    	<p class="img6" style="transform: rotate(300deg);"><img src="${base}/html/plugins/dazhuanpan/img/10yuan.png"></p>
+                    </div>
+                    <div class="lotCenter">
+                    	<i></i>
+                        <a href="javascript:void(0)"><span>开始<br>抽奖</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lotterynum" style="margin-left: 60px; margin-right: 60px;">
+				活动说明:只有注册用户才可以抽奖,请凭借真实资料领取奖品
+			</div>
+
+            <div id="msgupdata" class="loginForm dn" style="display: none;">
+				<form id="form1" method="post" onsubmit="return false;">
+
+                <ul class="sOne-loginForm">
+                    <li>
+                    	<p id="jp">恭喜您，获得六等奖（奖品：Ipad一部）</p>
+						<input type="hidden" id="content" name="content">
+						<input type="hidden" id="money" name="money">
+						<input type="hidden" id="jpType" name="jpType" value="0">
+                    </li>
+                  <!--  <li>
+                    	<input type="text" class="sOne-loginInput-half" name="" placeholder="请输入您的手机号">
+                        <input type="button" class="sOne-getpasscode" value="获取动态密码" id="getpasscode" data-href="">
+                        <span class="dn">手机号错误</span>
+                    </li>
+					<li>
+						<input type="text" class="sOne-loginInput-half" name="" placeholder="请输入您的车牌号">
+						<input type="button" class="sOne-getpasscode" value="获取动态密码" id="" data-href="">
+						<span class="dn">车牌号错误</span>
+					</li>-->
+                    <li class="bd-b">
+                    	<input type="text" class="sOne-loginInput" id="name" name="name" placeholder="姓名">
+                        <span class="dn">姓名错误</span>
+                    </li>
+					<li class="bd-b">
+						<input type="text" class="sOne-loginInput" name="mobile" id="mobile" placeholder="手机号">
+						<span class="dn">手机号错误</span>
+					</li>
+					<li class="bd-b">
+						<input type="text" class="sOne-loginInput" name="carNum" id="carNum" placeholder="车牌号">
+						<span class="dn">车牌号错误</span>
+					</li>
+                   <!-- <li>
+                    	<input type="text" class="sOne-loginInput-half" name="" placeholder="输入验证码">
+                        <img src="" class="sOne-loginInput-code">
+                        <span class="dn">验证码错误</span>
+                    </li>-->
+                    <li>
+                    	<input type="submit" name="doSubmit" class="sOne-loginInput-btn" value="领取" onclick="msgupdata()">
+                    </li>
+                </ul>
+                <div class="fn"><a href="javascript:void(0)" class="close-loginForm" onclick="msgclose()">+</a></div>
+				</form>
+            </div>
+
+            <div id="msgend" class="loginForm dn" >
+                <ul class="sOne-loginForm">
+                    <li>
+						<p id="info">领取成功</p>
+                    </li>
+					<li>
+						<p style="float:center;font-weight: bold"><a href="${base}/washcar/index.html" style="text-align: center;font-weight: bold">下单洗车</a></p>
+					</li>
+                </ul>
+                <div class="fn">
+					<a href="javascript:void(0)" class="close-loginForm" onclick="msgclose()">+</a>
+				</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<section style="display: none;" class="fullHtml loadingBox" id="loadingBox"><i></i><span>加载中...</span></section>
+</body>
+</html>

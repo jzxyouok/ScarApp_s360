@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>购买优惠券</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link href="../../res/css/xc/normalize.css" rel="stylesheet">
+    <link href="../../res/css/xc/main.css" rel="stylesheet">
+    <link href="../../res/css/xc/xiche.css" rel="stylesheet">    
+    </head>
+<body>
+<div class="loading" style="display:none;">
+		<div class="loadmodal"></div>	
+	    <span class="" id="turnPic"></span>
+	    <p class="tipTxt">数据处理中，请耐心等待...</p>
+	</div>
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- site or application content here begin -->
+<div id="wrapper">
+    <!-- the content -->
+    <div id="content" role="main">
+        <section>
+            <div class="buy-coupon-title">选择优惠券</div>
+            <div class="buy-coupon-main">
+                <ul>
+                	<li class="singleoption">
+                            <div class="buy-coupon-info">
+                                <i class="radio-click radio-unsel" res_id="11" value="98.00"></i>
+                                <span class="coupon-money-words"><font>38元</font></span>
+                                <span class="coupon-amount">x4张</span>
+                                <span class="coupon-price">98.00元</span>
+                            </div>
+                            <div class="buy-coupon-words">每次使用可从订单总价中抵扣38元, 有效期为90天</div>
+                        
+                    </li><li class="singleoption">
+                            <div class="buy-coupon-info">
+                                <i class="radio-click radio-sel" res_id="12" value="168.00"></i>
+                                <span class="coupon-money-words"><font>38元</font></span>
+                                <span class="coupon-amount">x8张</span>
+                                <span class="coupon-price">168.00元</span>
+                            </div>
+                            <div class="buy-coupon-words">每次使用可从订单总价中抵扣38元, 有效期为180天</div>
+                        
+                    </li>                </ul>
+            </div>
+        </section>
+    </div>
+    <!-- the content end -->
+    <!-- the footer begin -->
+    <footer role="contentinfo">
+        <div class="goto-pay clearfix">
+            <span>共计: <font id="sum_pirce">168.00元</font></span>
+            <input id="res_id" type="hidden" value="12">
+            <a herf="javascript:void(0);" id="coupon_pay">前往支付</a>
+        </div>
+    </footer>
+    <!-- the footer end -->
+</div>
+<!-- site or application content here end -->
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+	
+	var can_pay=1;
+	/* 单选 */
+	$( ".radio-click" ).click(function(){
+		
+		if($(this).hasClass('radio-sel'))
+		{
+			$( this ).removeClass( "radio-sel");
+			$( this ).addClass( "radio-unsel");
+			$( this ).closest( ".singleoption" ).siblings().find( ".radio-click" ).removeClass( "radio-sel" ).addClass( "radio-unsel");
+			$("#sum_pirce").html('0.00元');
+			$("#res_id").val('');
+		}
+		else
+		{
+			$( this ).removeClass( "radio-unsel");
+			$( this ).addClass( "radio-sel");
+			$( this ).closest( ".singleoption" ).siblings().find( ".radio-click" ).removeClass( "radio-sel" ).addClass( "radio-unsel");
+			$("#sum_pirce").html($(this).attr('value')+'元');
+			$("#res_id").val($(this).attr('res_id'));
+		}
+		
+	});
+	
+	/* 点击支付 */
+	$("#coupon_pay").click(function(){
+		
+		if(can_pay=1)
+		{
+			can_pay=0;
+			showloading();
+			var res_id = $("#res_id").val();
+			if(res_id)
+			{
+				$.ajax({
+					type:'POST',
+					url: "/order/buy.html",
+					data:{res_id:res_id} ,
+					dataType:'json',
+					success:function(data){
+						hideloading();
+						if(data.status=='ok'){
+							
+var type=data.type;
+
+wx.config({
+  debug: false,
+  appId: 'wxefb4777c6e6b1a17',
+  timestamp: 1441810215,
+  nonceStr: 'kaacDUYnzvEJm3cS',
+  signature: '89108bc5dcf39f83f6fad615b4a25c0f274abc83',
+  jsApiList: ['chooseWXPay']
+});
+wx.chooseWXPay({
+    timestamp: data.timeStamp,
+    nonceStr: data.nonceStr,
+    package: data.package,
+    signType: 'MD5',
+    paySign: data.paySign, // 支付签名
+    success: function (res) {
+        //alert(res);
+		if(type=='order')
+        {
+        	window.location.href="/order/detail"+'/order_id/'+data.orderId;
+        }
+        else if(type=='coupon')
+        {
+        	window.location.href="/center/coupon.html";
+        }
+        // 支付成功后的回调函数
+    },
+    fail:function(res){
+        if(type=='order')
+        {
+        	window.location.href="/order/detail"+'/order_id/'+data.orderId;
+        }
+        else if(type=='coupon')
+        {
+        	window.location.href="/center/coupon.html";
+        }
+    },
+    cancel:function(res){
+        if(type=='order')
+        {
+        	window.location.href="/order/detail"+'/order_id/'+data.orderId;
+        }
+        else if(type=='coupon')
+        {
+        	window.location.href="/center/coupon.html";
+        }
+    }
+});
+						}else if(data.status=='login'){
+							alert(data.msg);
+							window.location.href="/user/login.html";
+							can_pay=1;
+						}else{                   
+							alert(data.msg);
+							can_pay=1;
+							return false;					
+						}
+					}
+				});
+			}
+			else
+			{
+				alert('请选择优惠劵');
+				return false;
+			}
+		}
+	});	
+})
+
+</script>
+
+
+</body><iframe id="__WeixinJSBridgeIframe_SetResult" style="display: none;"></iframe><iframe id="__WeixinJSBridgeIframe" style="display: none;"></iframe></html>

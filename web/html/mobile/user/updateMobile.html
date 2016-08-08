@@ -1,0 +1,199 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+
+		<title>修改手机号</title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<link rel="stylesheet" href="${res}/css/themes/default/jquery.alerts.css">
+
+<link rel="stylesheet" href="${res}/css/book/pintuer.css">
+<link rel="stylesheet" href="${res}/images/foot/foot.css">
+<link rel="stylesheet" href="${res}/css/book/app.css">
+<link rel="stylesheet" type="text/css" href="http://www.ewcar.net/Public/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.ewcar.net/Public/css/global.css?v=2308"/>
+<link rel="stylesheet" type="text/css" href="http://www.ewcar.net/Public/icheck/skins/all.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.ewcar.net/Public/dist/css/font-awesome.min.css"/>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="${res}/scripts/book/getRootPath.js" type="text/javascript"></script>
+<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="${res}/scripts/lib/jquery/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${res}/scripts/lib/jquery/jquery.alerts.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/form.utils.js?v=1" type="text/javascript"></script>
+<script src="${res}/scripts/config/fts.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/message.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/validate.js?v=1" type="text/javascript"></script>
+<script src="${res}/scripts/book/user.js" type="text/javascript"></script>
+
+
+	<style>
+		body{
+			background-color:whitesmoke;
+			font-family : "Microsoft YaHei", Verdana, Geneva, sans-serif;
+		}
+		.comment{
+			margin-left: 4%;
+			margin-right: 4%;
+			width: 92%;
+			border: 1px solid lightgrey;
+			border-radius: 6px;
+			padding:10px 6px;
+			margin-top: 80px;
+		}
+		#mobile{
+			width: 100%;
+			height: 50px;
+		}
+		.send_sms{
+			font-size: 16px;
+			text-align: center;
+			padding: 0px;
+			margin-top: 5px;
+			right: 8%;
+			width: 35%;
+			position: absolute;
+			height: 40px;
+		}
+		#vcode{
+			width: 100%;
+			height: 50px;
+			float: left;
+			font-size: 18px;
+			border-bottom: 1px solid lightgray;
+			box-shadow: none;
+		}
+		.comment .btn-determine{
+			width: 100%;
+			margin-left: -0.1%;
+			height: 40px;
+			margin-top: 15px;
+			font-size: 20px;
+		}
+		.login_agreement{
+			text-align: center;
+			width: 90%;
+			bottom: 10px;
+			position: absolute;
+		}
+		input[type=button]{
+			background-color: #b9e749;
+		}
+		.code{
+			width:100%;
+			height: 40px;
+		}
+		input[type=tel]{
+			height: 50px;
+			border: 0px;
+			border-bottom: 1px solid lightgray;
+			border-radius: 0px;
+			margin-bottom: 0px;
+			font-size: 18px;
+		}
+		input[type=button]{
+			border: 0px;
+		}
+		
+		
+	</style>
+
+	</head>
+	<body>
+		<!-- 页面头部 -->
+		
+		<!-- 页面头部.end -->
+
+		<!-- 页面主体内容 -->
+		<div class="page">
+	
+	<div class="comment">
+		<form id="form1" name="form1" action="" method="post">
+			<input type="tel" placeholder="输入手机号" id="mobile" name="mobile"/>
+			<div class="login_input_box">
+				<input type="tel" placeholder="输入验证码" id="vcode"  name="verify" class="form-control"/>
+				<span><input type="button" value="获取验证码" class="send_sms" onclick="getCode()"/></span>
+			</div>
+			<input type="button" value="确 认修改" onclick="updateMoible()" class="btn-determine" alt="废品回收"/>
+		</form>
+		
+	</div>
+
+</div>
+		<!-- 页面主体内容.end -->
+
+		<!-- 页面底部 -->
+		
+	<script type="text/javascript">
+	var $sendSMS = true;
+	 function getCode(){
+	 	if(!$sendSMS){
+			return ;
+		}
+        var mobile=$("#mobile").val();
+
+        if(''==mobile||null==mobile){
+            Dialog.show($.messages['1003'], 2, 2000);
+            return ;
+        } else{
+		var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+		if (!myreg.exec(mobile)){
+			errMsg='请输入正确的手机号';
+			Dialog.show(errMsg, 2, 2000);
+			return;
+		}
+	}
+        //获取验证码
+
+        var telephone = mobile;
+        $sendSMS = false;
+        if (true) {
+            $.ajax({
+                url : '${base}/code/mobileCode.act',
+                type : 'POST',
+                timeout : '1000',
+                async : false,
+                dataType : 'json',
+                data : {
+                    telephone : telephone
+                },
+                success : function(responseText) {
+                   if(responseText.success==''){
+                   		Dialog.show("手机号码已经存在", 2, 2000);
+                   		$sendSMS = true;
+                   }else{
+                  	 		  var intDiff = 60;
+							  var interval = setInterval(function(){
+								intDiff--;
+							     $('.send_sms').val(intDiff + "秒后可重发");
+								if(intDiff <= 0){
+									clearInterval(interval);
+									$sendSMS = true;
+									$('.send_sms').val("重发验证码");
+								}
+							},1000);
+                   }
+                    
+                },error:function(){
+                    alert("操作一次");
+                }
+            });
+        }
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
+
+		<!-- 页面底部.end -->
+	</body>
+</html>

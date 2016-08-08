@@ -1,0 +1,119 @@
+/******************
+    reset
+*******************/
+html,body{height:100%;-webkit-user-select:none;user-select:none;font-family:Helvetica;font-weight: 100}
+body{-webkit-text-size-adjust:100%!important}
+body,div,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,select,textarea,button,th,td{margin:0;padding:0;-webkit-text-size-adjust:none;}
+ul,dl,ol{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:16px;font-weight:100;}
+em{font-style:normal;}
+strong,th,b{font-weight: 100;}
+img,fieldset,input,select{border:0 none;}
+table{border-collapse:collapse;border-spacing:0;}
+input{outline:none;background:transparent;vertical-align:top;}  
+input[type="number"]{-webkit-user-select:text;}
+a,button,input,img{-webkit-touch-callout:none;outline:none;}/* 1.ios 长按时不触发系统的菜单 2.禁止长按时下载图片 */
+
+/* 去除android4.0以下 a/button/input标签被点击时产生的边框 因为边框引起了不少bug */
+a,button,input,div{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+/* Android4.0下不识别选择器-webkit-transform-3d 使用它可做Android4.0下版本兼容 */
+@media all and (-webkit-transform-3d){
+    /* android4.0+ ios4+ 恢复按钮被点击时产生的效果 */
+    a,button,input{-webkit-tap-highlight-color:rgba(100,100,100,0.2);}
+}
+
+
+/* 页面底部预留空白 */
+.p-space .box{padding-bottom: 3rem}
+
+/******************
+    点击态
+*******************/
+.rate div.tap-on,.fund-name.tap-on,.gain div.tap-on{opacity:0.7;}
+.fund-list li.tap-on,.qa-list li.tap-on,.list li.tap-on,.news-list li.tap-on,.fund-list .fixed-li .amount.tap-on,.transit-list .tap-on{background-color:#f3f3f3;}
+.fixed-nav-b span.tap-on{background-color: #474747;}
+.btn-yellow.tap-on,.btn-yellow-s.tap-on{background-color: #cd8c00;color: rgba(255,255,255,0.6);}
+.btn-white.tap-on{background-color: #E9EBEC;}
+.btn-gray.tap-on{background-color: #9aa0a8;}
+/******************
+    font
+*******************/
+.f-xsmall{font-size:10px!important;}
+.f-small{font-size:12px!important;}
+.f-medium{font-size:14px!important;}
+.f-normal{font-size:16px!important;}
+
+.f-black{color: #000!important;} /*黑色*/
+.f-gray{color:#999!important;} /*浅灰色*/
+.f-midgray{color:#666!important;} /*灰色*/
+.f-darkgray{color: #333!important} /*深灰色*/
+.f-blue{color:#007aff!important;} /*链接蓝色*/
+.f-green{color:#339900!important;} /*绿色*/
+.f-red{color: #f54746!important;} /*红色*/
+.f-orange{color: #ff8000!important;} /*金额橙色*/
+
+.f-bold{font-weight: 700} /*加粗*/
+
+/******************
+    footer
+*******************/
+.tips-copy{padding:6px 0 2px;font-size: 11px;text-align: center;color: #a8a8a8}
+.tips-copy p{padding: 2px 0}
+/******************
+     底部协议弹层
+*******************/
+.pop-bottom-mask{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0.5);z-index:100;}
+.show-pop-layer{display:-webkit-box;display:box;}
+.pop-bottom-cnt{width:100%;padding:20px;background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%, #FFFFFF),color-stop(100%,#C9CCCF));background-image:linear-gradient(210deg,#FFFFFF 0%,#C9CCCF 100%);position:fixed;bottom:0;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.pop-bottom-cnt [class*="btn-"]{margin-bottom:10px;}
+.pop-bottom-cnt [class*="btn-"]:last-child{margin-bottom:0;}
+.pop-bottom .btn-gray{margin-top:20px;}
+.pop-bottom .btn-white{color:#000000;border-color:rgba(199,200,202,1);white-space: nowrap;text-overflow:ellipsis;overflow: hidden;}
+/* IE10兼容 */
+.pop-bottom-cnt{position:absolute\9;width:100%\9;bottom:0px\9;box-shadow:none\9;}
+
+/* 内容区域 */
+.fixed-body{padding:40px 0 0;}
+/******************
+     底部导航
+*******************/
+.nav-body .box{padding-bottom: 5rem}
+.main-nav{position:fixed;z-index:100;bottom:0;left:0;width:100%;height:4.9rem;background-color: #f8f8f8;border-top:1px solid rgba(198,198,198,.9);display:-webkit-box;display:-ms-flexbox;}
+.main-nav span{-webkit-box-flex:1;-ms-flex:1;display:block;padding-top:0.6rem;height:4.3rem;color: #8d8d8d;font-size: 1.2rem;text-align: center;}
+.main-nav span i{display: block;margin:0 auto 0.4rem;width: 2.3rem;height: 2rem;background-image: url(https://qian-img.tenpay.com/weixin/v3/img/main_nav.png?v=150827);background-repeat:no-repeat;background-size: 6.9rem auto}
+.main-nav span b{display: block;min-width: 50px}
+.main-nav span.on b{color: #007aff}
+.main-nav span .ico-home{background-position: 0 0;}
+.main-nav span .ico-pay{background-position: -2.3rem 0;}
+.main-nav span .ico-person{background-position: -4.6rem 0;}
+.main-nav span.on .ico-home{background-position: 0 -2.1rem;}
+.main-nav span.on .ico-pay{background-position: -2.3rem -2.1rem;}
+.main-nav span.on .ico-person{background-position: -4.6rem -2.1rem;}
+.main-nav span i.new-dot:before{position:absolute;right:-0.3rem;top:-0.1rem;}
+/******************
+     切换tab
+*******************/
+.nav-t,.fixed-nav-t{height: 4rem;background-color: #fff;border-bottom: 1px solid rgba(219,216,216,.8);display:-webkit-box;display:-ms-flexbox;-webkit-box-orient:horizontal;}
+.nav-t a,.fixed-nav-t a{position:relative;display: block;height:4rem;line-height:4rem;color: #666;font-size: 1.4rem;text-align: center;-webkit-box-flex:1;-ms-flex:1;}
+.nav-t a:before,.fixed-nav-t a:before{content: "";position: absolute;top:1.3rem;bottom: 1.3rem;right: 0;width: 1px;background-color: #dbd8d8}
+.nav-t a:last-child:before,.fixed-nav-t a:last-child:before{display: none}
+.nav-t a.on,.fixed-nav-t a.on{color: #6288e9;}
+.nav-t a.on span,.fixed-nav-t a.on span{display: block;border-bottom: 2px solid #6288e9;}
+/* 顶部固定 */
+.fixed-nav-t{position:fixed;z-index:99;top:0;left:0;right:0;}
+/* 等分 */
+.nav-double a{width: 50%}
+
+/******************
+    响应式
+*******************/
+@media all and (min-width:360px){
+    html{font-size:11.25px;}
+
+}
+@media all and (min-width:384px){
+    html{font-size:12px;}
+}
+@media all and (min-width:400px){
+    html{font-size:12.5px;}
+}

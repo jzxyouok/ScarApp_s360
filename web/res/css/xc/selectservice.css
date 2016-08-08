@@ -1,0 +1,199 @@
+@charset "utf-8";
+/* General styling */
+html,body,#wrapper{
+    background-color: #e6e6e6;
+}
+#wrapper{
+    font-size: 1.57rem;
+    color: #141414;
+}
+.crashintro{
+    padding: 0 4%;
+    background-color: #ffffff;
+    border-bottom: 0.1rem solid #E4E4E4;
+}
+.introtitle{
+    padding: 1% 0;
+    font-size: 2rem;
+    border-bottom: 0.1rem solid #e6e6e6;
+}
+.introwords{
+    color: #808080;
+   
+}
+.more{
+    color: #4791ff;
+}
+.optiontitle{
+    height: 2rem;
+    padding: 0 4%;
+    line-height: 2rem;
+    color: #444444;
+    font-size: 1.6rem;
+    border-bottom: 0.1rem solid #E4E4E4;
+}
+.serviceoption{
+    font-size: 1.7rem;
+    background-color: #ffffff;
+}
+.singleoption{
+    padding: 4% 3%;
+    border-bottom: 0.1rem solid #E4E4E4;
+}
+.singleoption img{
+    margin: 0 1% 0 0;
+    width: 5%;
+}
+.selectcoupon{
+    color: #ffffff;
+    font-size: 2rem;
+    padding: 3% 5%;
+    border-bottom: 0.1rem solid #E4E4E4;
+}
+.selectcoupon img{
+    width: 100%;
+}
+.selectcoupon span{
+    position: relative;
+    float: left;
+    margin-right: 17%;
+    width: 22%;
+}
+.selectcoupon span font{
+    top: 9%;
+    left: 1%;
+    width: 70%;
+    text-align: center;
+    position: absolute;
+}
+.payment{
+    padding: 3% 4%;
+    margin-top: 1%;
+}
+.payment span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.deductions{
+    color: #808080;
+    font-size:1.57rem;
+}
+.deductprice{
+    font-size: 1.7rem;
+}
+.sum{
+    color: #454545;
+}
+.btn_wx{
+    background-color: #1eb34f;
+    font-size: 1.57rem;
+    color: #ffffff;
+    border-radius: 0.4rem;
+    padding: 1% 3%;
+    float: right;
+}
+.couponselected{
+    border-bottom: 0.2rem solid #ff8a0d;
+    padding-bottom: 1%;
+}
+.editcar {
+    margin-top: 5%;
+    border-top: 0.07rem solid #ddd;
+    border-bottom: 0.07rem solid #ddd;
+    font-size: 1.57rem;
+    color: #141414;
+}
+.appointmenttime {
+    border-top: 0.07rem solid #ddd;
+    border-bottom: 0.07rem solid #ddd;
+}
+.oneline {
+    padding-left: 1rem;
+    background-color: #ffffff;
+}
+.oneline p {
+    height: 5rem;
+    line-height: 5rem;
+    padding-right: 2%;
+    border-bottom: 0.07rem solid #E0E0E0;
+}
+.oneline p.bb_none {
+    border-bottom: none;
+}
+.brandsel {
+    width: 46%;
+    text-align: right;
+}
+.brandsel font {
+    margin-right: 4%;
+    display: inline-block;
+}
+.textwords {
+    margin-right: 5%;
+}
+.timesel .arrow_down {
+    width: 6%;
+    margin-right: 2%;
+}
+
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 400px) {
+    #wrapper,.deductions{ font-size: 0.8rem;  }
+    .introtitle{ font-size: 1.3rem; }
+    .optiontitle,.selectcoupon,.btn_wx{ font-size: 1rem; }
+    .serviceoption,.deductprice{ font-size: 0.8rem; }
+    .editcar{ font-size: 1rem; }
+    .oneline { padding-left: 0.5rem; }
+    .oneline p { height: 3rem; line-height: 3rem; }
+    .brandsel.timesel { width: 75%; }
+    .timesel font { margin-right: 2%; }
+    .timesel .arrow_down { margin-right: 1%; }
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+    .selectcoupon span font{ top: 18%; }
+}
+@media screen and (min-width: 400px) and (max-width: 600px) {
+    .editcar{font-size: 1.2rem;}
+    .carcolor {width: 21%;}
+    .carseat {width: 33%;}
+    .oneline p{height: 3.5rem;line-height: 3.5rem;}
+    .oneline{padding-left: 0.7rem;}
+    .brandsel.timesel{width:67%;}
+    .timesel font{margin-right: 2%;}
+    .timesel .arrow_down{margin-right: 1%;}
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+    #wrapper,.deductions{ font-size: 1rem;  }
+    .introtitle{ font-size: 1.5rem; }
+    .optiontitle,.btn_wx{ font-size: 1.2rem; }
+    .selectcoupon{ font-size: 1.5rem; }
+    .serviceoption,.deductprice{ font-size: 1.1rem; }
+    .selectcoupon span font{ top: 10%; }
+}
+@media screen and (min-width: 500px) and (max-width: 700px) {
+    #wrapper,.deductions{ font-size: 1.3rem;  }
+    .introtitle{ font-size: 1.8rem; }
+    .optiontitle,.btn_wx{ font-size: 1.5rem; }
+    .selectcoupon{ font-size: 1.8rem; }
+    .serviceoption,.deductprice{ font-size: 1.4rem; }
+    .selectcoupon span font{ top: 10%; }
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .brandsel.timesel{width:63%;}
+    .brandsel{width:47%}
+}
+@media screen and (min-width: 700px) and (max-width:800px) {
+    .selectcoupon{ font-size: 2.3rem; }
+    .selectcoupon span font{ top: 13%; }
+}
+@media screen and (min-width: 800px) and (max-width:900px) {
+    .selectcoupon{ font-size: 2.6rem; }
+    .selectcoupon span font{ top: 15%; }
+    .btn_wx{ font-size: 1.8rem; }
+}
+@media screen and (min-width: 900px) {
+    .selectcoupon{ font-size: 2.6rem; }
+    .selectcoupon span font{ top: 15%; }
+    .btn_wx{ font-size: 1.8rem; }
+}

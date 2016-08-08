@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>恭喜您，抢单成功</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href='${res}/css/xc/qiangdan.css' rel='stylesheet' type='text/css'>
+    <script>
+        $(function() {
+            var r = document.body.offsetWidth / window.screen.availWidth;
+            $(document.body).css("-webkit-transform","scale(" + r + ")");
+        });
+        $(window).resize(function() {
+            var r = document.body.offsetWidth / window.screen.availWidth;
+            $(document.body).css("-webkit-transform","scale(" + r + ")");
+        });
+    </script>
+</head>
+<body style="overflow: hidden">
+<div>
+    <div class="conter_cgv">
+        <p><strong>抢单成功</strong></p>
+        <p>
+            恭喜你,抢单成功<br />
+        </p>
+        <div class="yytz"><a href="${base}/renwu/order${orderId}.html">查看</a></div>
+    </div>
+
+</div>
+
+</body>
+</html>

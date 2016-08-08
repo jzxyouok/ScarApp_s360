@@ -1,0 +1,18 @@
+
+		
+		/*µ¼º½*/
+
+.nav_fp{width:100%; height:48px; border-top:1px solid #d2d2d2; text-align:center; position:fixed; bottom:0; z-index:997}
+.nav_fp ul{width:100%;height:48px; float:left; text-align:center;}
+.nav_fp ul li{float:left;width: 33.333%;background:#f8f8f8;}
+li {list-style-type:none;}
+.nav_fp ul a{font-size:12px; text-align:center;display: inline-block;padding-top: 24px;height: 43px;text-decoration:none}
+.nav_fp ul a.nav_cpjx{background:url(images/cpjx_img1.png) no-repeat top center; color:#e89b01;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_lzh{background:url(images/lzh_1.png) no-repeat top center; color:#e89b01;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_gkk{background:url(images/gkk_img1.png) no-repeat top center; color:#e89b01;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_grzx{background:url(images/grzx_img1.png) no-repeat top center; color:#e89b01;background-size:30px 24px; margin-top:5px;}
+
+.nav_fp ul a.nav_cpjxa{background:url(images/cpjx_img1a.png) no-repeat top center;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_lzha{background:url(images/lzh_1a.png) no-repeat top center;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_gkka{background:url(images/gkk_img1a.png) no-repeat top center;background-size:30px 24px; margin-top:5px;}
+.nav_fp ul a.nav_grzxa{background:url(images/grzx_img1a.png) no-repeat top center;background-size:30px 24px; margin-top:5px;}

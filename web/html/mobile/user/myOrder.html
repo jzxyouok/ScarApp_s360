@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>我的订单</title>
+  <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/orderlist.css" rel="stylesheet">
+<link href="${res}/css/xc/myorder.css" rel="stylesheet">
+<link href="${res}/css/xc/list.css" rel="stylesheet">
+<link href="${res}/images/foot/foot.css" rel="stylesheet">
+<script src="${res}/scripts/xc/jquery.min.js?V=1"></script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c">
+<div data-role="page"  tabindex="0" class="ui-page ui-body-c ui-page-active" >
+	<!-- the content -->
+    <div id="wrapper" >
+        <div id="scroller">
+        <article id="thelist">
+			    [#if order??]
+            	 <section>
+	        	<div class="userlist">
+		        	<div class="listinfo">
+			        	<div class="userinfo p_r">
+				        	<p class="username">订单详情</p>
+	    						<p>
+					        		<span>订单号：</span>
+					        		<span>${order.orderId[0..10]}</span>
+				        		</p>
+				        		<p>
+						        	<span>车牌号：</span>
+						        	<span>
+						        		${order.carNum!''}
+						        	</span>
+				        		</p>
+								<!--<p>
+									<span>预约时间：</span>
+										<span>
+											${order.washTime!''}
+										</span>
+								</p>-->
+								<p>
+									<span>洗车类型：</span>
+										<span>
+											${order.washType!''}
+										</span>
+								</p>
+				        		   [#if order.status=='-1']
+	                               	 	<span class="orderstate color_orange" >未支付</span>
+	                                [/#if]
+	                                [#if order.status=='0']
+	                               	 	<span class="orderstate color_orange" >支付失败</span>
+	                                [/#if]
+	                                [#if order.status=='1']
+	                               	 	<span class="orderstate color_orange" >支付完成</span>
+	                                [/#if]
+	                                [#if order.status=='2']
+	                               	 	<span class="orderstate color_orange">用户取消</span>
+	                                [/#if]
+				        </div>
+		        	</div>
+		        	<div class="btnoper clearfix">
+			        	<span class="btn_rectangle greyframe color_blue f_r vieworder" onclick="window.location.href='${base}/f/order${order.id}.html'">查看</span>
+		        	</div>
+	        	</div>
+        	</section>
+
+            [#else]
+	            <div class="userlist">
+			        	<div class="listinfo">
+				        	<div class="userinfo p_r">
+					        	<!--<p class="username">洪宝洗车</p>-->
+					        	<p >  暂无订单<a href="${base}/washcar/index.html"><font color="green" >去下单</font></a></p>
+					        </div>
+
+					    </div>
+
+			     </div>
+            [/#if]
+        	</article>
+       </div>
+       <article class="tooltip" style="display: none;">
+            <div class="mask"></div>
+            <div class="tooltipcont">
+               <!-- <img src="${res}/images/exclamation.png">-->
+                <p class="tooltipwords"></p>
+                <p class="tooltipoper clearfix">
+                    <span class="btn_rectangle btn_orange f_r" id="confirm">确定</span>
+                </p>
+            </div>
+        </article>
+    </div>
+    </div>
+
+
+<div class="nav_fp">
+	<ul>
+        <li><a href="${base}/washcar/index.html" class="nav_cpjxa">上门洗车</a></li>
+        <li><a href="${base}/order/myorderlist.html" class="nav_gkk">洗车订单</a></li>
+        <li><a href="${base}/mycoupon.html" class="nav_grzxa">洗车券</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

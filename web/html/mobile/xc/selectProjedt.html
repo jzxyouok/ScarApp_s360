@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>选择服务项目</title>
+    <script src="${res}/scripts/lib/jquery/jquery.min.js"></script>
+      <script src="${res}/scripts/xc/easydialog.js"></script>
+    <script>
+    var sum=0;
+    $(document).ready(function(e) {
+        /* 多选按钮 */
+        $( ".radiooper").click( function(){
+        	var sum_pirce=parseFloat($("#total").html());
+            if($(this).hasClass("on")){
+                $( this ).removeClass( "on" )
+                $( this ).attr( "src","../res/css/xc/img/radio_unsel.png" );
+                var value=$(this).attr('value');
+            	sum_pirce-=parseFloat(value);
+            }else{
+                $( this ).addClass( "on" )
+                $( this ).attr( "src","../res/css/xc/img/radio_sel.png" );
+                var value=$(this).attr('value');
+            	sum_pirce+=parseFloat(value);
+            }
+            $("#total").html(parseFloat(sum_pirce).toFixed(2));
+        });
+        //单选按钮
+        $( ".radio").click( function(){
+            var current_click=$(this).attr('id');
+            var sum_price=$(this).attr('value');
+            var name=$(this).attr('fname');
+            $("#projectName").val(name);
+            $(".radio").each(function(){
+                var id=$(this).attr('id');
+                if(current_click==id){
+                    $( this ).addClass( "on" )
+                    $( this ).attr( "src","../res/css/xc/img/radio_sel.png" );
+                }else{
+                    $( this ).removeClass( "on" )
+                    $( this ).attr( "src","../res/css/xc/img/radio_unsel.png" );
+                }
+            });
+
+            $("#total").html(parseFloat(sum_price).toFixed(2));
+        });
+    });
+    //选择服务项目,需要把服务项目名称和总金额传递过去
+    function xzfwxm(){
+        var money=$("#total").html();//总金额
+        var projectName=$("#projectName").val();//服务项目
+    }
+     /*获取所有选中的服务*/
+  function getServicesProjectIds(){
+  	var ids="";
+  	$("img").each(function(){
+  			var src=$(this).attr("src");
+  			if(src.indexOf("radio_sel.png")>0){
+  				ids+=$(this).attr("ids")+",";
+  			}
+  		})
+  		ids=ids.substring(0,ids.length-1);
+  		return ids;
+  }
+
+    </script>
+    </head>
+<body>
+
+
+<!-- the content -->
+<div id="wrapper">
+    <!-- 服务内容说明 -->
+    <!-- 预约时间 -->
+
+    <article class="crashintro">
+        [@serviceProjectListDirective]
+            [#if fwxmList?? && fwxmList?size>0]
+            [#list fwxmList as project]
+            <p class="singleoption clearfix">
+                <img class="radio i_b v_m" id="dfm_${project_index+1}" fname="${project.name!''}" ids="${project_index+1}" value="${project.carPrice!''}" src="${res}/css/xc/img/radio_unsel.png">
+                <span class="f_l">${project.name!''}</span>
+                <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r">${project.jeepPrice!''}￥</span>
+                <span class="f_r color_orange" id="default_${project_index+1}">${project.carPrice!''}￥</span>
+            </p>
+            [/#list]
+            [/#if]
+        [/@serviceProjectListDirective]
+        <p class="introwords clearfix">
+            <span>选择服务项目后,点击确定</span>
+        </p>
+    </article>
+
+    <!-- 附加服务项目（可选）
+    <article>
+        <p class="optiontitle">附加服务项目（可选）</p>
+        <section class="serviceoption">
+            <p class="singleoption clearfix">
+                <img class="radiooper i_b v_m" ids="3" fname="清洁轮毂"  value="48" id="add_res_1" src="${res}/css/xc/img/radio_unsel.png">
+                <span class="i_b v_m">清洁轮毂</span>
+                 <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
+                 <span class="color_orange i_b v_m f_r">48.0￥</span>
+            </p>
+            <p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="4" fname="清洁发动机仓" value="48"  id="add_res_2" src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">清洁发动机仓</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
+              <span class="color_orange i_b v_m f_r">48.0￥</span>
+        </p>
+        <p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="5" fname="清品打蜡（3M）" value="48" id="add_res_3"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">清品打蜡（3M）</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 60.0￥</span>
+             <span class="color_orange i_b v_m f_r">48.0￥</span>
+        </p><p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="6" fname="清品打蜡（金装美光）" value="78" id="add_res_4"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">清品打蜡（金装美光）</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 90.0￥</span>
+              <span class="color_orange i_b v_m f_r">78.0￥</span>
+        </p>
+        <p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="7" fname="臭氧杀菌 清洁空调风道" value="68" id="add_res_5"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">臭氧杀菌 清洁空调风道</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 80.0￥</span>
+              <span class="color_orange i_b v_m f_r">68.0￥</span>
+        </p>
+         <p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="8" fname="漆面深度清洗 养护" value="168" id="add_res_6"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">漆面深度清洗 养护</span>
+             <span style="text-decoration:line-through;padding-left:10px;" class="i_b v_m f_r"> 180￥</span>
+              <span class="color_orange i_b v_m f_r">168￥</span>
+        </p>
+         <p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="9" fname="镀膜" value="248" id="add_res_7"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">镀膜</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 268￥</span>
+             <span class="color_orange i_b v_m f_r">248￥</span>
+        </p>
+        <!--<p class="singleoption clearfix">
+            <img class="radiooper i_b v_m" ids="10" fname="清洗内饰 蒸汽臭氧消毒" value="358" id="add_res_8"  src="${res}/css/xc/img/radio_unsel.png">
+            <span class="i_b v_m">清洗内饰 蒸汽臭氧消毒</span>
+             <span style="text-decoration:line-through;padding-right:0px;padding-left:10px;" class="i_b v_m f_r"> 380￥</span>
+             <span class="color_orange i_b v_m f_r">358￥</span>
+        </p>
+        --></section>
+        <section class="serviceoption">
+            <p class="payment clearfix">
+                <input type="hidden" id="projectName" >
+                <span class="btn_wx" onclick="javascript:xzfwxm()"><a>确定</a></span>
+            </p>
+        </section>
+    </article>
+</div>
+
+</body>
+</html>

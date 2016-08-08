@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>抢单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href='${res}/css/xc/qiangdan.css' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="${res}/css/xc/time_css.css" />
+    <script type="text/javascript" src="${res}/scripts/lib/jquery/jquery.js"></script>
+    <script>
+    function qiangdan(){
+        qiangdanAjax();
+    }
+    function qiangdanAjax(){
+        $.ajax({
+            url : '${base}/qiangdan/save.html',
+            type : 'POST',
+            async : false,
+            dataType : 'json',
+            data : {
+                id : "${id!''}"
+            },
+            success : function(r) {
+                if(r.success){
+                    //抢单成功
+                    alert("抢单成功");
+                    window.location.href="${base}/qiangdan/success.html?orderId="+"${id!''}";
+                }
+            },error:function(){
+                alert("操作一次");
+            }
+        });
+    }
+    $(function() {
+        var r = document.body.offsetWidth / window.screen.availWidth;
+        $(document.body).css("-webkit-transform","scale(" + r + ")");
+    });
+    $(window).resize(function() {
+        var r = document.body.offsetWidth / window.screen.availWidth;
+        $(document.body).css("-webkit-transform","scale(" + r + ")");
+    });
+    </script>
+</head>
+<body onload="countDown();" style="overflow: hidden;">
+<input type="hidden" id="qiangdanTime" name="qiangdanTime" value="${qiangdanTime!'60'}"/>
+<input type="hidden" id="orderId" name="orderId" value="${id!''}"/>
+<div class="game_time">
+    <div class="hold">
+        <div class="pie pie1"></div>
+    </div>
+    <div class="hold">
+        <div class="pie pie2"></div>
+    </div>
+    <div class="bg"> </div>
+    <div class="time"></div>
+</div>
+<div class="game_time">
+<a href="javascript:qiangdan();">抢单</a>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="${res}/scripts/xc/time_js.js?v=33"></script>

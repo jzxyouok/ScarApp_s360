@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>积分签到
+    </title>
+    <link rel="stylesheet" href="${res}/css/qiandao/qd_style.css">
+    <script type="text/javascript" src="${res}/scripts/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${res}/scripts/qiandao/layer.js"></script>
+    <link rel="stylesheet" href="${res}/css/qiandao/layer.css" id="layui_layer_skinlayercss">
+    <script>
+        function sign () {
+            $.ajax({
+                url :'/index.php/Sign/sign_now',
+                async : false,
+                type :"POST",
+                dataType : 'json',
+
+                success : function (resp) {
+                    if (resp.code == 'suc') {
+                        layer.msg('签到成功',{time:'800'});
+                        $('.c19').addClass('dui');
+                        $('.ora').val('已签到');
+                        var inte = parseInt($('#userIntegral').text())+20
+                        $('#userIntegral').text(inte)
+                        return ;
+                    }
+                    layer.msg(resp.msg)
+                }
+            })
+        }
+    </script>
+    <script language="javascript">
+        var date = new Date();
+        date.setDate(1);
+        var weekday=new Array(7);
+        weekday[0]="星期日" ;
+        weekday[1]="星期一";
+        weekday[2]="星期二";
+        weekday[3]="星期三";
+        weekday[4]="星期四";
+        weekday[5]="星期五";
+        weekday[6]="星期六";
+        var firstday= weekday[date.getDay()];
+        date.setMonth(date.getMonth() + 1);
+        var lastDate = new Date(date - 3600000*24);
+       // alert("本月最后一天是 " + lastDate.getDate());
+        var lastday=lastDate.getDate();
+        var sum=date.getDay()+lastDate.getDate();
+
+        var arrayObj = new Array();//创建一个数组
+        var firstCount=7-date.getDay();
+        for(var i=0;i<firstCount;i++){
+            arrayObj[i]="&nbsp;";
+        }
+        for(var j=0;j<lastday;j++){
+            arrayObj[firstCount+j]=j+1;
+        }
+        var buchou=7-(35-parseInt(firstCount))%7;
+        for(var k=0;k<buchou;k++){
+            arrayObj[35-parseInt(firstCount)+k]="&nbsp;";
+        }
+        var hcount=Math.ceil(arrayObj.length/7);
+        var html='';
+            alert("行数===="+hcount);
+             for(var j=0;j<hcount;j++){
+                 html+='<tr>';
+                 var value=arrayObj[j*7+j];
+                 if(value=='&nbsp;'){
+                     html+='<td>'+value+'</td>';
+                 }else{
+                     var c="c"+value;
+                     html+='<td class='+c+'>'+value+'</td>';
+                 }
+                 html+='</tr>';
+             }
+
+        console.log(html);
+    </script>
+</head>
+
+<body>
+<div class="window">
+    <div class="qd-main">
+        <img src="${res}/images/qiandao/qd_bg1.jpg">
+    </div>
+    <div class="clear"></div>
+    <div class="qd-con">
+        <div class="qd-box">
+            <div class="jf-box">
+                <img src="${res}/images/qiandao/qd_tit.png">
+                <div class="jf-tip">
+                    <a>
+                        <h3>积分</h3>
+                        <span id="userIntegral">20</span>
+                    </a>
+                </div>
+            </div>
+            <div class="qd-infos">
+                <div class="qd-date">2015年12月</div>
+                <div class="qd-date-tab">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td class="c1">1</td>
+                            <td class="c2">2</td>
+                            <td class="c3">3</td>
+                            <td class="c4">4</td>
+                            <td class="c5">5</td>
+                        </tr>
+                        <tr>
+                            <td class="c6">6</td>
+                            <td class="c7">7</td>
+                            <td class="c8">8</td>
+                            <td class="c9">9</td>
+                            <td class="c10">10</td>
+                            <td class="c11">11</td>
+                            <td class="c12">12</td>
+                        </tr>
+                        <tr>
+                            <td class="c13">13</td>
+                            <td class="c14">14</td>
+                            <td class="c15">15</td>
+                            <td class="c16">16</td>
+                            <td class="c17">17</td>
+                            <td class="c18">18</td>
+                            <td class="dui c19">19</td>
+                        </tr>
+                        <tr>
+                            <td class="c20">20</td>
+                            <td class="c21">21</td>
+                            <td class="c22">22</td>
+                            <td class="c23">23</td>
+                            <td class="c24">24</td>
+                            <td class="c25">25</td>
+                            <td class="c26">26</td>
+                        </tr>
+                        <tr>
+                            <td class="c27">27</td>
+                            <td class="c28">28</td>
+                            <td class="c29">29</td>
+                            <td class="c30">30</td>
+                            <td class="c31">31</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="qd-btn">
+                <!-- <a class="ora" href="javascript:void(0);" >已签到</a> -->
+                <input type="button" value="已签到">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

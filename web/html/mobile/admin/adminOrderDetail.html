@@ -1,0 +1,481 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>修改任务</title>
+   <link rel="stylesheet" type="text/css" href="${res}/images/foot/foot.css">
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/od.css'>
+	<link rel='stylesheet' type="text/css" href='${res}/css/ggwash/fileupload.css'>
+	<link rel="stylesheet" href="${res}/css/webui/weui.css"/>
+	<link rel="stylesheet" href="${res}/css/webui/example.css"/>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<!-- 引用控制层插件样式 -->
+	<link rel="stylesheet" href="${res}/upload/css/zyUpload.css" type="text/css">
+
+	<link rel="stylesheet" type="text/css" href="${res}/diyUpload/css/webuploader.css">
+	<link rel="stylesheet" type="text/css" href="${res}/diyUpload/css/diyUpload.css">
+	<script type="text/javascript" src="${res}/diyUpload/js/webuploader.html5only.min.js"></script>
+	<script type="text/javascript" src="${res}/diyUpload/js/diyUpload.js"></script>
+    <script>
+		var beforePhotoArray = [];// 创建数组
+		var afterPhotoArray = [];// 创建数组
+    $(document).ready(function() {
+		$("#demo").removeAttr('style');
+		$(".webuploader_pick").remove();
+		$("#fileDragArea").html('');
+    	var msg="${flag!''}";
+    	if(""!=msg&&null!=msg){
+    		if(msg=='3'){
+				showMessage("洗车开始");
+    		}else{
+				showMessage("洗车结束");
+    		}
+    	}
+		$("#addressDaoHang").bind('click',function(){
+			var value=$(this).html();
+			var country,city;
+			if(''!=value&&null!=value){
+				if(value.length>6){
+					country=value.substr(0,6);
+					city=value.substr(6,value.length);
+				}
+			}
+			daoHang(country,city);
+		})
+    	//fileChange('userCard');
+		//fileChange('idCard');
+		//洗车前图片
+
+		$('#beforePhotoDiv').diyUpload({
+			url:'${base}/html5/upload.html',
+			success:function( data ) {
+				beforePhotoArray.push(data._raw); // 添加到最后
+				for(var i=0;i<beforePhotoArray.length;i++){
+					//console.log(i+":"+beforePhotoArray[i]);
+					$("#beforePhoto"+(i+1)).val(beforePhotoArray[i]);
+				}
+			},
+			error:function( err ) {
+				console.info( err );
+			},
+			buttonText : '选择照片',
+			chunked:true,
+			// 分片大小
+			chunkSize:512 * 1024*5,
+			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+			fileNumLimit:4,
+			fileSizeLimit:500000 * 1024*10,
+			fileSingleSizeLimit:50000 * 1024*20,
+			accept: {}
+		});
+
+		//洗车后图片
+		$('#afterPhotoDiv').diyUpload({
+			url:'${base}/html5/upload.html',
+			success:function( data ) {
+				afterPhotoArray.push(data._raw); // 添加到最后
+				for(var i=0;i<afterPhotoArray.length;i++){
+					//console.log(i+":"+beforePhotoArray[i]);
+					$("#afterPhoto"+(i+1)).val(afterPhotoArray[i]);
+				}
+			},
+			error:function( err ) {
+				console.info( err );
+			},
+			buttonText : '选择照片',
+			chunked:true,
+			// 分片大小
+			chunkSize:512 * 1024*5,
+			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+			fileNumLimit:4,
+			fileSizeLimit:500000 * 1024*10,
+			fileSingleSizeLimit:50000 * 1024*20,
+			accept: {}
+		});
+	})
+
+	function start(){
+		var count=beforePhotoArray.length;
+		var isBeforeUpload=$("#bfPic3").css('backgroundImage');
+		if(count<4&&(''==isBeforeUpload||null==isBeforeUpload)){
+			showMessage("请先上传洗车前4张照片");
+		}else{
+			var url="${base}/updateSendOrderStatus.html";
+			var data=$("#step2Form").serialize();
+			//采用ajax方式
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: data,
+				dataType: 'json',
+				dataType: 'json',
+				beforeSend: function(){
+					$('#loadingToast').show();
+				},
+				complete: function(){
+					$('#loadingToast').hide();
+				},
+				success: function (data) {
+					var flg = data.success;
+					if(flg){
+						showMessage("洗车开始");
+						$("#d_statussub4").removeClass("c_fllf0");
+						$("#d_statussub4").addClass("c_fllf");
+						$("#d_statussub3").removeClass("c_fllf");
+						$("#d_statussub3").addClass("c_fllf0");
+					}
+
+				}, error: function (err) {
+					alert("error:" + eval("("+err.toString()+")"));
+				}
+
+			});
+		}
+
+
+	}
+	function showMessage(msg){
+		$("#infoMsg").html(msg);
+		$('#toast').show();
+		setTimeout(function () {
+			$('#toast').hide();
+		}, 2000);
+	}
+	function complete(){
+		//setImageValue();
+		var length=beforePhotoArray.length;
+		var count=afterPhotoArray.length;
+		var isBeforeUpload=$("#bfPic3").css('backgroundImage');
+		var isAfterUpload=$("#afPic3").css('backgroundImage');
+
+		if(length<4&&(''==isBeforeUpload||null==isBeforeUpload)){
+			showMessage("请先上传洗车前4张照片");
+		}
+		else if(count<4&&(''==isAfterUpload||null==isAfterUpload)){
+			showMessage("请先上传洗车后4张照片");
+		}else {
+			var url="${base}/updateSendOrder.html";
+			var data=$("#step2Form").serialize();
+			//采用ajax方式
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: data,
+				dataType: 'json',
+				beforeSend: function(){
+					$('#loadingToast').show();
+				},
+				complete: function(){
+					$('#loadingToast').hide();
+				},
+				success: function (data) {
+					var flg = data.success;
+					if(flg){
+						showMessage("洗车完成");
+						$("#d_statussub4").removeClass("c_fllf");
+						$("#d_statussub4").addClass("c_fllf0");
+
+					}
+
+				}, error: function (err) {
+					alert("error:" + eval("("+err.toString()+")"));
+				}
+
+			});
+		}
+
+
+	}
+	/**
+	 * 保存图片路径
+	 * @param id
+     */
+		function setImageValue(){
+			var length=$(".upload_image").length;
+			for(var i=0;i<length;i++){
+				if(i<4){
+					$("#beforePhoto"+(i+1)).val($("#uploadImage_"+i).attr('src'));
+				}else{
+					$("#afterPhoto"+(i+1)).val($("#uploadImage_"+i).attr('src'));
+				}
+
+			}
+		}
+		function daoHang(country,city){
+			var url="http://apis.map.qq.com/uri/v1/search?keyword="+city+"&region="+country+"&referer=myapp";
+			window.location.href=url;
+		}
+    </script>
+</head>
+<body style="display:block;font-size:17px;overflow-x:hidden;">
+<form id="step2Form" method="POST" action="${base}/updateSendOrder.html"  >
+	<input type="hidden" id="orderId" name="orderId" value="${orderId!''}"/>
+	<input type="hidden" id="domain" name="domain" value="${_domain_key!''}"/>
+
+<div id="">
+<div id="scroller">
+<div id="d_main">
+    <div id="d_detail">
+
+        <div id="d_status" style='display: block; width: 100%'>
+        <div id='d_iconstates'>
+
+            <div id='d_statussub1' class="c_fllf0">
+                    <div class=" c_imgsize c_statusimg" id="d_status1"></div>
+                    <div class='c_statustip'>支付完成</div>
+            </div>
+           	 [#if orderId??]
+    			[@find_order_byid id="${orderId}"]
+	    		[#if order??]
+	    			[#if order.sendOrderStatus?number lt 1]
+	    				 <div  class="c_fllf">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[#else]
+	    			 <div id='d_statussub2' class="c_fllf0">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 3]
+	    				   <div  class="c_fllf" id='d_statussub3'>
+                   			 <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+                   			 <div class='c_statustip'>洗车开始</div>
+           					 </div>
+	    			[#else]
+	    				   <div id='d_statussub3' class="c_fllf0">
+		                    <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+		                    <div class='c_statustip'>洗车开始</div>
+		           			 </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 4]
+	    				    <div  id='d_statussub4' class="c_fllf">
+			                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+			                    <div class='c_statustip'>洗车完成</div>
+			           		 </div>
+
+	    			[#else]
+	    				   <div id='d_statussub4' class="c_fllf0">
+				                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+				                    <div class='c_statustip'>洗车完成</div>
+				            </div>
+
+	    			[/#if]
+
+
+        </div>
+
+    </div>
+
+
+				<div id="d_more">
+					<div id="d_phone">
+						<div id="d_pimg" class="c_fllf c_imgsize c_moreimg"></div>
+						<span id="s_phone" class='c_vtext'>联系电话</span>
+						<span id="d_sphone" class='c_vtext'><a href="tel:${order.mobile!''}">${order.mobile!''}</a></span>
+					</div>
+					<div   class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_plate.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>车牌号</span>
+						<span  class='c_vtext'>${order.carNum!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_model.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>车型</span>
+						<span  class='c_vtext'>${(order.carType)!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_model.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>服务项目</span>
+						<span  class='c_vtext'>${order.washType!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_color.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>颜色</span>
+						<span  class='c_vtext'>${order.carColor!''}</span>
+					</div>
+					<div id="d_addr">
+						<div id="d_aimg" class="c_fllf c_imgsize c_moreimg"></div>
+						<span id="s_loc" class='c_vtext'>停放位置</span>
+						<span id="d_saddr" class='c_vtext'><a href="javascript:void(0)" id="addressDaoHang">${order.address!''}</a></span>
+					</div>
+
+					<div id="d_note">
+							<div id='d_subrow' class='clear'>
+						<div id="d_nimg" class="c_fllf c_imgsize c_moreimg"></div>
+							<span id="s_note" class='c_vtext'>备注信息</span>
+							${order.discription!''}
+							</div>
+						<div id="d_snotemore"></div>
+					</div>
+				</div>
+    			    [@send_order orderId="${orderId}"]
+    	[#if sendOrder??]
+
+	<div class="bd">
+		<div class="weui_cells_title">洗车前照片：</div>
+		<div class="weui_cells weui_cells_form">
+			<input type="hidden" id="afterPhoto1" name="afterPhoto1" value="${sendOrder.afterPhoto1!''}"/>
+			<input type="hidden" id="afterPhoto2" name="afterPhoto2" value="${sendOrder.afterPhoto2!''}" />
+			<input type="hidden" id="afterPhoto3" name="afterPhoto3" value="${sendOrder.afterPhoto3!''}"/>
+			<input type="hidden" id="afterPhoto4" name="afterPhoto4" value="${sendOrder.afterPhoto4!''}"/>
+			<input type="hidden" id="beforePhoto1" name="beforePhoto1" value="${sendOrder.beforePhoto1!''}"/>
+			<input type="hidden" id="beforePhoto2" name="beforePhoto2" value="${sendOrder.beforePhoto2!''}"/>
+			<input type="hidden" id="beforePhoto3" name="beforePhoto3" value="${sendOrder.beforePhoto3!''}"/>
+			<input type="hidden" id="beforePhoto4" name="beforePhoto4" value="${sendOrder.beforePhoto4!''}"/>
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="weui_uploader">
+						<!--<div class="weui_uploader_hd weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">图片上传</div>
+							&lt;!&ndash;<div class="weui_cell_ft">0/2</div>&ndash;&gt;
+						</div>-->
+						<div class="weui_uploader_bd">
+							<ul class="weui_uploader_files">
+								[#if sendOrder.beforePhoto1?exists && sendOrder.beforePhoto1!='']
+									<li class="weui_uploader_file" id="bfPic0" style="display:block;background-image:url(${_img_domain}/${sendOrder.beforePhoto1!''})"></li>
+								[/#if]
+								[#if sendOrder.beforePhoto2?exists &&sendOrder.beforePhoto2!='']
+									<li class="weui_uploader_file" id="bfPic1" style="display:block;background-image:url(${_img_domain}/${sendOrder.beforePhoto2!''})"></li>
+								[/#if]
+								[#if sendOrder.beforePhoto3?exists && sendOrder.beforePhoto3!='']
+									<li class="weui_uploader_file" id="bfPic2" style="display:block;background-image:url(${_img_domain}/${sendOrder.beforePhoto3!''})"></li>
+								[/#if]
+								[#if sendOrder.beforePhoto4?exists && sendOrder.beforePhoto4!='']
+									<li class="weui_uploader_file" id="bfPic3" style="display:block;background-image:url(${_img_domain}/${sendOrder.beforePhoto4!''})"></li>
+								[/#if]
+							</ul>
+							[#if sendOrder.status!='3'&& sendOrder.status!='4']
+							<div class="control-body">
+								<div id="beforePhotoDiv" ></div>
+							</div>
+							[/#if]
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	[#if sendOrder.status!='3'&& sendOrder.status!='4']
+		<div class="bd">
+			<div class="weui_cell">
+				<div class="yytz_s">
+					<a href="javascript:void(0)" onclick="start();">开始洗车</a>
+				</div>
+			</div>
+		</div>
+	[/#if]
+		<div class="bd">
+			<div class="weui_cells_title">洗车后照片</div>
+			<div class="weui_cells weui_cells_form">
+				<div class="weui_cell">
+					<div class="weui_cell_bd weui_cell_primary">
+						<div class="weui_uploader">
+
+							<div class="weui_uploader_bd">
+								<ul class="weui_uploader_files">
+									[#if sendOrder.afterPhoto1?? &&sendOrder.afterPhoto1!='']
+									<li class="weui_uploader_file" id="afPic0" style="display:block;background-image:url(${_img_domain}/${sendOrder.afterPhoto1!''})"></li>
+									[/#if]
+									[#if sendOrder.afterPhoto2?? &&sendOrder.afterPhoto2!='']
+									<li class="weui_uploader_file" id="afPic1" style="display:block;background-image:url(${_img_domain}/${sendOrder.afterPhoto2!''})"></li>
+									[/#if]
+									[#if sendOrder.afterPhoto3?? &&sendOrder.afterPhoto3!='']
+									<li class="weui_uploader_file" id="afPic2" style="display:block;background-image:url(${_img_domain}/${sendOrder.afterPhoto3!''})"></li>
+									[/#if]
+									[#if sendOrder.afterPhoto4?? &&sendOrder.afterPhoto4!='']
+									<li class="weui_uploader_file" id="afPic3" style="display:block;background-image:url(${_img_domain}/${sendOrder.afterPhoto4!''})"></li>
+									[/#if]
+								</ul>
+								[#if sendOrder.status!='4']
+								<div id="box">
+									<div id="afterPhotoDiv" ></div>
+								</div>
+								[/#if]
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		[#if sendOrder.status!='4']
+		<div class="bd">
+			<div class="weui_cell">
+				<div class="yytz_x">
+					<a href="javascript:void(0);" onclick="complete();">完成洗车</a>
+				</div>
+			</div>
+		</div>
+		[/#if]
+	         <div class="login_bd">
+	            <span id="s_comment" class='c_vtext'>洗车内容</span>
+	            <textarea rows="5" cols="5" style="width:100%;border:1px solid #2EC5C0" id="content" name="content">${sendOrder.content!''}</textarea>
+	        </div>
+
+  		   <div id="d_footnote" style="padding-top:5px;">
+  		   		<font color="red"><br/>
+  		   		<p>温馨提示:点击开始洗车，会发送1条微信消息给车主，提示您的车正在清洗</p>
+
+  		       <p>点击完成洗车，会发送1条微信消息给车主，提示您的车已经洗完。</p>
+  		       </font>
+  		   </div>
+    	[/#if]
+    [/@send_order]
+      		[/#if]
+    	[/@find_order_byid]
+    [/#if]
+
+    <!--
+    <div id="d_footnote">温馨提示: 系统派单前撤单可全额退款。</div>
+    <div align="center"><input type="button" id="order_refund_btn" class="ui-btn red"  value=""></div>
+    -->
+</div>
+
+</div>
+
+</div>
+
+</form>
+<!--BEGIN toast-->
+<div id="toast" style="display: none;">
+	<div class="weui_mask_transparent"></div>
+	<div class="weui_toast">
+		<i class="weui_icon_toast"></i>
+		<p class="weui_toast_content" style="background: rgba(40, 40, 40, 0.75)" id="infoMsg">已完成</p>
+	</div>
+</div>
+<!--end toast-->
+<!-- loading toast -->
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+	<div class="weui_mask_transparent"></div>
+	<div class="weui_toast">
+		<div class="weui_loading">
+			<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+		</div>
+		<p class="weui_toast_content">数据加载中</p>
+	</div>
+</div>
+</body>
+</html>
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="${res}/upload/js/zyFile.js"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="${res}/upload/js/zyUpload.js"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="${res}/upload/js/demo.js"></script>

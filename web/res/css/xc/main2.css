@@ -1,0 +1,331 @@
+@charset "utf-8";
+/* CSS Reset courtesy of Meyer */
+
+/* remember to define focus styles! */
+:focus {
+    outline: 0;
+}
+
+/* tables still need cellspacing="0" in the markup */
+table {
+   /* border-collapse: separate;*/
+    border-spacing: 0;
+}
+caption, th, td {
+    font-weight: normal;
+    text-align: left;
+}
+/* remove possible quote marks (") from <q> & <blockquote> */
+blockquote:before, blockquote:after, q:before, q:after {
+    content: "";
+}
+blockquote, q {
+    quotes: "" "";
+}
+
+/* Hides from IE-mac */
+* html .clearfix {height: 1%;}
+/* End hide from IE-mac */
+.clearfix{
+    zoom:1
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+/* Common definitions */
+.f_l{
+    float: left;
+}
+.f_r{
+    float: right;
+}
+.i_b{
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+.p_r{
+    position: relative;
+}
+.p_a{
+    position: absolute;
+}
+.v_t{
+    vertical-align: top;
+}
+.v_m{
+    vertical-align: middle;
+}
+.v_b{
+    vertical-align: bottom;
+}
+.t_l{
+    text-align: left;
+}
+.t_c{
+    text-align: center;
+}
+.t_r{
+    text-align: right;
+}
+.fw_b{
+    font-weight: bold;
+}
+.fw_n{
+    font-weight: normal;
+}
+.m_t0{
+    margin-top: 0;
+}
+
+#wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    max-width: 1306px;
+    background-color: hsla(0, 0%, 100%, 0.61);
+}
+/* 矩形按钮 */
+.btn_rectangle{
+    display:inline-block;
+    border-radius: 5px;
+    font-size: 1.57rem;
+}
+.color_orange{
+    color: #ff8400;
+}
+.color_blue{
+    color: #4691ff;
+}
+.color_brown{
+    color: #b58d64;
+}
+.color_green{
+    color: #44da44;
+}
+.color_black{
+    color: #000000;
+}
+.color_grey{
+    color: #808080;
+}
+
+/* 色块 */
+.colorlump{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    vertical-align: middle;
+
+}
+
+/* 下拉框选择 */
+.dropdownlist{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 99;
+}
+
+/* 白色按钮 */
+.btn_white{
+    border: 0.1rem solid #dadada;
+    background-color: #ffffff;
+    color: #8f8f8f;
+}
+/* 绿色按钮 */
+.btn_green{
+    background-color: #1eb34f;
+    color: #ffffff;
+    display: inline-block;
+}
+/* 黄色按钮 */
+.btn_orange{
+    background-color: #ff8400;
+    color: #ffffff;
+    display: inline-block;
+}
+
+/* 加载中 */
+.loadmodal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    opacity: 0.5;
+    background-color: #000000;
+}
+#turnPic,.tipTxt{
+    display: block;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tipTxt{
+    top: 80px;
+    width: 170px;
+    height: 20px;
+    color: #D2D2D2;
+    font-size: 14px;
+}
+.turnpic_01,.turnpic_02,.turnpic_03,.turnpic_04,.turnpic_05,.turnpic_06,.turnpic_07,.turnpic_08,.turnpic_09,.turnpic_10,.turnpic_11,.turnpic_12{
+    background: url(img/loading.png) no-repeat;
+}
+.turnpic_01{
+    background-position: 0px 0px;
+}
+.turnpic_02{
+    background-position: -69px 0px;
+}
+.turnpic_03{
+    background-position: -138px 0px;
+}
+.turnpic_04{
+    background-position: -207px 0px;
+}
+.turnpic_05{
+    background-position: -276px 0px;
+}
+.turnpic_06{
+    background-position: -345px 0px;
+}
+.turnpic_07{
+    background-position: -415px 0px;
+}
+.turnpic_08{
+    background-position: -484px 0px;
+}
+.turnpic_09{
+    background-position: -553px 0px;
+}
+.turnpic_10{
+    background-position: -622px 0px;
+}
+.turnpic_11{
+    background-position: -691px 0px;
+}
+.turnpic_12{
+    background-position: -760px 0px;
+}
+
+/* 提示框 */
+.tooltip{
+    font-size: 1.6rem;
+}
+.mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    z-index: 10;
+}
+.tooltipcont{
+    background-color: #ffffff;
+    border-radius: 0.7rem;
+    text-align: center;
+    padding: 5% 0;
+    position: absolute;
+    z-index: 11;
+    width: 80%;
+    max-width: 600px;
+    height: 35%;
+    max-height: 315px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tooltipcont img{
+    width: 23%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 7%;
+}
+.tooltipoper{
+    padding: 0 5%;
+    margin-top: 8%;
+}
+.tooltipoper span{
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: 45%;
+    padding: 3% 0;
+}
+.tooltipoper span.btn_white{
+    padding: 2.5% 0;
+}
+
+/* 自动填充 */
+#autocomplete{
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    background-color: #ffffff;
+    border-top: 0.07rem solid #E0E0E0;
+}
+#autocomplete h1 {
+    color: #807f7f;
+    padding: 0 3%;
+    height: 4rem;
+    line-height: 4rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+@media screen and (min-width: 300px) and (max-width: 400px){
+    .tooltip,.tooltip span { font-size: 1rem; }
+    .colorlump{ width: 14px; height: 14px; }
+}
+@media screen and (min-width: 400px) and (max-width: 500px){
+    .colorlump{ width: 16px; height: 16px; }
+}
+@media screen and (min-width: 500px) and (max-width: 600px){
+    .colorlump{ width: 18px; height: 18px; }
+}
+@media screen and (min-width: 700px) and (max-width: 800px){
+    .colorlump{ width: 22px; height: 22px; }
+}
+@media screen and (min-width: 800px) and (max-width: 900px){
+    .colorlump{ width: 24px; height: 24px; }
+}
+@media screen and (min-width: 900px) {
+    .colorlump{ width: 26px; height: 26px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

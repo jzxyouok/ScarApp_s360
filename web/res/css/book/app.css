@@ -1,0 +1,107 @@
+
+
+.app_bodycolor {
+    background: #FD694F;
+}
+.app_bodycolor a:hover {
+    background: none
+}
+
+.app_headertitle {
+    line-height: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.app_pt ul {
+    padding: 0;
+}
+.app_pt ul li {
+    list-style-type: none;
+    height: 110px;
+    border-bottom: 1px solid #ddd;
+}
+.app_pt img {
+    width: 110px;
+    height: 80px;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+.app_pt ul li:hover {
+    background: #f5f5f5
+}
+.app_nr {
+    padding-top: 5px;
+    padding-left: 10px
+}
+.app_pt h2 {
+    padding-left: 135px;
+    padding-top: 10px;
+}
+.app_pt p {
+    height: 70px;
+    overflow: hidden;
+    padding-left: 15px;
+}
+.app_ts img {
+    margin: 0 auto
+}
+.app_p {
+    padding: 5px 5px;
+}
+
+.app_border {
+    color: #fd5668;
+    background: #fff;
+    position: absolute;
+    top: -10px;
+    padding: 0 6px;
+    left: 12px;
+    font-size: 16px;
+}
+
+.app_news {
+    border-bottom: 1px solid #feaaae
+}
+.app_title {
+    padding: 1px;
+    height: 29px;
+    line-height: 26px;
+    overflow: hidden;
+}
+
+.app_bookback {
+    background: #f7f7f7
+}
+.app_xx {
+    font-size: 14px;
+    line-height: 28px;
+}
+.app_bfont {
+    color: #939393;
+    font-size: 13px;
+}
+.app_dq{ font-size: 12px;
+         /* margin-bottom: 4px; */
+         line-height: 25px;}
+.app_he{ line-height: 27px;
+         height: 29px;}
+
+.app_de {
+    position: absolute;
+    bottom: 0;
+    background: #202915;
+    width: 100%;
+    padding: 4px 10px;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.dialog-div-box{background: rgba(0,0,0,0.4); width: 100%; height: 100%; position: fixed; z-index: 1988; top: 0px; left: 0px; overflow: hidden;}
+.dialog-div{z-index:2988; position:fixed;}
+.u-guodu-box { padding:5px 15px; background: rgba(60,60,63,0.9);min-heigh:200px; border-radius:10px;}
+.u-guodu-box div{ color:#fff; line-height:20px; font-size:12px; margin:0px auto; height:100%; padding-top:10%; padding-bottom:10%;}
+.main_conzsgd{padding:20px 0px; text-align:center}
+.main_conzsgd span{font-size:18px; color:#555; cursor:pointer;background: #f3f3f3;width: 400px;height: 40px;line-height: 40px;display: block;margin: 0 auto;}
+.main_conzsgd span:hover{background: #e89c09;color: #fff;}
+.main_conzsgd span img{vertical-align: middle;}

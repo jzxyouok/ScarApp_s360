@@ -1,0 +1,317 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="bsb.mobile.order">
+<typeAlias alias="orderEntity" type="com.zero2ipo.common.entity.Order"/>
+<resultMap class="orderEntity" id="orderMap">
+	<result property="orderId" column="order_id"/>
+	<result property="userId" column="user_id"/>
+	<result property="goodsId" column="goods_id"/>
+	<result property="carNum" column="car_num"/>
+	<result property="carType" column="car_type"/>
+	<result property="washType" column="wash_type"/>
+	<result property="address" column="address"/>
+	<result property="lat" column="lat"/>
+	<result property="lon" column="lon"/>
+	<result property="price" column="price"/>
+	<result property="discription" column="discription"/>
+	<result property="startPhoto" column="start_photo"/>
+	<result property="endPhoto" column="end_photo"/>
+	<result property="createTime" column="create_time"/>
+	<result property="payTime" column="pay_time"/>
+	<result property="confirmTime" column="confirm_time"/>
+	<result property="washTime" column="wash_time"/>
+	<result property="finishTime" column="finish_time"/>
+	<result property="comment" column="comment"/>
+	<result property="payType" column="pay_type"/>
+	<result property="orderStatus" column="order_status"/>
+	<result property="confirmInfo" column="confirm_info"/>
+	<result property="mobile" column="mobile"/>
+	<result property="sendOrderStatus" column="send_order_status"/>
+	<result property="cardsId" column="cards_id"/>
+	<result property="carColor" column="car_color"/>
+	<result property="jsParam" column="JS_PARAM"/>
+	<result property="id" column="id"/>
+	<result property="carId" column="car_id"/>
+	<result property="userName" column="user_name"/>
+	<result property="transactionId" column="transaction_id"/>
+</resultMap>
+<!--查询-->
+
+<select id='findAllList' resultMap='orderMap'>
+SELECT
+	order_id,
+	user_id,
+	user_name,
+	goods_id,
+	car_num,
+	car_type,
+	wash_type,
+	address,
+	lat,
+	lon,
+	price,
+	discription,
+	start_photo,
+	end_photo,
+	create_time,
+	pay_time,
+	confirm_time,
+	wash_time,
+	finish_time,
+	comment,
+	pay_type,
+	order_status,
+	confirm_info,
+	mobile,
+	send_order_status,
+	cards_id,
+	car_color,
+	JS_PARAM,
+	id,
+	car_id,
+	transaction_id
+FROM orders
+where user_id=(select user_id from users where phone_num=#mobile# limit 0,1)
+order by
+	create_time desc
+</select>
+	<select id='findAllListCount' resultClass='java.lang.Integer'>
+		SELECT
+			count(0)
+		FROM
+		 	orders
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="userId">
+				user_id=#userId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="openId">
+				user_id=(
+				SELECT user_id FROM users WHERE open_id=#openId# limit 0,1
+				)
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<select id='findById' resultMap='orderMap'>
+select
+	order_id,
+	user_id,
+	user_name,
+	goods_id,
+	car_num,
+	car_type,
+	wash_type,
+	address,
+	lat,
+	lon,
+	price,
+	discription,
+	start_photo,
+	end_photo,
+	create_time,
+	pay_time,
+	confirm_time,
+	wash_time,
+	finish_time,
+	comment,
+	pay_type,
+	order_status,
+	confirm_info,
+	mobile,
+	send_order_status,
+	cards_id,
+	car_color,
+	JS_PARAM,
+	id,
+	car_id,
+	transaction_id
+	FROM orders
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			ID=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userId">
+			user_id=#userId#
+	    </isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderId">
+			order_id=#orderId#
+	    </isNotEmpty>
+		<isNotEmpty prepend="AND" property="transactionId">
+			transaction_id=#transactionId#
+	    </isNotEmpty>
+		<isNotEmpty prepend="AND" property="outTradeNo">
+			out_trade_no=#outTradeNo#
+	    </isNotEmpty>
+	</dynamic>
+	limit 0,1
+</select>
+<!-- 查询是否首单 -->
+<select id='findIsOrNotFirstOrder' resultClass="java.lang.Integer">
+	SELECT
+	count(0)
+	FROM orders
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="carNo">
+			car_num=#carNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userId">
+			user_id=#userId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="status">
+			order_status=#status#
+		</isNotEmpty>
+	</dynamic>
+</select>
+<!--新增-->
+<insert id="add" parameterClass="orderEntity">
+	INSERT INTO orders(
+	order_id,
+	user_id,
+	user_name,
+	goods_id,
+	car_num,
+	car_type,
+	wash_type,
+	address,
+	lat,
+	lon,
+	price,
+	discription,
+	start_photo,
+	end_photo,
+	create_time,
+	pay_time,
+	confirm_time,
+	wash_time,
+	finish_time,
+	comment,
+	pay_type,
+	order_status,
+	confirm_info,
+	mobile,
+	send_order_status,
+	cards_id,
+	car_color,
+	JS_PARAM,
+	car_id
+	)VALUES(
+	#orderId#,
+	#userId#,
+	#userName#,
+	#goodsId#,
+	#carNum#,
+	#carType#,
+	#washType#,
+	#address#,
+	#lat#,
+	#lon#,
+	#price#,
+	#discription#,
+	#startPhoto#,
+	#endPhoto#,
+	now(),
+	#payTime#,
+	#confirmTime#,
+	#washTime#,
+	#finishTime#,
+	#comment#,
+	#payType#,
+	#orderStatus#,
+	#confirmInfo#,
+	#mobile#,
+	#sendOrderStatus#,
+	#cardsId#,
+	#carColor#,
+	#jsParam#,
+	#carId#
+	)
+<selectKey resultClass="int" keyProperty="id" >
+   SELECT @@IDENTITY AS id
+</selectKey>
+</insert>
+
+<update id="update" parameterClass="orderEntity">
+			UPDATE
+				orders
+			SET
+			finish_time=now()
+			<isNotEmpty prepend="," property="orderStatus">
+				order_status=#orderStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sendOrderStatus">
+					SEND_ORDER_STATUS=#sendOrderStatus#
+			</isNotEmpty>
+	 		 WHERE
+	 		 ID=#id#
+	  </update>
+	<!--修改订单状态-->
+	<update id="updateStatus" parameterClass="orderEntity">
+		UPDATE
+			orders
+		<dynamic prepend="SET">
+		<isNotEmpty prepend="," property="orderStatus">
+			order_status=#orderStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="transactionId">
+			transaction_id=#transactionId#
+		</isNotEmpty>
+			<isNotEmpty prepend="," property="outTradeNo">
+				out_trade_no=#outTradeNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sendOrderStatus">
+				send_order_status=#sendOrderStatus#
+			</isNotEmpty>
+		</dynamic>
+
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="" property="orderId">
+				order_id=#orderId#
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="id">
+				id=#id#
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	<!--更新订单的outtradeNo-->
+	<update id="updateOuttradeNo" parameterClass="orderEntity">
+		UPDATE
+			orders
+		SET
+				out_trade_no=#outTradeNo#
+		WHERE
+				order_id=#orderId#
+	</update>
+	<update id="updateOrderByOutTradeNo" parameterClass="orderEntity">
+			UPDATE
+				orders
+			SET
+			finish_time=now()
+			<isNotEmpty prepend="," property="orderStatus">
+				order_status=#orderStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transactionId">
+				transaction_id=#transactionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="outTradeNo">
+				out_trade_no=#outTradeNo#
+			</isNotEmpty>
+			WHERE
+			id=#id#
+	</update>
+	<!--订单统计-->
+	<select id='findTongJiOrderResult' resultClass="com.zero2ipo.common.entity.OrderTongJiResult">
+	SELECT
+		SUM(o.price) sumMoney,COUNT(o.id) sumTai,
+		s.user_id userId
+		FROM BSB_SEND_ORDER s,orders o
+		WHERE
+		s.order_id=o.id
+	AND
+		s.user_id IS NOT NULL
+	AND
+		s.user_id=#userId#
+	AND
+		s.finish_date BETWEEN #startDate# AND #endDate#
+	GROUP BY
+	 	s.user_id
+	</select>
+</sqlMap>

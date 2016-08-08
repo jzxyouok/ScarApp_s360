@@ -1,0 +1,91 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mobile.userchongzhi">
+<typeAlias alias="UserChongZhiBO" type="com.zero2ipo.car.userchongzhi.bo.UserChongZhiBo"/>
+<resultMap class="UserChongZhiBO" id="UserChongZhiMap">
+	<result property="id" column="id"/>
+	<result property="money" column="money"/>
+	<result property="zsmoney" column="zsmoney"/>
+	<result property="createTime" column="createTime"/>
+	<result property="empNo" column="empNo"/>
+	<result property="transactionId" column="transactionId"/>
+	<result property="outTradeNo" column="outTradeNo"/>
+</resultMap>
+<select id='findUserChongZhiList' resultMap='UserChongZhiMap'>
+SELECT
+	id,
+	money,
+	zsmoney,
+	createTime,
+	empNo,
+	transactionId,
+	outTradeNo
+FROM user_chongzhi
+
+</select>
+<select id='findUserChongZhi' resultMap='UserChongZhiMap'>
+SELECT
+		id,
+	money,
+	zsmoney,
+	createTime,
+	empNo,
+	transactionId,
+	outTradeNo
+FROM
+	user_chongzhi
+where
+	id=#id#
+
+</select>
+<select id='findUserChongZhiCount' resultClass='java.lang.Integer'>
+SELECT
+	count(0)
+FROM
+ 	user_chongzhi
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="transactionId">
+			transactionId=#transactionId#
+		</isNotEmpty>
+	</dynamic>
+
+</select>
+
+
+<insert id="addUserChongZhi" parameterClass="UserChongZhiBO">
+	INSERT INTO user_chongzhi(
+	money,
+	zsmoney,
+	userId,
+	createTime,
+	empNo,
+	transactionId,
+	outTradeNo
+)VALUES(
+	#money#,
+	#zsmoney#,
+	#userId#,
+	now(),
+	#empNo#,
+	#transactionId#,
+	#outTradeNo#
+)
+</insert>
+<update id="updUserChongZhi" parameterClass="UserChongZhiBO">
+	UPDATE
+		user_chongzhi
+	SET
+		empNo=#empNo#
+ 	WHERE
+		ID=#id#
+</update>
+<delete id="delUserChongZhi" parameterClass="java.util.Map">
+	DELETE FROM
+		user_chongzhi
+	WHERE
+	ID IN
+	<iterate property="id" conjunction="," close=")" open="(">
+	#id[]#
+	</iterate>
+</delete>
+</sqlMap>

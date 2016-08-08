@@ -1,0 +1,273 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>订单详情</title>
+
+    <!--  <link rel="stylesheet" type="text/css" href="../../../res/css/ggwash/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../res/css/ggwash/button.default.css" />-->
+   <link rel="stylesheet" type="text/css" href="${res}/images/foot/foot.css">
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/od.css'>
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/fileupload.css'>
+	<link rel="stylesheet" href="${res}/css/webui/weui.css"/>
+	<link rel="stylesheet" href="${res}/css/webui/example.css"/>
+	<style type="text/css">
+		#d_befor img{
+			max-height:720px;
+			max-width:640px;
+			width:90%;
+
+		}
+		#d_after img{
+			max-height:720px;
+			max-width:640px;
+			width:90%;
+
+		}
+	</style>
+      <script src="${res}/scripts/xc/jquery.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="${res}/css/star/css/application.css">
+	<script type="text/javascript" src="${res}/scripts/xc/jquery.raty.min.js"></script>
+    <script>
+    	var msg="${flag!''}";
+    	if(""!=msg&&null!=msg){
+    		alert("评论成功");
+    	}
+    </script>
+</head>
+<body style="display:block">
+<form id="step2Form" method="POST" action="${base}/pinglun.html">
+<input type="hidden" id="orderId" name="orderId" value="${orderId!''}"/>
+<div id="">
+<div id="scroller">
+<div id="d_main">
+    <div id="d_detail">
+        <div id="d_status" style='display: block; width: 100%'>
+        <div id='d_iconstates'>
+            <div id='d_statussub1' class="c_fllf0">
+                    <div class=" c_imgsize c_statusimg" id="d_status1"></div>
+                    <div class='c_statustip'>支付完成</div>
+            </div>
+           	 [#if orderId??]
+    			[@find_order_byid id="${orderId}"]
+	    		[#if order??]
+	    			[#if order.sendOrderStatus?number lt 1]
+	    				 <div id='d_statussub2' class="c_fllf">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[#else]
+	    			 <div id='d_statussub2' class="c_fllf0">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 3]
+	    				   <div id='d_statussub3' class="c_fllf">
+                   			 <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+                   			 <div class='c_statustip'>洗车开始</div>
+           					 </div>
+	    			[#else]
+	    				   <div id='d_statussub3' class="c_fllf0">
+		                    <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+		                    <div class='c_statustip'>洗车开始</div>
+		           			 </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 4]
+	    				    <div id='d_statussub4' class="c_fllf">
+			                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+			                    <div class='c_statustip'>洗车完成</div>
+			           		 </div>
+
+	    			[#else]
+	    				   <div id='d_statussub4' class="c_fllf0">
+				                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+				                    <div class='c_statustip'>洗车完成</div>
+				            </div>
+
+	    			[/#if]
+        </div>
+    </div>
+							[#if order.sendOrderStatus?number gt 3]
+							[@find_comment_orderId orderId="${orderId}"]
+							[#if comment??]
+							<div class="login_bd">
+								服务质量:<div id="star" ></div>
+								上门速度:<div id="star2" ></div>
+								服务态度:<div id="star3" ></div>
+								<input type="hidden" id="starNum" name="starNum" value="${comment.starNum!''}">
+								<input type="hidden" id="star2Num" name="star2Num" value="${comment.star2Num!''}">
+								<input type="hidden" id="star3Num" name="star3Num" value="${comment.star3Num!''}">
+								<span id="s_comment" class='c_vtext'>评价内容</span>
+								<textarea rows="5" cols="5" style="width:100%;border:1px solid #2EC5C0" id="content" name="content">${comment.content!''} </textarea>
+							</div>
+							[#else]
+							<div class="login_bd">
+								服务质量:<div id="star" ></div>
+								上门速度:<div id="star2" ></div>
+								服务态度:<div id="star3" ></div>
+								<input type="hidden" id="starNum" name="starNum" value="">
+								<input type="hidden" id="star2Num" name="star2Num" value="">
+								<input type="hidden" id="star3Num" name="star3Num" value="">
+								<span id="s_comment" class='c_vtext'>评价内容</span>
+								<textarea rows="5" cols="5" style="width:100%;border:1px solid #2EC5C0" id="content" name="content"></textarea>
+								<div class="yytz_x">
+									<a href="javascript:void(0);" onclick="$('#step2Form').submit();">提交评价</a>
+								</div>
+							</div>
+
+							[/#if]
+							[/@find_comment_orderId]
+							[/#if]
+
+	    					 <div id="d_more">
+								<div id="d_phone">
+									<div id="d_pimg" class="c_fllf c_imgsize c_moreimg"></div>
+									<span id="s_phone" class='c_vtext'>联系电话</span>
+									<span id="d_sphone" class='c_vtext'>${order.mobile!''}</span>
+								</div>
+								<div id="d_addr">
+									<div id="d_aimg" class="c_fllf c_imgsize c_moreimg"></div>
+									<span id="s_loc" class='c_vtext'>停放位置</span>
+									<span id="d_saddr" class='c_vtext'>${order.address!''}</span>
+								</div>
+							  <!--  <div id="d_note">
+										<div id='d_subrow' class='clear'>
+									<div id="d_nimg" class="c_fllf c_imgsize c_moreimg"></div>
+										<span id="s_note" class='c_vtext'>备注信息</span>
+										${order.discription!''}
+										</div>
+									<div id="d_snotemore"></div>
+								</div>-->
+							</div>
+
+
+				[@send_order orderId="${orderId}"]
+					[#if sendOrder??]
+							 <div id="d_befor">
+								<div id="d_tbefor">
+									<div class="weui_cell weui_cell_switch">
+										<div class="weui_cell_hd weui_cell_primary">洗车前照片</div>
+										<div class="weui_cell_ft">
+											<input class="weui_switch" type="checkbox"  id="info_switch"/>
+										</div>
+									</div>
+								</div>
+								 <div style="text-align:center;display:none" id="bfeorePicDiv">
+									 [#if sendOrder.beforePhoto1??]
+											<img id="d_ibefor"  src="${_img_domain!''}/${sendOrder.beforePhoto1}"/>
+									 [/#if]
+									 [#if sendOrder.beforePhoto2??]
+										 <img   src="${_img_domain!''}/${sendOrder.beforePhoto2}"/>
+									 [/#if]
+									 [#if sendOrder.beforePhoto3??]
+										 <img   src="${_img_domain!''}/${sendOrder.beforePhoto3}"/>
+									 [/#if]
+									 [#if sendOrder.beforePhoto4??]
+										 <img   src="${_img_domain!''}/${sendOrder.beforePhoto4}"/>
+									 [/#if]
+								 </div>
+							 </div>
+
+								<div id="d_after">
+									<div id="d_tafter">
+										<div class="weui_cell weui_cell_switch">
+											<div class="weui_cell_hd weui_cell_primary">洗车后照片</div>
+											<div class="weui_cell_ft">
+												<input class="weui_switch" type="checkbox"  id="afterPicSwitch"/>
+											</div>
+										</div>
+									</div>
+									<div style="text-align:center;display:none" id="afterPicDiv">
+										[#if sendOrder.afterPhoto1??]
+											<img id="d_iafter"  src="${_img_domain!''}/${sendOrder.afterPhoto1}"/>
+										[/#if]
+										[#if sendOrder.afterPhoto2??]
+											<img   src="${_img_domain!''}/${sendOrder.afterPhoto2}"/>
+										[/#if]
+										[#if sendOrder.afterPhoto3??]
+											<img   src="${_img_domain!''}/${sendOrder.afterPhoto3}"/>
+										[/#if]
+										[#if sendOrder.afterPhoto4??]
+											<img   src="${_img_domain!''}/${sendOrder.afterPhoto4}"/>
+										[/#if]
+									</div>
+								</div>
+								 <div id="d_comment">
+								<div id="d_tcomment">
+									<div id="d_cimg" class="c_fllf c_imgsize c_moreimg"></div>
+									<span id="s_comment" class='c_vtext'>洗车内容</span>
+									<span id="d_srating" class='c_vtext'></span>
+								</div>
+								<div id="d_scomment">${sendOrder.content!''}</div>
+							</div>
+					[/#if]
+				[/@send_order]
+      		[/#if]
+    	[/@find_order_byid]
+    [/#if]
+
+    <!--
+    <div id="d_footnote">温馨提示: 系统派单前撤单可全额退款。</div>
+    <div align="center"><input type="button" id="order_refund_btn" class="ui-btn red"  value=""></div>
+    -->
+</div>
+</div>
+
+</div>
+
+</div>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+	$(function() {
+		//基本信息控制开关
+		$("#info_switch").bind('click',function (r) {
+			var flg=$(this).is(':checked');
+			if(flg){
+				$("#bfeorePicDiv").show();
+			}else{
+				$("#bfeorePicDiv").hide();
+			}
+		})
+		$("#afterPicSwitch").bind('click',function (r) {
+			var flg=$(this).is(':checked');
+			if(flg){
+				$("#afterPicDiv").show();
+			}else{
+				$("#afterPicDiv").hide();
+			}
+		})
+		//$('#star').raty();
+		$.fn.raty.defaults.path = '${res}/css/star/img';
+		var starNum=$("#starNum").val();
+		var star2Num=$("#star2Num").val();
+		var star3Num=$("#star3Num").val();
+		$('#star').raty({ score: starNum,
+			click: function(score, evt) {
+				$("#"+$(this).attr('id')+"Num").val(score);
+			}
+		});
+		$('#star2').raty({ score: star2Num,
+			click: function(score, evt) {
+				$("#"+$(this).attr('id')+"Num").val(score);
+			}
+		});
+		$('#star3').raty({ score: star3Num,
+			click: function(score, evt) {
+				$("#"+$(this).attr('id')+"Num").val(score);
+			}
+		});
+		$("#star").attr('style',"cursor: pointer; width: 100%;");
+		$("#star2").attr('style',"cursor: pointer; width: 100%;");
+		$("#star3").attr('style',"cursor: pointer; width: 100%;");
+	});
+
+
+</script>

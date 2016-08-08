@@ -1,0 +1,71 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the myorder css.
+	Date: 1/29/2014
+*/
+
+/* General styling */
+.orderstate{
+	position: absolute;
+	font-size: 1.5rem;
+	top: 0;
+	right: 0;
+}
+.btnoper span.amount{
+	float: left;
+	text-align: left;
+	width: 65%;
+}
+.btnoper span.amount font{
+	color: #ff8400;
+	vertical-align: middle;
+	display: inline-block;
+}
+.btnoper span.greyframe{
+	border:1px solid #dadada;
+	display: inline-block;
+	width: 31%;
+}
+.btnoper span.greenbtn{
+	background-color: #1eb34f;
+	display: inline-block;
+	color: #ffffff;
+	width: 25%;
+	margin-left: 3%;
+}
+.vieworder{
+	margin-left: 3%;
+}
+
+
+/* Media Queries
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	.userinfo{margin-left: 3%;}
+	.userinfo p{ font-size:0.8rem; line-height: 1.7rem;}
+	.orderstate{ font-size:0.8rem; }
+	.btnoper span.greyframe,.btnoper span.greenbtn{ font-size: 0.7rem; padding: 0.4rem 0; width:24%}
+	.btnoper span.greenbtn,.vieworder{margin-left: 2%;}
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	.userinfo{margin-left: 3%;}
+	.userinfo p{ font-size: 0.95rem; line-height: 2rem;}
+	.orderstate{ font-size:0.95rem; }
+	.btnoper span.greyframe,.btnoper span.greenbtn{ font-size: 0.9rem; padding: 0.4rem 0; width:24%}
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+	.orderstate{ font-size:1.13rem; }
+	.userinfo{margin-left: 2%;}
+	.userinfo p{ font-size: 1.13rem;line-height: 2.4rem;}
+	.btnoper span.greyframe,.btnoper span.greenbtn{ font-size: 1.1rem; padding: 0.4rem 0;}
+}
+@media screen and (min-width: 500px) and (max-width: 600px) {
+	.orderstate{ font-size:1.4rem; }
+	.userinfo p{ font-size: 1.4rem;line-height: 3rem;}
+	.btnoper span.greyframe,.btnoper span.greenbtn{ font-size: 1.5rem; padding: 0.4rem 0;}
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+	.orderstate{ font-size:1.7rem; }
+	.userinfo p{ font-size: 1.7rem;line-height: 3.5rem;}
+	.btnoper span.greyframe,.btnoper span.greenbtn{ font-size: 1.9rem; padding: 0.6rem 0;}
+} */

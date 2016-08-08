@@ -1,0 +1,343 @@
+/*
+ * xiche.css
+ * miaohu
+ * 2015-07-16
+ */
+html{ font-size: 62.5%; overflow-x: hidden;}
+body{ max-width: 750px; overflow-x: hidden; background-color: #f5f5f5; }
+.p_r{ position: relative; }
+.t_r{ text-align: right; }
+.f_l{ float: left; }
+.f_r{ float: right; }
+.hide{ display: none; }
+.color_red{ color: #ff2b2b !important; }
+.color_orange{ color: #ff8400 !important; }
+.color_green{ color: #6dd300 !important; }
+.color_blue{ color: #00aeff !important; }
+
+/* 涓汉涓績 */
+.right-arrow,.account-icon,.usual-address-icon,.my-order-icon,.my-car-icon,.coupon-icon,.by-coupon-icon{
+	width: 30px;
+	height: 30px;
+	margin-right: 3%;
+	background-size: 30px auto;
+	background-repeat: no-repeat;
+	background-image: url(img/xiche.png);
+}
+.personal-center ul li a{
+	text-decoration: none;
+}
+.my-account{
+	margin: 20px 0;
+	border-top: 1px solid #d8d8d8;
+}
+.personal-center ul li a i,
+.personal-center ul li a font{
+	color: #747474;
+	font-size: 1.7rem;
+	display: inline-block;
+	vertical-align: middle;
+}
+.personal-center ul li{
+	padding: 13px 3%;
+	background-color: #fff;
+	border-bottom: 1px solid #d8d8d8;
+}
+.personal-center ul li:nth-child(2){
+	border-top: 1px solid #d8d8d8;
+}
+.phone-num{
+	float: right;
+	margin-top: 2px;
+}
+.account-icon{
+	background-position: 0px 0px;
+}
+.right-arrow{
+	width: 11px;
+	height: 17px;
+	float: right;
+	margin-top: 5px;
+	margin-right: 0;
+	background-position: 0px -148px;
+}
+.usual-address-icon{
+	background-position: 0px -30px;
+}
+.my-order-icon{
+	background-position: 0px -165px;
+}
+.my-car-icon{
+	background-position: 0px -58px;
+}
+.coupon-icon{
+	background-position: 0px -87px;
+}
+.by-coupon-icon{
+	background-position: 0px -117px;
+}
+.right-word{
+	float: right;
+	margin-top: 3px;
+	margin-right: 3%;
+}
+.qg{
+	color: #ff5757 !important;
+}
+.btn-exit a{
+	color: #ff2929;
+	font-size: 1.7rem;
+	text-align: center;
+	margin-top: 25px;
+	padding: 10px 0;
+	text-decoration: none;
+	background-color: #fff;
+	border-top: 1px solid #ff2929;
+	border-bottom: 1px solid #ff2929;
+}
+
+/* 浼樻儬鍒� */
+.my-coupon-main{
+	margin: 5px 3%;
+	margin-top: 20px;
+	margin-bottom: 80px;
+}
+.my-coupon-main ul li a em{
+	display: inline-block;
+	vertical-align: middle;
+}
+.my-coupon-main ul li a{
+	background-color: #fff;
+	border-radius: 5px;
+}
+.coupon-left-tip{
+	background-image: url(../../images/coupon.png);
+	background-repeat: no-repeat;
+	background-size: 70px auto;
+}
+.enter-exchange{
+	padding: 10px 3%;
+	background-color: #fff;
+	border-bottom: 1px solid #d8d8d8;
+}
+.enter-exchange input{
+	width: 67%;
+	color: #a6a6a6;
+	font-size: 1.5rem;
+	border-radius: 5px;
+	outline: none;
+	margin-right: 3%;
+	padding: 10px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	box-shadow: none;
+	-webkit-appearance:none;
+}
+.enter-exchange a{
+	color: #fff;
+	width: 21%;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 1.7rem;
+	padding: 9px 0;
+	display: inline-block;
+	background-color: #4691ff;
+}
+.coupon-left-tip{
+	color: #fff;
+	width: 49px;
+	height: 79px;
+	background-position: 0px -36px;
+}
+.my-coupon-main ul li{
+	margin-top: 10px;
+}
+.my-coupon-main ul li a{
+	text-decoration: none;
+	box-shadow: 0px 1px 2px #CACACA;
+}
+.coupon-left-tip font{
+	color: #fff;
+	width: 15px;
+	margin-left: 17px;
+	font-size: 1.5rem;
+	line-height: 18px;
+}
+.coupon-left-tip font.three{
+	padding-top: 12px;
+}
+.coupon-left-tip font.four{
+	padding-top: 3px;
+}
+.coupon-info{
+	width: 75%;
+	margin-left: 7%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.coupon-money{
+	color: #4e99ff;
+	width: 59px;
+	text-align: left;
+	font-size: 2.7rem;
+	vertical-align: middle;
+}
+.coupon-time{
+	vertical-align: middle;
+	display: inline-block;
+	margin-left: 8%;
+}
+.coupon-time p{
+	display: block;
+}
+.coupon-time p:first-child{
+	color: #4994ff;
+	font-size: 1.7rem;
+}
+.coupon-time p:last-child{
+	color: #7a7a7a;
+	font-size: 1.4rem;
+}
+.expire .coupon-left-tip{
+	background-position: 0px -117px;
+}
+.expire .coupon-money,
+.expire .coupon-time p:first-child,
+.expire .coupon-time p:last-child{
+	color: #afafaf;
+}
+footer[role="contentinfo"]{
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+	bottom: 0;
+	max-width: 750px;
+	background-color: #f5f5f5;
+}
+.btn-buy{
+	color: #fd8607;
+	margin: 13px 10%;
+	padding: 9px 0;
+	border-radius: 5px;
+	font-size: 1.7rem;
+	text-align: center;
+	background-color: #fff;
+	border: 1px solid #fe8c41;
+}
+
+/* 浼樻儬鍒告墦鍖呰喘涔� */
+.buy-coupon-title{
+	color: #808080;
+	font-size: 1.7rem;
+	padding-top: 20px;
+	padding-left: 5%;
+	margin-bottom: 3px;
+}
+.buy-coupon-main ul li{
+	margin-bottom: 20px;
+	background-color: #fff;
+	border-top: 1px solid #d8d8d8;
+	border-bottom: 1px solid #d8d8d8;
+}
+.buy-coupon-main ul li a{
+	text-decoration: none;
+}
+.buy-coupon-info{
+	padding: 10px 5%;
+	border-bottom: 1px solid #d8d8d8;
+}
+.buy-coupon-words{
+	padding: 10px 5%;
+	color: #808080;
+	font-size: 1.5rem;
+}
+.radio-sel,.radio-unsel,.coupon-money-words{
+	background-image: url(../../images/coupon.png);
+	background-repeat: no-repeat;
+	background-size: 90px auto;
+}
+.radio-sel{
+	display: inline-block;
+	width: 23px;
+	height: 23px;
+	vertical-align: middle;
+	background-position: -67px -45px;
+}
+.radio-unsel{
+	display: inline-block;
+	width: 23px;
+	height: 24px;
+	vertical-align: middle;
+	background-position: -67px -68px;
+}
+.coupon-money-words{
+	display: inline-block;
+	width: 85px;
+	height: 44px;
+	margin-left: 5%;
+	vertical-align: middle;
+	background-position: 0px 0px;
+}
+.coupon-money-words font{
+	color: #fff;
+	font-size: 2rem;
+	height: 44px;
+	line-height: 43px;
+	width: 60px;
+	text-align: center;
+}
+.coupon-amount{
+	color: #141414;
+	font-size: 1.7rem;
+	display: inline-block;
+	margin-left: 5%;
+	vertical-align: bottom;
+}
+.coupon-price{
+	float: right;
+	color: #ff8a0d;
+	font-size: 2rem;
+}
+.goto-pay{
+	background-color: #fff;
+}
+.goto-pay span{
+	color: #454545;
+	padding: 0;
+	width: 65%;
+	padding-left: 5%;
+	height: 48px;
+	line-height: 48px;
+	font-size: 1.7rem;
+	display: inline-block;
+	float: left;
+	border-top: 1px solid #d8d8d8;
+}
+.goto-pay span font{
+	color: #ff6600;
+	display: inline-block;
+}
+.goto-pay a{
+	float: right;
+	width: 30%;
+	color: #fff;
+	padding: 13px 0;
+	text-align: center;
+	font-size: 1.7rem;
+	background-color: #ff8a0d;
+}
+
+/* Media Queries */
+@media screen and (max-width: 320px){
+	.buy-coupon-words{
+		font-size: 1.5rem;
+	}
+	
+}
+@media screen and (min-width: 640px){
+	
+}
+@media screen and (min-width: 450px) and (max-width: 700px) {
+
+}

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常用地址</title>
+<link href="../../res/css/xc/main.css" rel="stylesheet" />
+<link href="../../res/css/xc/personalcenter.css" rel="stylesheet">
+<link href="../../res/css/xc/usualaddress.css" rel="stylesheet">
+</head>
+<body>
+	<div class="loading" style="display:none;">
+		<div class="loadmodal"></div>
+	    <span class="" id="turnPic"></span>
+	    <p class="tipTxt">数据处理中，请耐心等待...</p>
+	</div>
+	<!-- the content -->
+    <div id="wrapper">
+    	<section class="addresslist">
+    		<a href="${base}/order/addloveaddress">
+	             <p class="t_c">
+	                <img class="addicong" src="../../res/images/addicon.png">
+	                <span class="i_b v_m addusualaddress">新增常用地址</span>
+	            </p>
+            </a>
+            [@love_address ]
+            	[#if addressList?? &&addressList?size>0]
+            		[#list addressList as address]
+            		 <p class="clearfix">
+               			 <img class="locationorange" src="../../res/images/locationorange.png">
+               			 <span class="i_b v_m addressjt">${address.washAddr}</span>
+               			  <span class="i_b v_m f_r color_orange">选择</span>
+            		</p>
+            		[/#list]
+            	[/#if]
+            [/@love_address]
+          </section>
+
+    </div>
+
+
+</body></html>

@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,input, button, select, option, textarea, p, blockquote, th, td, a{
+	font-family:"SimHei ", "黑体", helvetica, arial, verdana, tahoma, sans-serif;
+	font-size:20px;
+	marging:0;
+	padding:0;
+	}
+*{marging:0;
+	padding:0;
+	}
+	
+body{
+	padding: 0 20px;
+	box-sizing:border-box;
+	width:100%;
+	height:100%;
+	background-size:cover;
+	background-image:url(../../../res/images/ggwash/dlym_bg.png);
+	background-color:#3dbaf1;
+	margin:0 auto;}
+.logo{ padding:60px; padding-bottom:0;
+text-align:center;}
+	
+a{
+	text-decoration:none;
+	}
+	
+
+
+.wbk{
+	width:94%;
+	height:30px;
+	color: #828282;
+	padding-left: 16px;
+	line-height:100%;
+	margin-bottom:10px;
+	font-size:16px;
+}
+	
+.wbk1{
+	width:50%;
+	height:30px;
+	color: #828282;
+	line-height:100%;
+	padding-left: 16px;
+	float:left;
+	font-size:16px;}
+.bnt_yzm{
+	width:40%;
+	height:34px;
+	color:#fff;
+	background-image:url(../../../res/images/ggwash/btn_bg.png);
+	font-size:16px;
+	line-height:100%;
+	border:none;
+	float:right;}
+.bnt_dl{
+	width:100%;
+	height:40px;
+	color:#fff;
+	background-image:url(../../../res/images/ggwash/btn_bg.png);
+	border:none;
+	margin-top:15px;}
+
+
+
+/* CSS Document */
+

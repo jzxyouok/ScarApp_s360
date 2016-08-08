@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/> 
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="${res}/css/ggwash/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${res}/css/ggwas/style.css" />
+    <link rel="stylesheet" type="text/css" href="${res}/css/ggwash/button.css" />
+    <link rel="stylesheet" type="text/css" href="${res}/css/ggwash/button.default.css" />
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/login.css'>
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/ol.css'>
+    <script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+
+
+</head>
+<body>
+<div id="overlay">
+  <div>
+    <p></p>
+    <button id='ok' onclick='overlay()'>确定</button>
+    <button id='cancle' onclick='overlay()'>取消</button>
+  </div>
+</div>
+
+<div id="no_order">
+    <img src="img/no_order.png"/>
+</div>
+<div id="preloader">
+    <img src="img/icon_close.png"/>
+</div>
+<div id="order_main">
+</div>
+<div id="login"></div>
+<div id="comment_add" style="display:none;">
+    <div id='d_formrating'>
+        <div id='d_close' onclick="javascript:comment_close()"></div>
+        <div style='background-color: white; border-radius: 5px; padding: 0px;'>
+            <textarea autofocus rows='7' cols='80' id='t_comment' placeholder='您的评价是我们不断改进服务的动力'></textarea>
+            <div id='d_ratingchoice'>
+            	<table><tr><td align="center" valign="middle">服务质量</td><td>
+	                <div id='d_goodrate_quality' class='c_fllf' onclick='javascript:rateChoice(this, "quality")'>好评</div>
+	                <div id='d_ordrate_quality' class='c_fllf' onclick='javascript:rateChoice(this, "quality")'>中评</div>
+	                <div id='d_badrate_quality' class='c_fllf' onclick='javascript:rateChoice(this, "quality")'>差评</div>
+	                <input type='hidden' id='form_rating_quality' value='-1'>
+	           		</td></tr><tr><td align="center" valign="middle">上门速度</td><td>
+	                <div id='d_goodrate_swift' class='c_fllf' onclick='javascript:rateChoice(this, "swift")'>好评</div>
+	                <div id='d_ordrate_swift' class='c_fllf' onclick='javascript:rateChoice(this, "swift")'>中评</div>
+	                <div id='d_badrate_swift' class='c_fllf' onclick='javascript:rateChoice(this, "swift")'>差评</div>
+	                <input type='hidden' id='form_rating_swift' value='-1'>
+	           		</td></tr><tr><td align="center" valign="middle">服务态度</td><td>
+	                <div id='d_goodrate_attitude' class='c_fllf' onclick='javascript:rateChoice(this, "attitude")'>好评</div>
+	                <div id='d_ordrate_attitude' class='c_fllf' onclick='javascript:rateChoice(this, "attitude")'>中评</div>
+	                <div id='d_badrate_attitude' class='c_fllf' onclick='javascript:rateChoice(this, "attitude")'>差评</div>
+	                <input type='hidden' id='form_rating_attitude' value='-1'>
+	              </td></tr></table>
+	              <input type='hidden' id='form_onum' value=''>
+            </div>
+            <div class='clear'></div>
+            <div id='d_spacepad'></div>
+        </div>
+        <div id='d_submitrate' onclick="javascript:comment_submit()">提交</div>
+    </div>
+    <div id='d_mask'></div>    
+</div>
+</body>
+</html>

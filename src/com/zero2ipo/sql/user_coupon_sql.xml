@@ -1,0 +1,164 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ggwash.couponbuy">
+<typeAlias alias="user_coupon" type="com.zero2ipo.common.entity.UserCoupon"/>
+<resultMap class="User_coupon" id="User_coupon">
+	<result property="userId" column="user_id"/>
+	<result property="couponId" column="coupon_id"/>
+	<result property="buyDate" column="buy_date"/>
+	<result property="id" column="id"/>
+	<result property="number" column="number"/>
+	<result property="expDate" column="expDate"/>
+	<result property="carNo" column="car_no"/>
+	<result property="userName" column="user_name"/>
+
+</resultMap>
+<!--根据车牌号判断是否首单-->
+<select id='findAllList' resultMap='User_coupon'>
+SELECT
+	id,
+	user_id,
+	coupon_id,
+	buy_date,
+	number,
+	expDate,
+	car_no,
+	user_name
+FROM USER_COUPON
+WHERE
+car_no=#carNo#
+</select>
+<!--根据手机号作为是否首单的标识-->
+	<select id='findUserCouponByMoible' resultMap='User_coupon'>
+		SELECT
+		id,
+		user_id,
+		coupon_id,
+		buy_date,
+		number,
+		expDate,
+		car_no,
+		user_name
+		FROM USER_COUPON
+		WHERE
+		user_id=#mobile#
+	</select>
+<select id='findUser_couponList' resultMap='User_coupon'>
+SELECT
+	id,
+	user_id,
+	coupon_id,
+	buy_date,
+	number,
+	expDate,
+	car_no,
+	user_name
+FROM USER_COUPON
+WHERE number>0
+<isNotEmpty prepend="AND" property="carNo">
+car_no=#carNo#
+</isNotEmpty>
+<!--<isNotEmpty prepend="AND" property="mobile">
+car_no=(select account from users where phone_num=#mobile#)
+</isNotEmpty>-->
+<isNotEmpty prepend="AND" property="mobile">
+	user_id=#mobile#
+</isNotEmpty>
+</select>
+
+	<select id='findAllListCount' resultClass='java.lang.Integer'>
+		SELECT
+			count(0)
+		FROM
+			USER_COUPON
+		WHERE number>0
+		<isNotEmpty prepend="AND" property="userId">
+			user_id=#userId#
+		</isNotEmpty>
+	</select>
+
+<select id='findById' resultMap='User_coupon'>
+SELECT
+	id,
+	user_id,
+	coupon_id,
+	buy_date,
+	number,
+	expDate,
+	car_no,
+	user_name
+FROM USER_COUPON
+WHERE number>0
+					<isNotEmpty prepend="AND" property="id">
+						coupon_id=#id#
+					</isNotEmpty>
+					<isNotEmpty prepend="AND" property="userId">
+						user_id=#userId#
+					</isNotEmpty>
+					<isNotEmpty prepend="AND" property="carNo">
+						car_no=#carNo#
+					</isNotEmpty>
+
+			order by buy_date asc
+			LIMIT 1
+</select>
+	<select id='findUserCouponById' resultMap='User_coupon'>
+		SELECT
+		id,
+		user_id,
+		coupon_id,
+		buy_date,
+		number,
+		expDate,
+		car_no,
+		user_name
+		FROM USER_COUPON
+		<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			coupon_id=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userId">
+			user_id=#userId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="carNo">
+			car_no=#carNo#
+		</isNotEmpty>
+		</dynamic>
+		order by buy_date asc
+		LIMIT 1
+	</select>
+<!--新增-->
+<insert id="addUserCoupon" parameterClass="user_coupon">
+	INSERT INTO USER_COUPON(
+	user_id,
+	coupon_id,
+	buy_date,
+	number,
+	car_no,
+	create_time,
+	user_name
+)VALUES(
+	#userId#,
+	#couponId#,
+	now(),
+	#number#,
+	#carNo#,
+	now(),
+	#userName#
+)
+</insert>
+<update id="update" parameterClass="user_coupon">
+	UPDATE
+		USER_COUPON
+	SET
+	number=#number#
+ 	WHERE
+	user_id=#userId#
+	and coupon_id=#couponId#
+</update>
+
+<delete id="delUserCouponById" parameterClass="java.lang.String">
+DELETE FROM
+		USER_COUPON where coupon_id = #id#
+	</delete>
+</sqlMap>

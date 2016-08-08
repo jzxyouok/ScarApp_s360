@@ -1,0 +1,113 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mobile.vipcoupon">
+<typeAlias alias="vipCouponBo" type="com.zero2ipo.car.vipcoupon.bo.VipCoupon"/>
+<resultMap class="vipCouponBo" id="vipCouponMap">
+	<result property="id" column="id"/>
+	<result property="userId" column="userId"/>
+	<result property="couponCode" column="coupon_code"/>
+	<result property="createTime" column="create_time"/>
+	<result property="couponName" column="coupon_name"/>
+	<result property="couponMoney" column="coupon_money"/>
+	<result property="couponStartTime" column="coupon_start_time"/>
+	<result property="couponEndTime" column="coupon_end_time"/>
+	<result property="couponRemark" column="coupon_remark"/>
+	<result property="status" column="status"/>
+</resultMap>
+
+<select id='findVipCouponList' resultMap='vipCouponMap'>
+SELECT
+	id,
+	userId,
+	coupon_code,
+	create_time,
+	coupon_name,
+	coupon_money,
+	coupon_start_time,
+	coupon_end_time,
+	coupon_remark,
+	status
+FROM vip_coupon
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="AND" property="userId">
+		userId=#userId#
+	</isNotEmpty>
+	<isNotEmpty prepend="AND" property="couponCode">
+		coupon_code=#couponCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="AND" property="status">
+		status=#status#
+	</isNotEmpty>
+</dynamic>
+</select>
+
+<select id='findVipCouponListCount' resultClass='java.lang.Integer'>
+	SELECT
+		count(0)
+	FROM vip_coupon
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="userId">
+			userId=#userId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="couponCode">
+			coupon_code=#couponCode#
+		</isNotEmpty>
+	</dynamic>
+</select>
+
+<select id='findVipCouponById' resultMap='vipCouponMap'>
+SELECT
+	id,
+	userId,
+	coupon_code,
+	create_time,
+	coupon_name,
+	coupon_money,
+	coupon_start_time,
+	coupon_end_time,
+	coupon_remark,
+	status
+FROM vip_coupon
+where id=#id#
+</select>
+
+<insert id="addVipCoupon" parameterClass="vipCouponBo">
+	INSERT INTO vip_coupon(
+	userId,
+	coupon_code,
+	create_time,
+	coupon_name,
+	coupon_money,
+	coupon_start_time,
+	coupon_end_time,
+	coupon_remark
+)VALUES(
+	#userId#,
+	#couponCode#,
+	now(),
+	#couponName#,
+	#couponMoney#,
+	#couponStartTime#,
+	#couponEndTime#,
+	#couponRemark#
+)
+</insert>
+<update id="updVipCoupon" parameterClass="vipCouponBo">
+	UPDATE
+	vip_coupon
+	SET
+	status=#status#
+ 	WHERE
+	ID=#id#
+	and
+	userId=#userId#
+</update>
+<delete id="deleleteVipCoupon" parameterClass="vipCouponBo">
+	DELETE FROM
+		vip_coupon
+	WHERE
+	userId=#userId#
+	and coupon_code=#couponCode#
+
+</delete>
+</sqlMap>

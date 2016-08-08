@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-cn"><head>
+<title>添加常用地址</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="zhengyunfei" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"  />
+<link rel="stylesheet" href="${res}/css/book/pintuer.css">
+<link rel="stylesheet" href="${res}/css/book/app.css">
+<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+
+<script src="${res}/scripts/book/form.utils.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="container-layout app_bodycolor">
+    	<div class="line">
+        	<div class="x3">
+            	<h1 class="padding-top">
+            	<a href="javascript:history.back(-1)" class="text-white">
+            	<img src="${res}/images/book/back.jpg" style="width: 69px;height: 30px;"></a></h1>
+            </div>
+            <div class="x6 text-white text-center app_headertitle">
+            	<h3>添加常用地址</h3>
+            </div>
+            <div class="x3 text-white text-right" style="margin-top: 8px;">
+            </div>
+        </div>
+    </div>
+
+<!--登录区域开始-->
+<div class="layout" style=" margin-top:30px;">
+    <div class="line">
+        <form method="post" action="" id="form1" class="form-post" onsubmit="return false;">
+        <input type="hidden" id="cid" name="cid" value="${cid!''}"/>
+            <div class="x12">
+                <div class="x3 text-right padding-small-top">
+                    <label class="text-big"><strong>姓名：</strong></label>
+                </div>
+                <div class="x7" tyle=" padding-right:30px;">
+                    <input type="text" class="input" name="name" id="name" placeholder="请输入姓名">
+                </div>
+                <div class="x2"></div>
+            </div>
+            <div class="x12">
+                <div class="x3 text-right padding-small-top">
+                    <label class="text-big"><strong>手机：</strong></label>
+                </div>
+                <div class="x7" tyle=" padding-right:30px;">
+                    <input type="text" class="input" name="mobile" id="mobile" placeholder="请输入手机号">
+                </div>
+                <div class="x2"></div>
+            </div>
+            <div class="x12">
+                <div class="x3 text-right padding-small-top">
+                    <label class="text-big"><strong>地址：</strong></label>
+                </div>
+                <div class="x7" tyle=" padding-right:30px;">
+                    <input type="text" class="input" name="address" id="address" placeholder="请输入地址">
+                </div>
+                <div class="x2"></div>
+            </div>
+
+            <div class="x12 text-center margin-big-top">
+                <div class="x1"></div>
+                <div class="x10">
+                    <button type="submit" style="background: 0;border: 0;" class="ajax-post" target-form="form-post">
+                        <img src="${res}/images/book/save.jpg" onclick="addAddress()" class="img-responsive">
+                    </button>
+                </div>
+                <div class="x1"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--登录区域结束-->
+</body>
+</html>

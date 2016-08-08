@@ -1,0 +1,106 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ggwash.mobile.coupon">
+<typeAlias alias="ggwash_coupon" type="com.zero2ipo.common.entity.GgwashCoupon"/>
+<resultMap class="Ggwash_coupon" id="Ggwash_coupon">
+	<result property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="price" column="price"/>
+	<result property="oprice" column="oprice"/>
+	<result property="status" column="status"/>
+	<result property="number" column="number"/>
+	<result property="pic" column="pic"/>
+</resultMap>
+<!--查询-->
+
+<select id='findGgwash_couponList' resultMap='Ggwash_coupon'>
+SELECT
+	id,
+	name,
+	price,
+	oprice,
+	status,
+	number,
+	pic
+FROM GGWASH_COUPON
+where status=1
+<isNotEmpty prepend="AND" property="openId">
+	id in (select coupon_id from USER_COUPON where user_id=#openId# )
+</isNotEmpty>
+order by price
+</select>
+
+	<select id='findAllListCount' resultClass='java.lang.Integer'>
+		SELECT
+			count(0)
+		FROM GGWASH_COUPON
+		where status=1
+		<isNotEmpty prepend="AND" property="openId">
+			id in (select coupon_id from USER_COUPON where user_id=#userId# )
+		</isNotEmpty>
+	</select>
+<select id='findCouponById' resultMap='Ggwash_coupon'>
+SELECT
+	id,
+	name,
+	price,
+	oprice,
+	status,
+	number,
+	pic
+FROM GGWASH_COUPON
+where
+id=#id#
+</select>
+
+<select id='findGgwash_couponListCount' resultClass='java.lang.Integer'>
+SELECT
+	count(0)
+FROM GGWASH_COUPON
+where status=1
+<isNotEmpty prepend="AND" property="openId">
+	id in (select user_id from USER_COUPON where user_id=#openId# )
+</isNotEmpty>
+</select>
+<!--新增-->
+<insert id="addCoupon" parameterClass="ggwash_coupon">
+	INSERT INTO GGWASH_COUPON(
+	id,
+	name,
+	price,
+	oprice,
+	status,
+	pic
+)VALUES(
+	#id#,
+	#name#,
+	#price#,
+	#oprice#,
+	#status#,
+	#pic#
+)
+</insert>
+<!--修改-->
+<update id="updCoupon" parameterClass="ggwash_coupon">
+	UPDATE
+	GGWASH_COUPON
+	SET
+	id=#id#,
+	name=#name#,
+	price=#price#,
+	oprice=#oprice#,
+	status=#status#
+ 	WHERE
+	ID=#id#
+</update>
+<!--删除-->
+<delete id="delCoupon" parameterClass="java.util.Map">
+	DELETE FROM
+		GGWASH_COUPON
+	WHERE
+	ID IN
+	<iterate property="id" conjunction="," close=")" open="(">
+	#id[]#
+	</iterate>
+</delete>
+</sqlMap>

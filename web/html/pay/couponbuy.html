@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="format-detection" content="telephone=no">
+		<title>我的洗车券</title>
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/reset.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/style.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/button.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/button.default.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/login.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/couponbuy.css">
+			<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/cl.css">
+			<link rel="stylesheet" href="${res}/css/book/pintuer.css"/>
+			<link rel="stylesheet" href="${res}/css/book/app.css"/>
+			<link rel="stylesheet" href="${res}/css/themes/default/jquery.alerts.css"/>
+			<script src="${res}/scripts/lib/jquery/jquery-1.7.1.min.js"></script>
+			<script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+			<script src="${res}/scripts/book/form.utils.js?v=1" type="text/javascript"></script>
+			<script type="text/javascript">
+
+
+			$(document).ready(function(){
+					$("input[name='typeid']").get(0).checked=true;
+
+			});
+
+var id="";
+var total="";
+var couponId="";//支付成功后返回优惠券id
+function couponbuy_select(typeid){
+		var last = $("input[name='typeid']:checked");
+		total=last.attr('value');
+		id=last.attr('dataid');
+
+		//var now = $("#typeid_"+typeid);
+		//if(now){
+			//last.removeAttr('checked');
+			//now.attr('checked' ,true);
+		//}
+}
+var flg=true;
+function couponbuy_weixin(){
+Dialog.show("支付请求中,请稍后...", 3, 1000);
+$("#couponbuy_btn_weixin").attr('readonly','readonly');
+		if(!flg){
+			return;
+		}else{
+		var last = $("input[name='typeid']:checked");
+		total=last.attr('value');
+		id=last.attr('dataid');
+		var url="${base}/pay/washCouponbuyAjax.html";
+		flg=false;
+		$.ajax({
+            type: "POST",
+            url: url,
+			data:{"id":id,"total":total},
+			async : false,
+            dataType: "json",
+            success: function (data) {
+            	flg=true;
+                var jsParam=data.jsParam;
+               	couponId=data.couponId;
+               	var jsData= eval("("+jsParam+")");
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest'
+					,jsData
+					,callback
+				);
+            },
+            error: function (msg) {
+				alert("error");
+                flg=true;
+            }
+        });
+		}
+
+}
+function wxpay(){
+	alert("支付请求中");
+	WeixinJSBridge.invoke(
+		'getBrandWCPayRequest'
+		,jsParam
+		,callback
+	);
+}
+function myrefresh()
+{
+alert("刷新");
+window.location.reload();
+}
+//解决浏览器缓存
+function timestamp(url){
+  //var getTimestamp=Math.random();
+  var getTimestamp=new Date().getTime();
+  if(url.indexOf("?")>-1){
+	url=url+"&t="+getTimestamp
+  }else{
+	url=url+"?t="+getTimestamp
+  }
+  return url;
+}
+function callback(res){
+	//  返回 res.err_msg,取值
+	// get_brand_wcpay_request:cancel   用户取消
+    // get_brand_wcpay_request:fail  发送失败
+    // get_brand_wcpay_request:ok 发送成功
+     //WeixinJSBridge.log(res.err_msg);
+     var status=-1;
+     if(res.err_msg=='get_brand_wcpay_request:ok')
+     {
+
+     	 alert("支付成功");
+     	 status=1;
+     	 //支付成功之后跳转到我的优惠券页面
+     	 //支付成功删除1元券，否则按手机返回的时候，还出现
+     	 $("#firstOrder").remove();
+
+     	 var last = $("input[name='typeid']:checked");
+     	 var u="${base}/pay/couponUpdate?couponId="+couponId;
+     	 var url=timestamp(u);
+     	 window.location.replace(url);
+
+     }
+     else if(res.err_msg=='get_brand_wcpay_request:cancel'){
+     	status="2";
+     	$("#couponbuy_btn_weixin").removeAttr('readonly');
+     	 flg=true;
+     }
+	else
+	{
+	    status=0;
+		var msg='支付失败,请重新支付.';
+
+		 flg=true;
+
+	}
+	//ajax(status,"/pay/update");
+
+};
+function ajax(status,url){
+      $.ajax({
+			type:"post",
+			data:{"status":status,"id":"${orderId!''}"},
+			url: url,
+			async : false,
+			success:function(data){
+          		$("#orderstate").html('');
+     	 		$("#confirm").hide();
+     	 		$("#couponbuy_btn_weixin").removeAttr('readonly');
+     			$("#orderstate").html("支付成功");
+
+        },error:function(){
+
+        }
+    })
+}
+</script>
+
+	</head>
+	<body style="display: block;overflow:hidden" onload="opener.location.reload()">
+		<div style="width: 100%">
+			<div id="couponbuy" style="display: block;">
+				<div id="couponbuy_dialog">
+					<div id="couponbuy_box">
+						<div id="couponbuy_title">
+							购买张数
+							<a href="${base}/pay/couponUpdate"><span onclick="javascript:void(0)">取消</span></a>
+						</div>
+						<div id="couponbuy_list">
+							<table>
+								<tbody>
+									[@coupon_buy_list ]
+									[#if couponList?? &&couponList?size>0]
+										[#list couponList as coupon]
+											[#if coupon_index==0]
+												[@findGgwash_couponList mobile="${_user_key.phoneNum!''}" carNo="${carNo!''}" ]
+													[#if isShouDan?? && isShouDan>0]
+														<tr onclick="couponbuy_select(&quot;${coupon.id}&quot;)" id="firstOrder">
+															<td>
+																<input type="radio" name="typeid" id="typeid_${coupon.id}" checked="checked" dataid="${coupon.id}" value="${coupon.price!''}">
+															</td>
+															<td>
+																${coupon.name!''}
+															</td>
+															<td>
+																#{coupon.price;M2}元
+															</td>
+															<td>
+																(<del><font color="#ccc">原价#{coupon.oprice!'0';M2}元</font></del>)
+															</td>
+														</tr>
+													[/#if]
+												[/@findGgwash_couponList]
+											[#else]
+
+
+												<tr onclick="couponbuy_select(&quot;${coupon.id}&quot;)">
+															<td>
+																<input type="radio" name="typeid" id="typeid_${coupon.id}"  dataid="${coupon.id}" value="${coupon.price!''}">
+															</td>
+															<td>
+																${coupon.name!''}
+															</td>
+															<td>
+																#{coupon.price;M2}元
+															</td>
+															<td>
+																(<del><font color="#ccc">原价${coupon.oprice!''}元</font></del>)
+															</td>
+												</tr>
+
+									[/#if]
+									[/#list]
+									[/#if]
+									[/@coupon_buy_list]
+
+								</tbody>
+							</table>
+							<div id="couponbuy_desc">
+								购买之日起，有效期一年
+							</div>
+						</div>
+						<div id="couponbuy_buy" style="width: 100%">
+							<input id="couponbuy_btn_weixin"
+								style="width: 90%;" class="lcouponbuy_btn"
+								type="button" onclick="couponbuy_weixin()" value="微信支付">
+						</div>
+						<div id="couponbuy_buy_busy" style="width: 100%; display:none;">
+							请求中……
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</body>
+</html>

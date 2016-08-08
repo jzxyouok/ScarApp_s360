@@ -1,0 +1,317 @@
+html {
+	width: 100%;
+	height: 100%
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	-webkit-user-select: none;
+	-webkit-text-size-adjust: none;
+	font-family: helvetica;
+	width: 100%;
+	height: 100%;
+	min-width: 320px;
+	background: #e6f4f0;
+	color: #000;
+	font-size: 11pt
+}
+
+#wrapper {
+    display:none;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0px;
+	width: 100%;
+	overflow: auto
+}
+
+#scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: transparent;
+	width: 100%;
+	padding: 0
+}
+
+#scroller ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: left
+}
+
+#scroller li {
+	line-height: 40px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	background-color: #fafafa;
+	font-size: 14px
+}
+
+#pullDown,#pullUp {
+	background: #e6f4f0;
+	height: 20px;
+	line-height: 20px;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ccc;
+	font-weight: 700;
+	font-size: 14px;
+	color: #888
+}
+
+#pullDown .pullDownIcon,#pullUp .pullUpIcon {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 20px;
+	background: url(../img/icon_refresh.png) 0 0 no-repeat;
+	-webkit-background-size: 20px 20px;
+	background-size: 20px 20px;
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 250ms
+}
+
+#pullDown .pullDownIcon {
+	-webkit-transform: rotate(0deg) translateZ(0)
+}
+
+#pullDown.flip .pullDownIcon {
+	-webkit-transform: rotate(180deg) translateZ(0)
+}
+
+#pullDown.loading .pullDownIcon,#pullUp.loading .pullUpIcon {
+	background-position: 0 100%;
+	-webkit-transform: rotate(0deg) translateZ(0);
+	-webkit-transition-duration: 0ms;
+	-webkit-animation-name: loading;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear
+}
+
+@-webkit-keyframes loading {
+	from {
+		-webkit-transform: rotate(0deg) translateZ(0)
+	}
+
+	to {
+		-webkit-transform: rotate(360deg) translateZ(0)
+	}
+}
+
+.clear {
+	clear: both
+}
+
+#d_main {
+	background: #e6f4f0;
+	width: 100%
+}
+
+#d_banner {
+	height: 40px;
+	color: #ff8181;
+	font-size: 14pt;
+	text-align: center;
+	line-height: 40px;
+	background-color: #1c2835
+}
+
+#d_bannerconfirm {
+	height: 60px;
+	color: #ff8181;
+	font-size: 14pt;
+	text-align: center;
+	padding-top: 10px;
+	background-color: #1c2835
+}
+
+#f_conline1 {
+	color: #08c894
+}
+
+#f_conline2 {
+	margin-top: 10px;
+	color: #bfbfbf;
+	font-size: 12pt
+}
+
+#d_detail {
+	padding: 10px
+}
+
+#d_status {
+	display: block;
+	background-color: #fff;
+	border-radius: 6px;
+	border: 1px solid #bfbfbf;
+	margin-bottom: 10px;
+	height: 75px;
+	width: 100%
+}
+
+#d_iconstates {
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 10px
+}
+
+
+
+.c_statustip {
+	text-align: center;
+	padding-top: 5px
+}
+
+#s_loc,#s_note,#s_phone {
+	margin-right: 10px;
+	color: #bfbfbf
+}
+
+#d_snotemore {
+	word-wrap: break-word
+}
+#d_ibefor,#d_iafter,#d_scomment{
+    padding: 10px 9px;
+}
+#d_ibefor,#d_iafter{
+    width:90%;
+}
+#d_comment, #d_more ,#d_befor,#d_after{
+	margin-bottom: 10px;
+	border: 1px solid #bfbfbf;
+	border-radius: 5px;
+	background-color: #fff
+}
+#d_tcomment, #d_tbefor, #d_tafter, #d_phone, #d_addr,#d_getcartime,#d_orderid,#d_phone,#d_price {
+	border-bottom: solid 1px #bfbfbf;
+	padding: 10px 9px
+}
+.d_tb{
+	border-bottom: solid 1px #bfbfbf;
+	padding: 10px 9px
+}
+#d_srating{
+    text-align:right;
+    float:right;
+}
+#d_note,#d_paymethod {
+	padding: 10px 9px
+}
+
+#d_note {
+	height: 95px
+}
+
+#d_subrow {
+	height: 30px
+}
+
+#d_footnote {
+	color: gray
+}
+
+#d_conbutton,#d_ebutton {
+	height: 44px;
+	line-height: 44px;
+	font-size: x-large;
+	text-align: center;
+	margin: 0 10px;
+	background-color: #fe5859;
+	border-radius: 5px;
+	color: #fff;
+	width: auto
+}
+
+.c_vtext {
+	vertical-align: middle
+}
+
+.c_fllf {
+	float: left;
+	opacity: .3
+}
+.c_fllf0 {
+	float: left;
+}
+
+.c_imgsize {
+	background-size: contain
+}
+
+.c_statusimg {
+	width: 70px;
+	height: 36px
+}
+
+#d_status1 {
+	background-image: url(../../../res/images/ggwash/icon_pay_on.png)
+}
+
+#d_status2 {
+	background-image: url(../../../res/images/ggwash/icon_orders_on.png)
+}
+
+#d_status3 {
+	background-image: url(../../../res/images/ggwash/icon_wash_on.png)
+}
+
+#d_status4 {
+	background-image: url(../../../res/images/ggwash/icon_finish_on.png)
+}
+
+.c_moreimg {
+	width: 22px;
+	height: 22px;
+	margin-right: 5px
+}
+#d_cimg {
+	background-image: url(../../../res/images/ggwash/icon_comment.png)
+}
+#d_pimg {
+	background-image: url(../../../res/images/ggwash/icon_phone.png)
+}
+
+#d_aimg {
+	background-image: url(../../../res/images/ggwash/icon_position.png)
+}
+
+#d_nimg {
+	background-image: url(../../../res/images/ggwash/icon_notes.png)
+}
+
+#order_refund_btn {
+    width:80%;
+	color: #fff;
+	border:0;
+	border-radius: 5px
+}
+
+.btn {
+    cursor:pointer;
+	margin: 10px auto;
+	height: 44px
+}
+
+.green {
+    border: 1px solid #39cd89;
+	background-color: #39cd89
+}
+
+.red {
+    border: 1px solid #ff5951;
+	background-color: #ff5951
+}
+#centerbox {
+	width: 100px;
+	margin: 0 auto
+}
+
+#d_snotemore {
+	overflow-wrap: break-word
+}

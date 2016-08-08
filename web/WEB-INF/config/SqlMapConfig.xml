@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<!-- ibatis配置 -->
+	<settings cacheModelsEnabled="true"
+		lazyLoadingEnabled="true"
+		enhancementEnabled="true"
+		errorTracingEnabled="true"
+		maxRequests="32"
+		maxSessions="10"
+		maxTransactions="5"
+		useStatementNamespaces="true" />
+
+	<!-- 手动配置ibatis的sql语句文件  -->
+	<sqlMap resource="com/zero2ipo/sql/car_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/car_service_project_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/order_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/address_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/Ggwash_coupon_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/user_coupon_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/sendOrder_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/user.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/userManage_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/confManage_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/commentManage_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/app_user_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/dictionary.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/sql/picture.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/common/entity/app/Goodses_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/car/chongzhi/bo/chongzhi_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/car/userchongzhi/bo/userchongzhi_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/car/vipcoupon/bo/Vip_coupon_sql.xml"></sqlMap>
+	<sqlMap resource="com/zero2ipo/car/choujiang/bo/Choujiang_result_sql.xml"></sqlMap>
+</sqlMapConfig>

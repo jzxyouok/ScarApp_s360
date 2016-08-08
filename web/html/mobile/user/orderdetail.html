@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>订单详情</title>
+ <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/orderlist.css" rel="stylesheet">
+<link href="${res}/css/xc/orderdetail.css" rel="stylesheet">
+<link href="${res}/css/xc/w_orderdetail.css" rel="stylesheet">
+<link href="${res}/images/foot/foot.css" rel="stylesheet">
+<script type="text/javascript">
+var jsParam=${order.jsParam};
+function wxpay(){
+	WeixinJSBridge.invoke(
+		'getBrandWCPayRequest'
+		,jsParam
+		,callback
+	);
+}
+
+function callback(res){
+	//  返回 res.err_msg,取值
+	// get_brand_wcpay_request:cancel   用户取消
+    // get_brand_wcpay_request:fail  发送失败
+    // get_brand_wcpay_request:ok 发送成功
+     //WeixinJSBridge.log(res.err_msg);
+     var status=-1;
+     if(res.err_msg=='get_brand_wcpay_request:ok')
+     {
+     	 status=1;
+     	 alert("支付成功");
+     	 $("#orderstate").html('');
+     	 $("#confirm").hide();
+     	$("#orderstate").html("支付成功");
+
+     }
+     else if(res.err_msg=='get_brand_wcpay_request:cancel'){
+     	status="2";
+     }
+	else
+	{
+	    status=0;
+		var msg='支付失败,请重新支付.';
+		alert(msg);
+
+	}
+	ajax(status,"${base}/pay/update");
+
+};
+function ajax(status,url){
+      $.ajax({
+			type:"post",
+			data:{"status":status,"id":"${orderId!''}"},
+			url: url,
+			async : false,
+			success:function(data){
+          		$("#orderstate").html('');
+     	 		$("#confirm").hide();
+     			$("#orderstate").html("支付成功");
+
+        },error:function(){
+
+        }
+    })
+}
+</script>
+</head>
+<body>
+[#if order??]
+    <div id="wrapper">
+    	<article>
+            <!-- 已取消 -->
+            <section>
+                <div class="userlist">
+                	<div class="detailuser">
+                        <div class="listinfo">
+                            [@portal_picture typeName="wx_logo"]
+                            [#list pictures as pic]
+                            <img class="avataricon" src="${pic.attachmentUrl!''}">
+                            [/#list]
+                            [/@portal_picture]
+                        <div class="userinfo p_r">
+                                <p class="username">洪宝洗车</p>
+                                <p class="staricon clearfix">
+                                 <img src="http://mt.smartcarwashing.com/Public/img/starg.png">
+                                 <img src="http://mt.smartcarwashing.com/Public/img/starg.png">
+                                <img src="http://mt.smartcarwashing.com/Public/img/starg.png">
+                                <img src="http://mt.smartcarwashing.com/Public/img/starg.png">
+                                 <img src="http://mt.smartcarwashing.com/Public/img/starg.png">
+                                </p>
+	                                 [#if order.status=='-1']
+	                               	 	<span class="orderstate color_orange">未支付</span>
+	                                [/#if]
+	                                [#if order.status=='0']
+	                               	 	<span class="orderstate color_orange" >支付失败</span>
+	                                [/#if]
+	                                [#if order.status=='1']
+	                               	 	<span class="orderstate color_orange">支付完成</span>
+	                                [/#if]
+	                                [#if order.status=='2']
+	                               	 	<span class="orderstate color_orange">已取消</span>
+	                                [/#if]
+                                [/#if]
+
+                        </div>
+                    </div>
+                    <div class="userinfo optionlist">
+                        <p class="clearfix">
+                        <span class="f_l justify">订单号：</span>
+                        <span class="f_r">${order.orderNo!''}</span></p>
+                            <p class="clearfix"><span class="f_l">订单时间</span>
+                            <span class="f_r">${order.createTime!''}</span>
+                            </p>
+                     </div>
+
+                        <div class="userinfo optionlist">
+                            <p class="clearfix">
+                            	<input type="hidden" id="cid" name="cid" value="${car.id?default('')}"/>
+                                <span class="carnum v_m">${order.carNum?default('')}</span>
+								<span class="carbrand v_m"></span>
+                                <span class="carcolor p_r"><font class="textwords v_m">${order.carColor?default('')}</font>
+                                <i class="colorlump">
+                                </i></span>
+								<span class="seatnum v_m">${order.carType?default('')}</span>
+                            </p>
+                        </div>
+                    <div class="userinfo optionlist">
+                            <p class="clearfix">${order.address?default('')}</p>
+                        </div>
+                    </div>
+
+                    <div class="userinfo total">
+                    	<p class="clearfix">
+                        	<span class="f_l">总价</span>
+                        	<span class="f_r color_orange">${order.price?default('')}元</span>
+                        </p>
+                        <p class="tooltipoper clearfix">
+
+                        [#if order.status=='-1']
+                         	<span class="btn_rectangle btn_orange" onclick="wxpay()" id="confirm">确认支付</span>
+                        [/#if]
+
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+    [/#if]
+    <div class="nav_fp">
+	<ul>
+        <li><a href="${base}/washcar/index.html" class="nav_cpjxa">上门洗车</a></li>
+        <li><a href="${base}/order/myorderlist.html" class="nav_gkk">洗车订单</a></li>
+        <li><a href="${base}/mycoupon.html" class="nav_grzxa">洗车券</a></li>
+    </ul>
+</div>
+
+</body></html>

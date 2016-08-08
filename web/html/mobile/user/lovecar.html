@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>我的爱车</title>
+ <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/usualaddress.css" rel="stylesheet">
+<link href="${res}/css/xc/mycar.css" rel="stylesheet">
+</head>
+<body>
+	<div class="loading" style="display:none;">
+		<div class="loadmodal"></div>	
+	    <span class="" id="turnPic"></span>
+	    <p class="tipTxt">数据处理中，请耐心等待...</p>
+	</div>
+	<!-- the content -->
+    <div id="wrapper">
+    	<section class="addresslist">
+            <!-- <p class="t_c addcarp">
+                <img class="addicong" src="img/addicon.png">
+                <span class="i_b v_m addusualaddress">新增常用车</span>
+            </p> -->
+            [@history_car openid="${openid}"]
+            [#if historyCars?? &&historyCars?size>0]
+            	[#list historyCars as car]
+            	 <p class="carinfo clearfix">
+	                <img class="bluecar" src="../../res/images/bluecar.png">
+	                <span class="carnum">
+	                    <font>${car.carNo!''}</font>
+	                    <font>${car.carType!''}</font>
+	                </span>
+	                <span class="carcolor p_r">
+	                <font class="textwords v_m">${car.carColor!''}</font>
+	                <!-- <i class="colorlump"></i> -->                    
+	                </span>
+	                <span class="carsite">${car.carSeats!''}</span>
+           		 </p>
+            	[/#list]
+            [/#if]
+            [/@history_car]
+        </section>
+        
+    </div>
+    
+
+</body></html>

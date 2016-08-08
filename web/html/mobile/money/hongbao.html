@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>我的红包</title>
+		<link rel="stylesheet" href="${res}/css/money/css/frozen.min.css">
+		<link rel="stylesheet" href="${res}/css/money/css/dropload.css">
+		<link rel="stylesheet" href="${res}/css/money/css/gg.css">
+	</head>
+	<body ontouchstart="" class="gg-body">
+		<div id="gg">
+			<div id="mark"></div>
+			<section id="gg-content" class="ui-container gg-property_wallet">
+				<section id="content">
+					<ul class="ui-list ui-list-text">
+						<li class="gg-property_wallet_moneyline">
+							<div class="ui-list-info">
+								<p class="gg-property_wallet_money_title">红包余额（元）</p>
+								<p class="gg-property_wallet_money_desc">
+									[@find_user_byId userId="${_user_key.userId!''}"]
+									[#if account??]
+									${account!'0'}
+									[/#if]
+									[/@find_user_byId]
+								</p>
+							</div>
+							<div class="ui-list-action">
+								<button type="button" class="ui-btn gg-btn-green" id="property_wallet_use">立即使用</button>
+							</div>
+						</li>
+					</ul>
+					<ul class="ui-tiled ui-border-tb gg-property_wallet_infoline">
+						<li class="ui-border-r">
+							<span class="gg-property_index_head_img gg-property_index_img_cash"></span>
+							<span class="ui-nowrap">共获得</span>
+							<br><span>￥</span>
+						</li>
+						<li class="ui-border-r">
+							<span class="gg-property_index_head_img gg-property_index_img_expired"></span>
+							<span class="ui-nowrap">已过期</span>
+							<br><span>￥0.00</span></li>
+						<li>
+							<span class="gg-property_index_head_img gg-property_index_img_wallet"></span>
+							<span class="ui-nowrap">已使用</span>
+							<br><span>￥0.00</span>
+						</li>
+					</ul>
+					<div class="gg-property_wallet_descline"> </div>
+				</section>
+			</section>
+		</div>
+
+	</body>
+
+</html>

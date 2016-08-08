@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>订单列表</title>
+  <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/orderlist.css" rel="stylesheet">
+<link href="${res}/css/xc/myorder.css" rel="stylesheet">
+<link href="${res}/css/xc/list.css" rel="stylesheet">
+<link href="${res}/images/foot/foot.css" rel="stylesheet">
+<script src="${res}/scripts/xc/jquery.min.js"></script>
+<script>
+	//ajax微信付款，首先获取jsParam
+	function wxpay(id){
+		var url="${base}/order/getJsParam.html";
+		$.ajax({
+			type: "POST",
+			url: url,
+			data:{"orderId":id},
+			async : false,
+			dataType: "json",
+			success: function (data) {
+				var jsParam=data;
+				WeixinJSBridge.invoke(
+						'getBrandWCPayRequest'
+						,jsParam
+						,callback
+				);
+			},
+			error: function (msg) {
+				alert("error");
+			}
+		});
+
+	}
+
+	function callback(res){
+		//  返回 res.err_msg,取值
+		// get_brand_wcpay_request:cancel   用户取消
+		// get_brand_wcpay_request:fail  发送失败
+		// get_brand_wcpay_request:ok 发送成功
+		WeixinJSBridge.log(res.err_msg);
+		if(res.err_msg=='get_brand_wcpay_request:ok')
+		{
+			//showPayResult();
+			//支付成功后修改订单状态，并发送派单通知
+			//var orderId="${orderId!''}";
+			//支付成功之后跳转到订单详情页面
+			//var url="${base}/my/order"+orderId+".html";
+			//window.location.href=url;
+		}
+		else
+		{
+			//var msg='支付失败,请重新支付.';
+			//alert(msg);
+			//alert(res.err_code+" err_desc="+res.err_desc+" err_msg="+res.err_msg);
+		}
+	};
+</script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c">
+<div data-role="page"  tabindex="0" class="ui-page ui-body-c ui-page-active" >
+	<!-- the content -->
+    <div id="wrapper" >
+        <div id="scroller">
+        <article id="thelist">
+         [@order_list  mobile="${mobile!''}"]
+            [#if myOrderList?? &&myOrderList?size>0]
+            [#list myOrderList as order]
+            	 <section>
+	        	<div class="userlist">
+		        	<div class="listinfo">
+			        	<div class="userinfo p_r">
+				        	<p>
+					        	<span >订单号:${order.orderId[0..10]}</span>
+				        	</p>
+				        	<p>
+					        	<span >车牌号:${order.carNum!''}</span>
+				        	</p>
+							<!--<p>
+								<span>预约时间:${order.washTime!''}</span>
+							</p>-->
+							<p>
+								<span>服务项目:<font color="#228b22">${order.washType!''}</font>
+
+								</span>
+							</p>
+							<p>
+								<span>付款类型:
+									[#if order.payType=='0']
+										<font color="#ff0000">洗车券支付</font>
+									[/#if]
+									[#if order.payType=='1']
+										<font color="#ff0000">微信支付</font>
+									[/#if]
+									[#if order.payType=='2']
+										<font color="#ff0000">钱包抵扣</font>
+									[/#if]
+									[#if order.payType=='3']
+										<font color="#ff0000">现金支付</font>
+									[/#if]
+									[#if order.payType=='4']
+										<font color="#ff0000">优惠券抵扣</font>
+									[/#if]
+
+								</span>
+							</p>
+	                                [#if order.status=='-1']
+	                               	 	<span class="orderstate color_orange" >未支付</span>
+	                                [/#if]
+	                                [#if order.status=='0']
+	                               	 	<span class="orderstate color_orange" >支付失败</span>
+	                                [/#if]
+	                                [#if order.status=='1']
+	                               	 	<span class="orderstate color_orange">支付完成</span>
+	                                [/#if]
+	                                [#if order.status=='2']
+	                               	 	<span class="orderstate color_orange" >已取消</span>
+	                                [/#if]
+				        </div>
+		        	</div>
+		        	<div class="btnoper clearfix">
+			        	<span class="amount">总价：<font>${order.price?string("#.##")}元</font></span>
+						[#if order.status=='-1']
+							<span class="btn_rectangle greyframe color_blue f_r vieworder" style="float: right;background-color: #51AD8F;color:white" onclick="javascript:wxpay('${order.id}')">支付</span>
+						[#else]
+						<span class="btn_rectangle greyframe color_blue f_r vieworder" style="float: left;" onclick="window.location.href='${base}/f/order${order.id}.html'">查看</span>
+						[/#if]
+		        	</div>
+	        	</div>
+        	</section>
+            [/#list]
+            [#else]
+	            <div class="userlist">
+			        	<div class="listinfo">
+				        	<div class="userinfo p_r">
+					        	<p >  暂无订单<a href="${base}/washcar/index.html"><font color="green" >去下单</font></a></p>
+					        </div>
+
+					    </div>
+
+			     </div>
+            [/#if]
+            [/@order_list]
+        	</article>
+       </div>
+       <article class="tooltip" style="display: none;">
+            <div class="mask"></div>
+            <div class="tooltipcont">
+             <!--   <img src="../../res/images/exclamation.png">-->
+                <p class="tooltipwords"></p>
+                <p class="tooltipoper clearfix">
+                    <span class="btn_rectangle btn_orange f_r" id="confirm">确定</span>
+                </p>
+            </div>
+        </article>
+    </div>
+    <div style="padding-bottom:129px;"></div>
+    </div>
+<div class="nav_fp">
+	<ul>
+        <li><a href="${base}/washcar/index.html" class="nav_cpjxa">上门洗车</a></li>
+        <li><a href="${base}/order/myorderlist.html" class="nav_gkk">洗车订单</a></li>
+        <li><a href="${base}/mycoupon.html" class="nav_grzxa">洗车券</a></li>
+    </ul>
+</div>
+</body>
+[#include "../xc/load.html"]
+</html>

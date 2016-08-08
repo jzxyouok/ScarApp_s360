@@ -1,0 +1,139 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the orderdetail css.
+	Date: 1/9/2014
+*/
+
+/* General styling */
+.orderstate{
+	position: absolute;
+	top: 22%;
+	right: 0;
+	color: #ff8400;
+	font-size: 2.3rem;
+}
+div.optionlist{
+	border-top: 0.15rem dotted #dadada;
+	width: 96%;
+	margin-left: 0;
+	padding: 0.7rem 1rem;
+}
+div.optionlist p{
+	line-height: 3rem;
+}
+.lname{
+	width: 25%;
+	text-align: right;
+}
+.cardetail span font{
+	display: inline-block;
+}
+.cardetail span{
+	width: 49%;
+}
+.carop{
+	display: inline-block;
+	width: 40%;
+	text-align: right;
+}
+.price {
+	padding: 0 0 5% 1%;
+}
+.price span{
+	color: #ff8400;
+	font-size: 2rem;
+}
+.price span.color_black{
+	color: #000000;
+}
+.btngroup {
+	margin-bottom: 7%;
+}
+.btngroup p{
+	width: 100%;
+	text-align: center;
+	padding: 2% 0;
+	margin: 5% 0 -1% 0;
+	background: #ffffff;
+	font-size: 2.3rem;
+	float: none;
+}
+.remind{
+	margin-top: 5%;
+	font-size: 1.5rem;
+	color: #808080;
+}
+.call{
+	position: absolute;
+	top: 77%;
+	padding: 0% 3%;
+	right: 0;
+	border: 1px solid #ff8400;
+	color: #ff8400;
+	display: block;
+	font-size: 1.5rem;
+	border-radius: 0.3rem;
+}
+.textwords{
+	margin-right: 10%;
+}
+
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	.orderstate {font-size: 1rem;}
+	div.optionlist p {line-height: 1.3rem;}
+	.lname {width: 27%;}
+	.carop{width: 44%;}
+	.price span {font-size: 1rem;}
+	.btngroup p{font-size: 1rem;}
+	.call{font-size: 0.6rem;}
+	.remind {margin-top: 3%;font-size: 0.7rem;}
+	.avataricon{ height: 70px; width: 70px; }
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	.orderstate {font-size: 1.3rem;}
+	div.optionlist p {line-height: 1.3rem;}
+	.lname {width: 27%;}
+	.carop{width: 44%;}
+	.price span {font-size: 1.3rem;}
+	.btngroup p{font-size: 1.3rem;}
+	.call{font-size: 0.9rem;}
+	.remind {margin-top: 4%;font-size: 0.9rem;}
+	.avataricon{ height: 85px; width: 85px; }
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+	.orderstate {font-size: 1.7rem;}
+	div.optionlist p {line-height: 1.7rem;}
+	.lname {width: 27%;}
+	.carop{width: 44%;}
+	.price span {font-size: 1.7rem;}
+	.btngroup p{font-size: 1.7rem;}
+	.call{font-size: 1rem;}
+	.remind {margin-top: 4%;font-size: 1rem;}
+	.avataricon{ height: 100px; width: 100px; }
+}
+@media screen and (min-width: 500px) and (max-width: 600px) {
+	.orderstate {font-size: 2rem;}
+	div.optionlist p {line-height: 2rem;}
+	.lname {width: 27%;}
+	.carop{width: 44%;}
+	.price span {font-size: 2rem;}
+	.btngroup p{font-size: 2rem;}
+	.call{font-size: 1.2rem;}
+	.remind {margin-top: 5%;font-size: 1.3rem;}
+	.avataricon{ height: 125px; width: 125px; }
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+	.orderstate {font-size: 2.3rem;}
+	div.optionlist p {line-height: 2.5rem;}
+	.lname {width: 27%;}
+	.carop{width: 44%;}
+	.price span {font-size: 2.3rem;}
+	.btngroup p{font-size: 2.3rem;}
+	.call{font-size: 1.6rem;}
+	.remind {margin-top: 5%;font-size: 1.6rem;}
+	.avataricon{ height: 150px; width: 150px; }
+}
+

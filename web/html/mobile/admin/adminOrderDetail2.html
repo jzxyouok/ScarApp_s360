@@ -1,0 +1,215 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>修改任务</title>
+    <!--  <link rel="stylesheet" type="text/css" href="../../../res/css/ggwash/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../res/css/ggwash/button.default.css" />-->
+   <link rel="stylesheet" type="text/css" href="${res}/images/foot/foot.css">
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/od.css'>
+    <link rel='stylesheet' type="text/css" href='${res}/css/ggwash/fileupload.css'>
+<style type="text/css">
+	form label.error{font-size:12px; color:#e89b01; text-align:left; width:92%; float:left; padding:0% 5%; padding-bottom:2%;}
+	.upload_file {width:62px; position:relative; float:left; left:-80px; cursor:pointer;  	opacity:0;}
+	.upload_text {position:fixed; opacity:0;}
+</style>
+    <script src="${res}/scripts/xc/jquery.min.js"></script>
+
+    <script type="text/javascript" src="${res}/scripts/mobile/user/fts.js"></script>
+    <script type="text/javascript" src="${res}/scripts/mobile/user/fileupload.js"></script>
+    <script>
+    $(document).ready(function() {
+    	var msg="${flag!''}";
+    	if(""!=msg&&null!=msg){
+    		if(msg=='3'){
+    			alert("洗车开始");
+    		}else{
+    			alert("洗车结束");
+    		}
+    	}
+
+    	fileChange('userCard');
+		fileChange('idCard');
+	})
+	function start(){
+		var url="${base}/updateSendOrderStatus.html";
+		$("#step2Form").attr('action',url);
+		$("#step2Form").submit();
+	}
+    </script>
+</head>
+<body style="display:block;font-size:17px;overflow-x:hidden;">
+<form id="step2Form" method="POST" action="${base}/updateSendOrder.html">
+<input type="hidden" id="orderId" name="orderId" value="${orderId!''}"/>
+<div id="">
+<div id="scroller">
+<div id="d_main">
+    <div id="d_detail">
+
+        <div id="d_status" style='display: block; width: 100%'>
+        <div id='d_iconstates'>
+
+            <div id='d_statussub1' class="c_fllf0">
+                    <div class=" c_imgsize c_statusimg" id="d_status1"></div>
+                    <div class='c_statustip'>支付完成</div>
+            </div>
+           	 [#if orderId??]
+    			[@find_order_byid id="${orderId}"]
+	    		[#if order??]
+	    			[#if order.sendOrderStatus?number lt 1]
+	    				 <div  class="c_fllf">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[#else]
+	    			 <div id='d_statussub2' class="c_fllf0">
+	                    	<div class=" c_imgsize c_statusimg" id="d_status2"></div>
+	                   		 <div class='c_statustip'>派单完成</div>
+			            </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 3]
+	    				   <div  class="c_fllf">
+                   			 <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+                   			 <div class='c_statustip'>洗车开始</div>
+           					 </div>
+	    			[#else]
+	    				   <div id='d_statussub3' class="c_fllf0">
+		                    <div class=" c_imgsize c_statusimg" id="d_status3"></div>
+		                    <div class='c_statustip'>洗车开始</div>
+		           			 </div>
+	    			[/#if]
+	    			[#if order.sendOrderStatus?number lt 4]
+	    				    <div  class="c_fllf">
+			                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+			                    <div class='c_statustip'>洗车完成</div>
+			           		 </div>
+
+	    			[#else]
+	    				   <div id='d_statussub4' class="c_fllf0">
+				                    <div class=" c_imgsize c_statusimg" id="d_status4"></div>
+				                    <div class='c_statustip'>洗车完成</div>
+				            </div>
+
+	    			[/#if]
+
+
+        </div>
+
+    </div>
+
+
+				<div id="d_more">
+					<div id="d_phone">
+						<div id="d_pimg" class="c_fllf c_imgsize c_moreimg"></div>
+						<span id="s_phone" class='c_vtext'>联系电话</span>
+						<span id="d_sphone" class='c_vtext'><a href="tel:${order.mobile!''}">${order.mobile!''}</a></span>
+					</div>
+					<div   class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_plate.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>车牌号</span>
+						<span  class='c_vtext'>${order.carNum!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_model.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>车型</span>
+						<span  class='c_vtext'>${(order.carType)!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_model.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>服务项目</span>
+						<span  class='c_vtext'>${order.washType!''}</span>
+					</div>
+					<div class="d_tb">
+						<div  class="c_fllf c_imgsize c_moreimg"><img src="${res}/images/ggwash/car_color.png" width="22px" height="22px"/></div>
+						<span  class='c_vtext'>颜色</span>
+						<span  class='c_vtext'>${order.carColor!''}</span>
+					</div>
+					<div id="d_addr">
+						<div id="d_aimg" class="c_fllf c_imgsize c_moreimg"></div>
+						<span id="s_loc" class='c_vtext'>停放位置</span>
+						<span id="d_saddr" class='c_vtext'>${order.address!''}</span>
+					</div>
+
+					<div id="d_note">
+							<div id='d_subrow' class='clear'>
+						<div id="d_nimg" class="c_fllf c_imgsize c_moreimg"></div>
+							<span id="s_note" class='c_vtext'>备注信息</span>
+							${order.discription!''}
+							</div>
+						<div id="d_snotemore"></div>
+					</div>
+				</div>
+    			    [@send_order orderId="${orderId}"]
+    	[#if sendOrder??]
+  			 <div class="login_sc">
+		    	<p>
+		    		<span>&nbsp;&nbsp;&nbsp;洗车前照片：</span>
+		    		<a href="javascript:void(0);">选择文件</a>
+		    		<input id="userCardText" name="userCardText" type="text" class="upload_text" />
+		    		<input id="userCard" name="userCard" type="file" class="upload_file"/>
+		    		<input type="hidden" name="userCardFile" id="userCardFile" value="${sendOrder.beforePhoto!''}"/>
+		    		<input type="hidden" name="tempFileName" id="userCardFileName" />
+		    	</p>
+		        <p class="login_scp">
+					<img id="userCardImg" src="${sendOrder.beforePhoto!'${res}/images/login_bg.png'}" width="30%" />
+				</p>
+		    </div>
+
+		    <div class="login_sc">
+		    	<p><span>&nbsp;&nbsp;&nbsp;洗车后照片：</span>
+			    	<a href="javascript:void(0);">选择文件</a>
+			    	<input id="idCardText" name="idCardText" type="text" class="upload_text" />
+			    	<input id="idCard" name="idCard" type="file" class="upload_file"/>
+		    		<input type="hidden" name="idCardFile" id="idCardFile" value="${sendOrder.afterPhoto!''}"/>
+		    		<input type="hidden" name="tempFileName" id="idCardFileName" />
+			    </p>
+		        <p class="login_scp">
+					<img id="idCardImg" src="${sendOrder.afterPhoto!'${res}/images/login_bg.png'}" width="30%" />
+				</p>
+		    </div>
+
+	    </div>
+	     <div class="login_bd">
+	            <span id="s_comment" class='c_vtext'>洗车内容</span>
+	            <textarea rows="5" cols="5" style="width:100%;border:1px solid #2EC5C0" id="content" name="content">${sendOrder.content!''}</textarea>
+	        </div>
+ 			 <div class="yytz_x">
+  		    	<a href="javascript:void(0);" onclick="$('#step2Form').submit();">完成洗车</a>
+  		    </div>
+  		    <div class="yytz_s">
+  		    	<a href="javascript:void(0)" onclick="start();">开始洗车</a>
+  		    </div>
+  		     <div></div>
+  		   <div id="d_footnote" style="padding-top:5px;">
+  		   		<font color="red"><br/>
+  		   		<p>温馨提示:点击开始洗车，会发送1条微信消息给车主，提示您的车正在清洗</p>
+
+  		       <p>点击完成洗车，会发送1条微信消息给车主，提示您的车已经洗完。</p>
+  		       </font>
+  		   </div>
+    	[/#if]
+    [/@send_order]
+      		[/#if]
+    	[/@find_order_byid]
+    [/#if]
+
+    <!--
+    <div id="d_footnote">温馨提示: 系统派单前撤单可全额退款。</div>
+    <div align="center"><input type="button" id="order_refund_btn" class="ui-btn red"  value=""></div>
+    -->
+</div>
+
+</div>
+
+</div>
+
+</form>
+<iframe id="userCard_upload_return" name="userCard_upload_return" style="display:none"></iframe>
+	<iframe id="idCard_upload_return" name="idCard_upload_return" style="display:none"></iframe>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+body {
+    font-family: arial;
+}
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0 auto;
+}
+
+table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px) {
+
+    table {
+        border: 0;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+
+    table td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
+.note{max-width: 80%; margin: 0 auto;}
+::selection {
+    background-color: #E13300;
+    color: white;
+}
+::moz-selection {
+    background-color: #E13300;
+    color: white;
+}
+::webkit-selection {
+    background-color: #E13300;
+    color: white;
+}
+body {
+    background-color: #fff;
+    margin: 40px;
+    font: 12px     /20px normal Helvetica, Arial, sans-serif;
+    color: #4F5155;
+}
+a {
+    color: #003399;
+    background-color: transparent;
+    font-weight: normal;
+}
+input {
+    color: #333333;
+    font: 12px /1.5 Tahoma, Helvetica, 'SimSun', sans-serif;
+}
+code {
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #D0D0D0;
+    color: #002166;
+    display: block;
+    margin: 14px 0 14px 0;
+    padding: 12px 10px 12px 10px;
+}
+h1 {
+    color: #444;
+    background-color: transparent;
+    border-bottom: 1px solid #D0D0D0;
+    font-size: 19px;
+    font-weight: normal;
+    margin: 0 0 14px 0;
+    padding: 14px 15px 10px 15px;
+}
+.wrapper {
+    margin: 0 15px 0 15px;
+}
+html {
+    background-color: #ddd;
+    font: 62.5%/1 "Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
+}
+body { padding: 20px 100px; }
+#wrapper { text-align: center; }
+
+
+/*It appears that the Pictos Font resets the line-height of the icon.. so if you are using them, delete the line below. */
+.icon:before { line-height: .7em; }
+

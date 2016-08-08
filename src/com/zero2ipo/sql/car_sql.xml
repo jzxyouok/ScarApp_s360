@@ -1,0 +1,175 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="bsb.mobile.car">
+<typeAlias alias="carEntity" type="com.zero2ipo.common.entity.Car"/>
+<resultMap class="carEntity" id="carMap">
+	<result property="id" column="ID"/>
+	<result property="userCarId" column="user_car_id"/>
+	<result property="carNo" column="CAR_NO"/>
+	<result property="carSeats" column="car_seats"/>
+	<result property="carColor" column="CAR_COLOR"/>
+	<result property="carType" column="CAR_TYPE"/>
+	<result property="washAddr" column="wash_addr"/>
+	<result property="washInfo" column="wash_info"/>
+	<result property="createTime" column="CREATE_TIME"/>
+	<result property="preTime" column="PRE_TIME"/>
+	<result property="mobile" column="MOBILE"/>
+	<result property="status" column="STATUS"/>
+	<result property="name" column="NAME"/>
+	<result property="lat" column="lat"/>
+	<result property="lng" column="lng"/>
+</resultMap>
+
+
+<select id='findCarList' resultMap='carMap'>
+SELECT
+	ID,
+	USER_CAR_ID,
+	CAR_NO,
+	CAR_SEATS,
+	CAR_COLOR,
+	CAR_TYPE,
+	WASH_ADDR,
+	WASH_INFO,
+	CREATE_TIME,
+	PRE_TIME,
+	MOBILE,
+	STATUS,
+	NAME,
+	lat,
+	lng
+FROM CAR
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="AND" property="userId">
+	USER_CAR_ID=#userId#
+	</isNotEmpty>
+	
+	<isNotEmpty prepend="AND" property="mobile">
+		MOBILE=#mobile#
+	</isNotEmpty>
+</dynamic>
+	ORDER BY CREATE_TIME DESC
+</select>
+<select id='findCarListCount' resultClass='java.lang.Integer'>
+SELECT
+	count(0)
+FROM CAR
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="AND" property="userId">
+	USER_CAR_ID=#userId#
+	</isNotEmpty>
+	
+	<isNotEmpty prepend="AND" property="mobile">
+		MOBILE=#mobile#
+	</isNotEmpty>
+</dynamic>
+</select>
+
+<select id='findCarById' resultMap='carMap'>
+SELECT
+	ID,
+	USER_CAR_ID,
+	CAR_NO,
+	CAR_SEATS,
+	CAR_COLOR,
+	CAR_TYPE,
+	WASH_ADDR,
+	WASH_INFO,
+	CREATE_TIME,
+	PRE_TIME,
+	MOBILE,
+	STATUS,
+	NAME,
+	lat,
+	lng
+FROM CAR
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			ID=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userCardId">
+			USER_CAR_ID=#userCardId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="preTime">
+			PRE_TIME=#preTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="status">
+			STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="carNo">
+			CAR_NO=#carNo#
+		</isNotEmpty>
+	</dynamic>
+</select>
+<!--新增-->
+<insert id="addCar" parameterClass="carEntity">
+	INSERT INTO CAR(
+	USER_CAR_ID,
+	CAR_NO,
+	CAR_SEATS,
+	CAR_COLOR,
+	CAR_TYPE,
+	WASH_ADDR,
+	WASH_INFO,
+	CREATE_TIME,
+	PRE_TIME,
+	NAME,
+	mobile,
+	lat,
+	lng
+)VALUES(
+	#userCarId#,
+	#carNo#,
+	#carSeats#,
+	#carColor#,
+	#carType#,
+	#washAddr#,
+	#washInfo#,
+	now(),
+	#preTime#,
+	#name#,
+	#mobile#,
+	#lat#,
+	#lng#
+)
+<selectKey resultClass="int" keyProperty="id" >
+   SELECT @@IDENTITY AS id
+</selectKey>
+
+</insert>
+<!-- 修改车辆信息 -->
+	<update id="updCar" parameterClass="carEntity">
+		
+			 UPDATE 
+			 	CAR
+			SET
+				PRE_TIME=#preTime#,
+				STATUS=#status#,
+				WASH_ADDR=#washAddr#,
+				WASH_INFO=#washInfo#,
+				CAR_NO=#carNo#,
+				CAR_SEATS=#carSeats#,
+				CAR_COLOR=#carColor#,
+				CAR_TYPE=#carType#,
+				MOBILE=#mobile#,
+				CREATE_TIME=now(),
+				name=#name#,
+				lat=#lat#,
+				lng=#lng#
+	  	   WHERE 
+	            ID=#id#
+	</update>
+<!--删除-->
+<delete id="delCar" parameterClass="java.util.Map">
+	DELETE FROM 
+		car
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			ID=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userCarId">
+			USER_CAR_ID=#userCarId#
+		</isNotEmpty>
+	</dynamic>
+</delete>
+</sqlMap>

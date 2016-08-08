@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>订单列表</title>
+  <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/orderlist.css" rel="stylesheet">
+<link href="${res}/css/xc/myorder.css" rel="stylesheet">
+<link href="${res}/css/xc/list.css" rel="stylesheet">
+<link href="${res}/css/xc/admin.css" rel="stylesheet">
+<script src="${res}/scripts/xc/jquery.min.js"></script>
+<link rel="stylesheet" href="${res}/css/webui/weui.min.css"/>
+<link rel="stylesheet" href="${res}/css/webui/example.css"/>
+<script>
+	function query() {
+		var startDate=$("#startDate").val();
+		var endDate=$("#endDate").val();
+		var userId="${_admin_key.userId}";
+		var url="${base}/adminIdex.html?status=4&userId="+userId;
+		if(''!=startDate&&null!=startDate){
+			url+="&startDate="+startDate;
+		}
+		if(''!=endDate&&null!=endDate){
+			url+="&endDate="+endDate;
+		}
+		window.location.href=url;
+	}
+</script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c">
+<div class="weui_tab">
+	<div class="weui_navbar">
+		[#if status=='1']
+				<div class="weui_navbar_item weui_bar_item_on">
+					<a href="${base}/adminIdex.html?status=1" style="color: white">未开始</a>
+				</div>
+		[#else]
+				<div class="weui_navbar_item">
+					<a href="${base}/adminIdex.html?status=1" style="color: black">未开始</a>
+				</div>
+		[/#if]
+
+
+		[#if status=='3']
+		<div class="weui_navbar_item weui_bar_item_on">
+			<a href="${base}/adminIdex.html?status=3" style="color: white">进行中</a>
+		</div>
+		[#else]
+			<div class="weui_navbar_item">
+				<a href="${base}/adminIdex.html?status=3" >进行中</a>
+			</div>
+		[/#if]
+
+
+		[#if status=='4']
+			<div class="weui_navbar_item weui_bar_item_on">
+				<a href="${base}/adminIdex.html?status=4" style="color: white">已完成</a>
+			</div>
+		[#else]
+			<div class="weui_navbar_item">
+				<a href="${base}/adminIdex.html?status=4" >已完成</a>
+			</div>
+		[/#if]
+	</div>
+	<div class="weui_tab_bd">
+	</div>
+</div>
+
+<div data-role="page"  tabindex="0" class="ui-page ui-body-c ui-page-active" >
+    <div id="wrapper" >
+		[#if status=='4']
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell" >
+				<div class="weui_cell_hd weui_cell_primary" style="padding-top:30px;color: #00aa00">订单统计</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd"><label for="" class="weui_label">开始日期</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="date"  id="startDate" value="${startDate!''}">
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd"><label for="" class="weui_label">结束日期</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="date" id="endDate" placeholder="" value="${endDate!''}">
+				</div>
+			</div>
+			<div class="weui_btn_area">
+				<a class="weui_btn weui_btn_primary" href="javascript:query()" id="showTooltips">查询</a>
+			</div>
+			<div class="weui_cell" >
+				<div class="weui_cell_hd weui_cell_primary" style="color: #00aa00">订单统计结果</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					总订单：${(result.sumTai)!'0'}
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">总金额：${(result.sumMoney)!'0'}</div>
+			</div>
+			<div class="weui_cell" >
+				<div class="weui_cell_hd weui_cell_primary" style="color: #00aa00">洗车记录</div>
+			</div>
+		</div>
+		[/#if]
+		[#if _admin_key??]
+			[@admin_order_list  userId="${_admin_key.userId}" status="${status?default('1')}" startDate="${startDate?default('')}" endDate="${endDate?default('')}"]
+				[#if sendOrderList?? &&sendOrderList?size>0]
+					<div class="weui_cells weui_cells_form" [#if status!='4']style="margin-top:3.17647059em"[/#if]>
+						[#list sendOrderList as sendOrder]
+							[#if sendOrder.carNo?default('')!='']
+								<div class="weui_cell">
+									<div class="weui_cell_hd">${sendOrder.address!''}&nbsp;<font color="#b22222">${sendOrder.money!''}</font></div>
+								</div>
+								<div class="weui_cell">
+									<div class="weui_cell_hd">${sendOrder.carNo!''}&nbsp;${startDate?default('')}<a href="${base}/renwu/order${sendOrder.orderId!''}.html" style="float: right;padding-left:30px;">查看订单</a></div>
+								</div>
+							[/#if]
+						[/#list]
+					</div>
+				[#else]
+					<div class="userlist">
+							<div class="listinfo">
+								<div class="userinfo p_r">
+									<p >  暂无订单</p>
+								</div>
+							</div>
+					 </div>
+				[/#if]
+			[/@admin_order_list]
+		[/#if]
+	</div>
+</div>
+</body>
+</html>

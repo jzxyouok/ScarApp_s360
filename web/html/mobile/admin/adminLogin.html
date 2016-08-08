@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+<title>管理员登陆</title>
+<link rel="stylesheet" href="${res}/css/ggwash/cfj.css"/>
+<link rel="stylesheet" href="${res}/css/book/pintuer.css"/>
+<link rel="stylesheet" href="${res}/css/book/app.css"/>
+<link rel="stylesheet" href="${res}/css/themes/default/jquery.alerts.css"/>
+<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
+<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="${res}/scripts/lib/jquery/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${res}/scripts/lib/jquery/jquery.alerts.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/form.utils.js?v=1" type="text/javascript"></script>
+<script src="${res}/scripts/config/fts.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/message.js" type="text/javascript"></script>
+<script src="${res}/scripts/book/validate.js?v=1" type="text/javascript"></script>
+<script src="${res}/scripts/book/user.js" type="text/javascript"></script>
+<script>
+	/**
+ * 账号登陆
+ * @return
+ */
+function adminLogin(){
+	var mobile=$("#mobile").val();
+	var userPwd=$("#userPwd").val();
+	if(''==mobile||null==mobile){
+		 Dialog.show("账号不能为空", 2, 2000);
+		 return;
+	}
+	if(''==userPwd ||null==userPwd){
+		 Dialog.show("密码不能为空", 2, 2000);
+		 return;
+	}
+	var url="${base}/adminLogin.html";
+    var data=$("#form1").serialize();
+	 Dialog.show("正在登陆,请稍后。。。", 3, -1);
+	  $.ajax({
+           type:"post",
+           url: url,
+           data:data,
+           dataType:'json',
+           success:function(data){
+               if(data.success){
+                   Dialog.show("登陆成功", 1, 2000);
+                   setTimeout(function() {
+                	    var page=data.page;
+              			window.location.href="${base}/"+page;
+                   },2000);
+               }else{
+                   Dialog.show("账号或密码错误", 2, 2000);
+               }
+           },error:function(data){
+               	alert("服务器duang了,你可以休息片刻再回来");
+           }
+       });
+
+}
+</script>
+  </head>
+  <body>
+  <form action="" id="form1" name="form1">
+
+<div class="login_conter">
+	<div class="login_bd">
+		<img src="${res}/css/ggwash/images/shouji.png" width="8%" />
+		<input type="text" id="mobile" name="mobile" class="login_dh" placeholder="请输入手机号" />
+
+	</div>
+    <div class="login_cw" id="errorMobile" style="display:none">输入的手机号有误</div>
+
+
+    <div class="login_bd">
+    	<img src="${res}/css/ggwash/images/mima.png"  width="8%" />
+    	<input type="password" class="login_dh" id="userPwd" name="userPwd" placeholder="请输入您的登录密码" />
+    </div>
+
+    <div class="clear"></div>
+    <div class="yytz"><a href="javascript:void(0);" onclick="javascript:adminLogin()">登陆</a></div>
+</div>
+
+   </form>
+</body>
+</html>

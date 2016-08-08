@@ -1,0 +1,34 @@
+#d_bind{
+	height:40px;
+	width:100%;
+	vertical-align: middle;
+	text-align: center;
+	background-color:#fff;
+	padding:5px;
+}
+#couponnum{
+	vertical-align: middle;
+	text-align: center;
+	height:40px;
+	line-height:40px;
+	width:100%;
+	color:#39cd89;
+}
+#nocoupon{
+	width:100%;
+}
+#nocoupon img{
+	width:100%;
+}
+#couponlist{
+	width:100%;
+}
+#couponlist img{
+	width:100%;
+}
+.sub_coupon span{
+	color:#999;
+}
+a{
+	text-decoration:none;
+}

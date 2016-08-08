@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="${res}/css/load/css/loaders.css"/>
+    <link rel="stylesheet" href="${res}/css/load/css/fakeloader.css">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="${res}/css/load/js/fakeloader.min.js"></script>
+    <script>
+       /* window.onload=function()
+        {
+            $(".fakeloader").fakeLoader({
+                timeToHide:81200,
+                bgColor:"#2ecc71",
+                spinner:"spinner1"
+            });
+            if(document.readyState == "complete") //当页面加载状态
+            {
+                $(".fakeloader").fadeOut(2000)
+            }
+        }*/
+    </script>
+</head>
+<body>
+<div class="fakeloader"></div>
+</body>
+</html>
+<script>
+    document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+    function subSomething()
+    {
+        $(".fakeloader").fakeLoader({
+            timeToHide:81200,
+            bgColor:"#2ecc71",
+            spinner:"spinner1"
+        });
+        if(document.readyState == "complete") //当页面加载状态
+        {
+                $(".fakeloader").fadeOut(2000)
+        }
+    }
+</script>

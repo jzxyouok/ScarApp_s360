@@ -1,0 +1,114 @@
+<html class="" lang="zh-CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="cleartype" content="on">
+		<meta name="referrer" content="always">
+		<title>优惠券列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="${res}/css/coupon/youhuiquan.css" >
+		<link rel="stylesheet" href="${res}/css/coupon/youhuiquan2.css" >
+		<link rel="stylesheet" href="${res}/css/coupon/youhuiquan3.css" >
+		<link rel="stylesheet" href="${res}/css/coupon/base.css?v=2" >
+		<link rel="stylesheet" href="${res}/css/book/app.css">
+		<link rel="stylesheet" href="${res}/css/themes/default/jquery.alerts.css">
+		<script type="text/javascript" src="${res}/scripts/xc/jquery.min.js"></script>
+		<script src="${res}/scripts/lib/jquery/jquery.alerts.js" type="text/javascript"></script>
+		<script src="${res}/scripts/xc/dialog.js" type="text/javascript"></script>
+		<script src="${res}/scripts/xc/youhuiquan.js?v=28888" type="text/javascript"></script>
+		<script>
+			$( document ).ready(function(e) {
+				$("#couponCode").removeAttr('style');
+				$("#couponCode").css("position","inherit");
+				$("#couponCode").width(170);
+			})
+		</script>
+	<body>
+		<div class="container ">
+			<div class="p15" style="background:#fff;">
+        <div class="f-yhbox mb10 clearfix">
+            <input type="text" placeholder="请输入兑换码" style="width:170px;position: inherit"  name="couponCode" id="couponCode">
+            <button class="u-dlbtn fr"  onclick="getCode()">兑换</button>
+        </div>
+        <p class="x-yhf"></p>
+    </div>
+			<div class="content ">
+				<div class="content-body" style="font-size:20px">
+					<!-- 无优惠券情况下展示 -->
+					<div class="promote-card-list-box">
+						<div class="promote-nav-box">
+							<div class="tabber-ios-gray tabber tabber-ios">
+								<a [#if status=='0']class="active"[/#if] style="background-color:green;color: white;" href="${base}/order/mycoupon.html?status=0">未使用</a>
+								<a [#if status=='1']class="active"[/#if] style="background-color:orange;color: white;" href="${base}/order/mycoupon.html?status=1">已使用</a>
+								<a [#if status=='2']class="active"[/#if] style="background-color:#808080;color: white" href="${base}/order/mycoupon.html?status=2">已过期</a>
+							</div>
+						</div>
+						<ul class="promote-card-list">
+							[@my_vip_couponlist userId="${(_user_key.userId)!''}" status="${status}"]
+								[#if vipCouponList?? &&vipCouponList?size>0]
+									[#list vipCouponList as coupon]
+									[#if coupon.status=='2']
+											<li class="promote-item coupon-style-guoqi">
+											<a class="clearfix" href="javascript:void(0)">
+									[#else]
+										[#if coupon.status=='0']
+										<li class="promote-item coupon-style-${coupon_index%5}">
+										<a class="clearfix" href="javascript:useCoupon('${coupon.couponMoney}','${coupon.couponName}','${coupon.id}')">
+										[#else]
+											<li class="promote-item coupon-style-${coupon_index%5}">
+											<a class="clearfix" href="javascript:void(0)">
+										[/#if]
+									[/#if]
+										<div class="promote-left-part">
+											<div class="inner">
+												<h4 class="promote-shop-name font-size-14">${coupon.couponName!''}劵</h4>
+												<div class="promote-card-value">
+													<span>￥</span><i>${coupon.couponMoney!''}</i>
+												</div>
+												<div class="promote-condition font-size-12">
+													${coupon.couponRemark!''} </div>
+											</div>
+										</div>
+										<div class="promote-right-part center font-size-12">
+											<div class="inner">
+												<div>
+													<p>使用期限</p>
+													<p>${coupon.couponStartTime!''}</p>
+													<p>${coupon.couponEndTime!''}</p>
+												</div>
+												<div class="promote-use-state font-size-16">
+													[#if coupon.status=='0']
+														<font color="green">未使用</font>
+													[/#if]
+													[#if coupon.status=='1']
+														<font color="red">已使用</font>
+													[/#if]
+													[#if coupon.status=='2']
+														<font color="red">已过期</font>
+													[/#if]
+													</div>
+											</div>
+										</div>
+										<i class="expired-icon"></i>
+										<i class="left-dot-line"></i>
+									</a>
+								</li>
+									[/#list]
+							    [#else]
+								   <!--暂时无优惠券-->
+									<img src="${res}/images/ggwash/vipcoupon_no.png" style="width:100%">
+								[/#if]
+							[/@my_vip_couponlist]
+						</ul>
+					</div>
+
+				</div>
+				<div id="shop-nav"></div>
+			</div>
+		</div>
+	</body>
+	[#include "../xc/load.html"]
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="format-detection" content="telephone=no">
+		<title>我的洗车券</title>
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/reset.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/style.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/button.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/button.default.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/login.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/couponbuy.css">
+		<link rel="stylesheet" type="text/css"
+			href="${res}/css/ggwash/cl.css">
+			<script src="${res}/scripts/lib/jquery/jquery.min.js"></script>
+		<script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script>
+var id="";
+var total="";
+function couponbuy_select(typeid){
+		var last = $("input[name='typeid']:checked");
+		total=last.attr('value');
+		id=last.attr('dataid');
+
+		//var now = $("#typeid_"+typeid);
+		//if(now){
+			//last.removeAttr('checked');
+			//now.attr('checked' ,true);
+		//}
+}
+function couponbuy_weixin(){
+	var url="${base}/pay/couponbuy?id="+id+"&total="+total;
+	window.location.href=url;
+}
+</script>
+
+	</head>
+	<body style="display: block;">
+		<div style="width: 100%">
+			<div id="couponbuy" style="display: block;">
+				<div id="couponbuy_dialog">
+					<div id="couponbuy_box">
+						<div id="couponbuy_title">
+							购买张数2
+							<span onclick="couponbuy_hide();">取消</span>
+						</div>
+						<div id="couponbuy_list">
+							<table>
+								<tbody>
+								[@coupon_list ]
+								[#if couponList?? &&couponList?size>0]
+									[#list couponList as coupon]
+										[#if coupon_index==0]
+											[@findGgwash_couponList openid="${openid}"]
+												[#if isShouDan?? && isShouDan>0]
+													<tr onclick="couponbuy_select(&quot;${coupon.id}&quot;)">
+														<td>
+															<input type="radio" name="typeid" id="typeid_${coupon.id}" checked="checked" dataid="${coupon.id}" value="${coupon.price!''}">
+														</td>
+														<td>${coupon.name!''}</td>
+														<td>${coupon.price!''}元</td>
+														<<!--td>
+															(<del><font color="#ccc">原价${coupon.oprice!''}元</font></del>)
+														</td>-->
+													</tr>
+												[/#if]
+											[/@findGgwash_couponList]
+										[#else]
+
+										[/#if]
+
+									[/#list]
+								[/#if]
+								[/@coupon_list]
+
+								</tbody>
+							</table>
+							<div id="couponbuy_desc">
+								购买之日起，有效期一年
+							</div>
+						</div>
+						<div id="couponbuy_buy" style="width: 100%">
+							<input id="couponbuy_btn_weixin"
+								style="width: 90%;" class="lcouponbuy_btn"
+								type="button" onclick="couponbuy_weixin()" value="微信支付">
+						</div>
+						<div id="couponbuy_buy_busy" style="width: 100%; display: none;">
+							请求中……
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</body>
+</html>

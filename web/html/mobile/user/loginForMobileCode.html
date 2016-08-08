@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+	<title>会员登陆</title>
+	<link rel="stylesheet" href="${res}/css/ggwash/cfj.css"/>
+	<link rel="stylesheet" href="${res}/css/book/pintuer.css"/>
+	<link rel="stylesheet" href="${res}/css/book/app.css"/>
+	<link rel="stylesheet" href="${res}/css/themes/default/jquery.alerts.css"/>
+	<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+	<script src="${res}/scripts/lib/jquery/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="${res}/scripts/lib/jquery/jquery.alerts.js" type="text/javascript"></script>
+	<script src="${res}/scripts/book/form.utils.js?v=1" type="text/javascript"></script>
+	<script src="${res}/scripts/config/fts.js" type="text/javascript"></script>
+	<script src="${res}/scripts/book/message.js" type="text/javascript"></script>
+	<script src="${res}/scripts/book/validate.js?v=1" type="text/javascript"></script>
+	<script src="${res}/scripts/book/user.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function getCode(){
+			var mobile=$("#mobile").val();
+			if(''==mobile||null==mobile){
+				Dialog.show($.messages['1003'], 2, 2000);
+				return ;
+			} else{
+				var myreg = /(^13\d{9}$)|(^14)[5,7]\d{8}$|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^17)[6,7,8]\d{8}$|(^18\d{9}$)/g ;
+				if (myreg.test(mobile)){
+				}else{
+					errMsg='请输入正确的手机号';
+					Dialog.show(errMsg, 2, 2000);
+					return;
+				}
+			}
+			//获取验证码
+			var telephone = mobile;
+			if (true) {
+				$.ajax({
+					url : '${base}/code/loginMobileCode.act',
+					type : 'POST',
+					timeout : '1000',
+					async : false,
+					dataType : 'json',
+					data : {
+						telephone : telephone
+					},
+					success : function(responseText) {
+						timing(60000, $('#timing'));
+					},error:function(){
+						alert("操作一次");
+					}
+				});
+			}
+		}
+		function loginForMobileAndCode(){
+			var mobile=$("#mobile").val();
+			var vcode=$("#vcode").val();
+			var errMsg="";
+			var infoMsg="'警告对话框'";
+			if(''==mobile||null==mobile){
+				errMsg="手机号码不能为空";
+				Dialog.show(errMsg, 2, 2000);
+				return ;
+			}else{
+				var myreg = /(^13\d{9}$)|(^14)[5,7]\d{8}$|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^17)[6,7,8]\d{8}$|(^18\d{9}$)/g ;
+				if (myreg.test(mobile)){
+				}else{
+					errMsg='请输入正确的手机号';
+					Dialog.show(errMsg, 2, 2000);
+					return;
+				}
+			}
+			if(''==vcode||null==vcode){
+				errMsg="验证码不能为空";
+				Dialog.show(errMsg, 2, 2000);
+				return;
+			}
+
+			$.ajax({
+				url : '${base}/code/getMobileCode.act',
+				type : 'POST',
+				timeout : '1000',
+				async : false,
+				dataType : 'json',
+				data : {
+					vcode : vcode,mobile:mobile
+				},
+				success : function(data) {
+					if(data.success){
+						loginForMobileAndCodeSubmit();
+					}else{
+						errMsg="验证码输入错误";
+						Dialog.show(errMsg, 2, 2000);
+					}
+
+				},error:function(){
+					//alert("操作失败");
+					loginForMobileAndCode();
+				}
+			});
+		}
+		function loginForMobileAndCodeSubmit(){
+			var data=$("#form1").serialize();
+			$.ajax({
+				url : '${base}/user/loginForCode.html',
+				type : 'POST',
+				timeout : '1000',
+				async : false,
+				dataType : 'json',
+				data : data,
+				success : function(data) {
+					if(data.success==''){
+						errMsg="手机号码已经存在";
+						Dialog.show(errMsg, 2, 2000);
+						return ;
+					}else{
+						if(data.success){
+							Dialog.show("登陆成功", 1, 2000);
+							setTimeout(function() {
+								var url="${base}/washcar/index.html";
+								window.location.href=url;
+							},2000);
+						}else{
+							errMsg="登陆失败";
+							Dialog.show(errMsg, 2, 2000);
+						}
+					}
+				},error:function(){
+					//alert("操作失败");
+					loginForMobileAndCodeSubmit();
+				}
+			});
+		}
+	</script>
+</head>
+
+<body>
+<form method="post" class="form-x " action="" id="form1" name="form1" onsubmit="return false">
+	<input type="hidden" id="token" name="token" value="${token!''}"/>
+	<div class="login_vipyc1">
+		<b>本系统承诺严格保密车主隐私</b>
+	</div>
+	<div class="login_conter" >
+		<div class="login_bd" >
+			<img src="${res}/css/ggwash/images/shouji.png" width="8%" />
+			<input type="text" id="mobile" name="mobile" class="login_dh" placeholder="请输入手机号" />
+		</div>
+		<div class="login_cw" id="errorMobile" style="display:none">输入的手机号有误</div>
+		<div class="login_bda">
+			<img src="${res}/css/ggwash/images/yzma.png" width="13%"/>
+			<input type="text" class="login_dha" id="vcode" name="vcode" placeholder="请输入验证码" />
+		</div>
+		<div class="login_yzm"><a href="javascript:getCode()" id="vcodeBtn">获取验证码</a></div>
+		<div class="login_yzma" style="display:none" id="timing"><a >6秒后重新获取</a></div>
+		<div class="clear"></div>
+		<div class="yytz"><a href="javascript:void(0);" onclick="javascript:loginForMobileAndCode()">登陆</a></div>
+	</div>
+</form>
+</body>
+[#include "../xc/load.html"]
+</html>

@@ -1,0 +1,94 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the login css.
+	Date: 2/2/2015
+*/
+
+/* General styling */
+html,body,#wrapper{
+	background-color: #e6e6e6;
+	font-size: 1.5rem;
+	color: #141414;
+}
+.account{
+	margin-top: 3%;
+	padding: 3% 4%; 
+	background-color: #ffffff;
+	border-top: 0.07rem solid #cccccc;
+	border-bottom: 0.07rem solid #cccccc;
+}
+.account span,.personalinfo span{
+	display: inline-block;
+}
+.accounticon{
+	width: 5%;
+	margin-right: 2%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.personalinfo{
+	margin-top: 3%;
+	padding-left: 4%;
+	background-color: #ffffff;
+	border-top: 0.07rem solid #cccccc;
+	border-bottom: 0.07rem solid #cccccc;
+}
+.personalinfo p{
+	display: inline-block;
+	vertical-align: middle;
+	border-bottom: 0.07rem solid #cccccc;
+	float: right;
+	width: 87%;
+	padding: 0 4% 3% 0;
+}
+.infocont{
+	padding: 3% 0;
+}
+.arrow_right{
+	width: 2.6%;
+	display: inline-block;
+	text-align: right;
+	vertical-align: middle;
+}
+.infoicon{
+	width: 4.9%;
+	margin-right: 1%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.logout{
+	color: #ff2929;
+	margin-top: 10%;
+	border-top: 0.07rem solid #ff2929;
+	border-bottom: 0.07rem solid #ff2929;
+}
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	#wrapper{ font-size: 0.7rem; }
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	#wrapper{ font-size: 0.8rem; }
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+	#wrapper{ font-size: 1rem; }
+}
+@media screen and (min-width: 500px) and (max-width: 600px) {
+	#wrapper{ font-size: 1.2rem; }
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+	#wrapper{ font-size: 1.5rem; }
+}
+@media screen and (min-width: 700px) and (max-width:800px) {
+	#wrapper{ font-size: 1.7rem; }
+}
+@media screen and (min-width: 800px) and (max-width:900px) {
+	#wrapper{ font-size: 2.1rem; }
+}
+@media screen and (min-width: 900px) and (max-width:1000px) {
+	#wrapper{ font-size: 2.3rem; }
+}
+@media screen and (min-width: 1000px) {
+	#wrapper{ font-size: 2.5rem; }
+}

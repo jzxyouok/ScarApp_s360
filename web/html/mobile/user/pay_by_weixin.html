@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>我的订单</title>
+  <link href="${res}/css/xc/main.css" rel="stylesheet" />
+<link href="${res}/css/xc/orderlist.css" rel="stylesheet">
+<link href="${res}/css/xc/myorder.css" rel="stylesheet">
+<link href="${res}/css/xc/list.css" rel="stylesheet">
+<link href="${res}/images/foot/foot.css" rel="stylesheet">
+<script src="${res}/scripts/xc/jquery.min.js"></script>
+<script>
+	//ajax微信付款，首先获取jsParam
+	function wxpay(id){
+		var url="${base}/order/getJsParam.html";
+		var jsParam='${order.jsParam?default("")}';
+		jsParam=eval("("+jsParam+")");
+		if(''==jsParam||null==jsParam){
+			chongxinGetJsParam(id,url);
+		}else{
+			WeixinJSBridge.invoke(
+					'getBrandWCPayRequest'
+					,jsParam
+					,callback
+			);
+		}
+
+
+	}
+	function chongxinGetJsParam(id,url){
+		$.ajax({
+			type: "POST",
+			url: url,
+			data:{"orderId":id},
+			async : false,
+			dataType: "json",
+			success: function (data) {
+				var jsParam=data;
+				WeixinJSBridge.invoke(
+						'getBrandWCPayRequest'
+						,jsParam
+						,callback
+				);
+			},
+			error: function (msg) {
+				alert("error");
+			}
+		});
+	}
+	function callback(res){
+		//  返回 res.err_msg,取值
+		// get_brand_wcpay_request:cancel   用户取消
+		// get_brand_wcpay_request:fail  发送失败
+		// get_brand_wcpay_request:ok 发送成功
+		WeixinJSBridge.log(res.err_msg);
+		if(res.err_msg=='get_brand_wcpay_request:ok')
+		{
+			//支付成功后修改订单状态，并发送派单通知
+			//alert("成功");
+			var orderId="${orderId!''}";
+			//alert(orderId);
+			//支付成功之后跳转到订单详情页面
+			var url="${base}/my/order"+orderId+".html";
+			//var url="${base}/order/wxpayUpdate.html?id="+orderId;
+			window.location.href=url;
+		}
+		else
+		{
+			//var msg='支付失败,请重新支付.';
+			//alert(msg);
+			//alert(res.err_code+" err_desc="+res.err_desc+" err_msg="+res.err_msg);
+		}
+	};
+</script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c">
+<div data-role="page"  tabindex="0" class="ui-page ui-body-c ui-page-active" >
+	<!-- the content -->
+    <div id="wrapper" >
+        <div id="scroller">
+        <article id="thelist">
+			    [#if order??]
+            	 <section>
+	        	<div class="userlist">
+		        	<div class="listinfo">
+						<div class="userinfo p_r">
+				        	<p class="username">订单详情</p>
+	    						<p>
+					        		<span>订单号：</span>
+					        		<span>${order.orderId[0..10]}</span>
+				        		</p>
+				        		<p>
+						        	<span>车牌号：</span>
+						        	<span>
+						        		${order.carNum!''}
+						        	</span>
+				        		</p>
+							<!--	<p>
+									<span>预约时间：</span>
+										<span>
+											${order.washTime!''}
+										</span>
+								</p>-->
+								<p>
+									<span>洗车类型：</span>
+										<span>
+											${order.washType!''}
+										</span>
+								</p>
+				        		   [#if order.status=='-1']
+	                               	 	<span class="orderstate color_orange" >未支付</span>
+	                                [/#if]
+	                                [#if order.status=='0']
+	                               	 	<span class="orderstate color_orange" >支付失败</span>
+	                                [/#if]
+	                                [#if order.status=='1']
+	                               	 	<span class="orderstate color_orange" >支付完成</span>
+	                                [/#if]
+	                                [#if order.status=='2']
+	                               	 	<span class="orderstate color_orange">用户取消</span>
+	                                [/#if]
+
+
+				        </div>
+		        	</div>
+		        	<div class="btnoper clearfix">
+						[#if order.status=='-1']
+						<span class="btn_rectangle greyframe color_orange f_r vieworder" onclick="javascript:wxpay('${order.id}')">支付</span>
+						[/#if]
+						<span class="btn_rectangle greyframe color_blue f_r vieworder" onclick="window.location.href='${base}/f/order${order.id}.html'">查看</span>
+		        	</div>
+	        	</div>
+        	</section>
+
+            [#else]
+	            <div class="userlist">
+			        	<div class="listinfo">
+				        	<div class="userinfo p_r">
+					        	<p >  暂无订单<a href="${base}/washcar/index.html"><font color="green" >去下单</font></a></p>
+					        </div>
+
+					    </div>
+
+			     </div>
+            [/#if]
+        	</article>
+       </div>
+       <article class="tooltip" style="display: none;">
+            <div class="mask"></div>
+            <div class="tooltipcont">
+                <!--<img src="../../res/images/exclamation.png">-->
+                <p class="tooltipwords"></p>
+                <p class="tooltipoper clearfix">
+                    <span class="btn_rectangle btn_orange f_r" id="confirm">确定</span>
+                </p>
+            </div>
+        </article>
+    </div>
+    </div>
+
+
+<div class="nav_fp">
+	<ul>
+        <li><a href="${base}/washcar/index.html" class="nav_cpjxa">上门洗车</a></li>
+        <li><a href="${base}/order/myorderlist.html" class="nav_gkk">洗车订单</a></li>
+        <li><a href="${base}/mycoupon.html" class="nav_grzxa">洗车券</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mobile.choujiang">
+<typeAlias alias="bo" type="com.zero2ipo.car.choujiang.bo.ChouJiangResult"/>
+<resultMap class="bo" id="choujiangMap">
+	<result property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="mobile" column="mobile"/>
+	<result property="carNum" column="carNum"/>
+	<result property="openId" column="openId"/>
+	<result property="content" column="content"/>
+	<result property="createTime" column="createTime"/>
+	<result property="flag" column="flag"/>
+	<result property="money" column="money"/>
+</resultMap>
+<!--查询-->
+
+<select id='findAllList' resultMap='choujiangMap'>
+SELECT
+	id,
+	name,
+	mobile,
+	carNum,
+	openId,
+	createTime,
+	content,
+	flag,
+	money
+FROM choujiang_result
+<dynamic prepend="WHERE">
+<isNotEmpty prepend="AND" property="name">
+INSTR(name,#name#)>0
+</isNotEmpty>
+</dynamic>
+</select>
+
+	<select id='findAllListCount' resultClass="java.lang.Integer">
+		SELECT
+			count(0)
+		FROM
+			choujiang_result
+		where
+		openId=#openId#
+		and flag=#flag#
+		<isNotEmpty prepend="or" property="mobile">
+			INSTR(mobile,#mobile#)>0
+		</isNotEmpty>
+		<isNotEmpty prepend="or" property="carNum">
+			INSTR(carNum,#carNum#)>0
+		</isNotEmpty>
+	</select>
+<!--新增-->
+<insert id="add" parameterClass="bo">
+	INSERT INTO choujiang_result(
+	name,
+	mobile,
+	carNum,
+	openId,
+	content,
+	createTime,
+	flag,
+	money
+)VALUES(
+	#name#,
+	#mobile#,
+	#carNum#,
+	#openId#,
+	#content#,
+	now(),
+	#flag#,
+	#money#
+)
+</insert>
+<!--修改-->
+<update id="update" parameterClass="bo">
+	UPDATE
+		choujiang_result
+	SET
+	name=#name#,
+	mobile=#mobile#,
+	carNum=#carNum#,
+	createTime=now(),
+	money=#money#
+ 	WHERE
+	openId=#openId#
+</update>
+<!--删除-->
+<delete id="delelete" parameterClass="java.util.Map">
+	DELETE FROM
+		choujiang_result
+	WHERE
+	ID IN
+	<iterate property="id" conjunction="," close=")" open="(">
+	#id[]#
+	</iterate>
+</delete>
+</sqlMap>

@@ -1,0 +1,110 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the w_orderdetail css.
+	Date: 1/29/2014
+*/
+
+/* General styling */
+.userlist {
+	border-radius: 8px;
+	margin-top: 0;
+	border: 0.15rem solid #dadada;
+}
+.listinfo {
+	padding: 0 0 1rem 0;
+}
+div.optionlist {
+	width: 100%;
+	padding: 0.7rem 0;
+}
+.lname {
+	text-align: left;
+}
+.justify{
+	letter-spacing:0.8rem;
+}
+.carnum{
+	width: 25%;
+}
+.carbrand{
+	width: 30%;
+	text-align: center;
+}
+.carcolor{
+	width: 20%;
+	text-align: center;
+}
+.seatnum{
+	width: 20%;
+	text-align: right;
+}
+.detailuser{
+	padding:1rem;
+}
+.total{
+	border-top: 0.15rem solid #dadada;
+	margin-top: 0;
+	font-size: 1.5rem;
+	color: #808080;
+	background-color: #fff7e8;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.userinfo.total{
+	width: 100%;
+	margin-left: 0;
+}
+.userinfo.total span{
+	padding: 1rem;
+}
+.total {
+	border-top: 0.1rem solid #dadada;
+}
+.cancelorder,.paybychart{
+	padding: 0.7rem 1rem;
+	text-align: center;
+}
+.cancelorder{
+	float: left;
+	width: 40%;
+	margin-top: 1rem;
+}
+.paybychart{
+	float: right;
+	width: 50%;
+	margin-top: 1rem;
+}
+.remind{
+	text-align: center;
+	padding: 0.7rem 0;
+	color: #ff8400;
+	font-size: 1.5rem;
+}
+.contactmaster{
+	float: left;
+	width: 100%;
+}
+
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	.remind{font-size: 1rem;padding: 0.5rem 0;}
+	.cancelorder,.paybychart{font-size: 1rem;padding: 0.3rem 0; margin-top: 0.2rem;}
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	.remind{font-size: 1.1rem;padding: 0.5rem 0;}
+	.cancelorder,.paybychart{font-size: 1.1rem;padding: 0.5rem 0; margin-top: 0.3rem;}
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+	.remind{font-size: 1.3rem;padding: 0.7rem 0;}
+	.cancelorder,.paybychart{font-size: 1.3rem;padding: 0.6rem 0; margin-top: 0.5rem;}
+}
+@media screen and (min-width: 500px) and (max-width: 600px) {
+	.remind{font-size: 1.5rem;padding: 0.7rem 0;}
+	.cancelorder,.paybychart{font-size: 1.5rem;padding: 0.7rem 0; margin-top: 0.8rem;}
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+	.remind{font-size: 2rem;padding: 0.9rem 0;}
+	.cancelorder,.paybychart{font-size: 2rem;padding: 0.7rem 0; margin-top: 1rem;}
+}

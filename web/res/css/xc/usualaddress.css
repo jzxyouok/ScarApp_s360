@@ -1,0 +1,81 @@
+@charset "utf-8";
+/*
+	Author: Miaohu
+	Description: This is the usualaddress css.
+	Date: 2/2/2015
+*/
+
+/* General styling */
+#wrapper{
+	font-weight: bold;
+}
+.addresslist{
+	background-color: #ffffff;
+}
+.addresslist p{
+	padding: 3% 4%;
+	border-top: 0.07rem solid #E4E4E4;
+	/*border-bottom: 0.07rem solid #cccccc;*/
+}
+.addresslist p.addcarp{
+	padding: 5%;
+}
+.addicong{
+	width: 6%;
+	margin-right: 2%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.addusualaddress{
+	color: #2ab224;
+	font-size: 1.5rem;
+}
+.locationorange{
+	width: 6%;
+	margin-right: 1%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.addressjt{
+	max-width: 65%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 350px) {
+	#wrapper{ font-size: 0.6rem; }
+	.addusualaddress{ font-size: 0.8rem; }
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	#wrapper{ font-size: 0.7rem; }
+	.addusualaddress{ font-size: 1rem; }
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+	#wrapper{ font-size: 0.8rem; }
+	.addusualaddress{ font-size: 1.3rem; }
+}
+@media screen and (min-width: 500px) and (max-width: 600px) {
+	#wrapper{ font-size: 1rem; }
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+	#wrapper{ font-size: 1.2rem; }
+	.addusualaddress{ font-size: 1.7rem; }
+}
+@media screen and (min-width: 700px) and (max-width:800px) {
+	#wrapper{ font-size: 1.5rem; }
+	.addusualaddress{ font-size: 1.9rem; }
+}
+@media screen and (min-width: 800px) and (max-width:900px) {
+	#wrapper{ font-size: 1.7rem; }
+	.addusualaddress{ font-size: 2.1rem; }
+}
+@media screen and (min-width: 900px) and (max-width:1000px) {
+	#wrapper{ font-size: 1.9rem; }
+	.addusualaddress{ font-size: 2.3rem; }
+}
+@media screen and (min-width: 1000px) {
+	#wrapper{ font-size: 2.1rem; }
+	.addusualaddress{ font-size: 2.5rem; }
+}

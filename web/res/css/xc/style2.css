@@ -1,0 +1,225 @@
+@charset "utf-8";
+/* General styling */
+.selected{
+    width: 5%;
+}
+.editcar{
+ 
+    font-size: 1.57rem;
+    color: #141414;
+}
+.oneline{
+    padding-left: 1rem;
+    background-color: #ffffff;
+}
+.oneline p{
+    height: 5rem;
+    line-height: 5rem;
+    padding-right: 0%;
+}
+.oneline p.bb_none{
+    border-bottom: none;
+}
+.color9{
+    color: #999999;
+}
+.arrow_down{
+   /* margin-right: 2%;*/
+}
+.brandsel{
+    width: 46%;
+    text-align: right;
+}
+.arrow_down{
+   /* width: 8.5%;*/
+}
+.brandsel font{
+    margin-right: 4%;
+    display: inline-block;
+}
+.alarm,.location{
+    margin: 0 3%;
+    width: 13%;
+}
+.sellocation{
+    height: 5rem;
+    line-height: 5rem;
+    border-bottom:  0.07rem solid #E0E0E0;
+    background-color: #ffffff;
+    position: relative;
+}
+.sellocation span{
+    display: inline-block;
+    width: 49.8%;
+    border-right: 0.07rem solid #E0E0E0;
+    text-align: left;
+}
+.sellocation span.br_none{
+    border-right: none;
+}
+.prompt{
+    color: #808080;
+    padding: 1% 1rem;
+}
+.btnoper {
+    margin-top: 2rem;
+}
+.btnoper span {
+    display: block;
+    height: 80px;
+    line-height: 3.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.timesel .arrow_down{
+    /*width:6%;*/
+}
+
+.dropdownmodal{
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    top: 100%;
+    background-color: #ffffff;
+    border-top: 0.07rem solid #E0E0E0;
+}
+.dropdownmodal h1{
+    color: #807f7f;
+    padding: 0 3%;
+    height: 4rem;
+    line-height: 4rem;
+    border-bottom: 1px solid #cccccc;
+}
+.selected{
+    width: 5%;
+}
+.address{
+    display: inline-block;
+    width: 93%;
+    max-width: 93%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#washAddrShow,#washInfoShow{
+    display: inline-block;
+    width: 95%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    border: none;
+    height: 83%;
+    font-size: 1.5rem;
+    font-family: 'Microsoft YaHei','SimHei','Arial';
+}
+
+.b_none{
+    border: none;
+}
+.bt_none{
+    border-top: none;
+}
+.br_none{
+    border-right: none;
+}
+.bb_none{
+    border-bottom: none;
+}
+.bl_none{
+    border-left: none;
+}
+.textwords{
+    margin-right: 5%;
+}
+.inputcarnun{
+    width: 35%;
+    height: 94%;
+    font-family: "Microsoft YaHei","SimHei","Arial";
+    font-size: 1.3rem;
+    padding: 0 2%;
+    text-align: right;
+    border: none;
+}
+
+
+/* Media Queries */
+@media screen and (min-width: 300px) and (max-width: 400px) {
+    .carrecord header{font-size: 1.2rem;}
+    .carinfo span,.addcar,.editcar,.dropdownmodal h1{font-size: 1rem;}
+    .carcolor {width: 21%;}
+    .carseat {width: 33%;}
+    .carinfo,.addcar,.oneline p,.sellocation{height: 3rem;line-height: 3rem;}
+    .carbrand font{height: 1.5rem;line-height: 1.5rem;}
+    .carinfo span{height: 3rem;line-height: 3rem;}
+    .prompt{font-size: 0.7rem;}
+    .oneline{padding-left: 0.5rem;}
+    .brandsel.timesel{width:100%;}
+    .timesel font{margin-right: 2%;}
+    .timesel .arrow_down{margin-right: 6%;}
+    .btnoper {margin-top: 0.7rem;}
+    .btnoper span{font-size: 1.3rem;height: 3rem;line-height: 3rem;}
+    .inputcarnun{ font-size: 1rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1rem; }
+}
+@media screen and (min-width: 400px) and (max-width: 600px) {
+    .carrecord header{font-size: 1.4rem;}
+    .carinfo span,.addcar,.editcar,.dropdownmodal h1{font-size: 1.2rem;}
+    .carcolor {width: 21%;}
+    .carseat {width: 33%;}
+    .carinfo,.addcar,.oneline p,.sellocation,.btnoper span{height: 3.5rem;line-height: 3.5rem;}
+    .carbrand font{height: 1.5rem;line-height: 1.5rem;}
+    .carinfo span{height: 3rem;line-height: 3rem;}
+    .prompt{font-size: 1rem;}
+    .oneline{padding-left: 0.7rem;}
+    .brandsel.timesel{width:100%;}
+    .timesel font{margin-right: 2%;}
+    .timesel .arrow_down{margin-right: 1%;}
+    .btnoper {margin-top: 1rem;}
+    .btnoper span{font-size: 1.3rem;}
+    .brandsel {width: 47%;}
+    .inputcarnun{ font-size: 1.2rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1.3rem; }
+}
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .brandsel.timesel{width:63%;}
+    .brandsel{width:47%}
+    .inputcarnun{ font-size: 1.6rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1.6rem; }
+}
+@media screen and (min-width: 700px) and (max-width:800px) {
+    .carrecord header{font-size: 1.9rem;}
+    .carinfo span,.addcar,.editcar,.dropdownmodal h1{font-size: 1.7rem;}
+    .carcolor {width: 21%;}
+    .carseat {width: 33%;}
+    .carinfo,.addcar,.oneline p,.sellocation,.btnoper span{height: 4.5rem;line-height: 4.5rem;}
+    .carbrand font{height: 2rem;line-height: 2rem;}
+    .carinfo span{height: 4rem;line-height: 4rem;}
+    .prompt{font-size: 1.3rem;}
+    .oneline{padding-left: 1rem;}
+    .brandsel.timesel{width:70%;}
+    .timesel font{margin-right: 3%;}
+    .timesel .arrow_down{margin-right:2%;}
+    .btnoper span{font-size: 2rem;}
+    .brandsel {width: 47%;}
+    .inputcarnun{ font-size: 1.6rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1.8rem; }
+}
+@media screen and (min-width: 800px) and (max-width:900px) {
+    .brandsel.timesel{width:69%;}
+    .brandsel{width:48%}
+    .inputcarnun{ font-size: 1.6rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1.8rem; }
+}
+@media screen and (min-width: 900px) {
+    .brandsel.timesel{width:68%;}
+    .brandsel{width:49%}
+    .inputcarnun{ font-size: 1.6rem; }
+    #washAddrShow, #washInfoShow{ font-size: 1.8rem; }
+}

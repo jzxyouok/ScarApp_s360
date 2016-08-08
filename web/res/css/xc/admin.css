@@ -1,0 +1,27 @@
+/*订单*/
+
+.m-ordernav {
+    background: #fff;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    position: fixed;
+    z-index: 8888;
+    width: 100%;
+    padding-bottom: 0px;
+}
+	.m-ordernav li{width: 33%; float: left; line-height: 50px; text-align: center;}
+	.m-ordernav li a{color:#595056; display: inline-block; padding-bottom:2px; height: 48px;}
+	.m-ordernav li.on a{color:#32b06b; border-bottom: 2px solid #32b06b; padding-bottom: 0;}
+	.m-orderct{padding: 0 0 0 15px; border: 1px solid #ddd; background: #fff; color: #595056; }
+	.m-orderct .f-ordertt{line-height: 44px; vertical-align: middle; border-bottom: 1px solid #ddd;}
+	.m-orderct .f-ordertt span.fl i,.f-sjright{background: url(../images/ico/sj-right.png) no-repeat; background-size: 100% 100%; width: 8px; height: 13px; display:inline-block; margin-left: 10px;}
+	.f-serimg{display: block; width: 80px; height: 80px; border-radius: 5px;overflow: hidden;}
+	.m-serlst{padding-bottom:10px; padding-top: 17px;}
+	.f-serimg img{display: block; width: 100%;}
+	.f-serimg .fwdimg{width: 65px; height: 65px; border-radius: 5px;}
+	.m-sershow{margin-left: 80px; font-size: 14px; line-height: 25px; padding-right: 15px;}
+	.m-sertall{line-height: 45px; border:1px solid #ccc; border-left: none; border-right: none; color: #595056; font-size: 14px;}
+	.m-anct{background: #fff; height: 65px; text-align: center; border-top: 1px solid #ddd;}
+	.m-anct a{width: 91px; height: 34px; border-radius: 5px; background: #ebe8e9; color: #767573; display: inline-block; text-align: center; line-height: 34px; margin-top: 15px;}
+	.m-anct a.on{background: #32b06b; color: #fff;}

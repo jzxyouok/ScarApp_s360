@@ -1,0 +1,98 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mobile.goodses">
+<typeAlias alias="goodses" type="com.zero2ipo.common.entity.app.Goodses"/>
+<resultMap class="Goodses" id="Goodses">
+	<result property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="carPrice" column="car_price"/>
+	<result property="jeepPrice" column="jeep_price"/>
+	<result property="info" column="info"/>
+	<result property="url" column="url"/>
+	<result property="status" column="status"/>
+	<result property="createTime" column="create_time"/>
+	<result property="extra" column="extra"/>
+	<result property="cardList" column="card_list"/>
+	<result property="washCount" column="washCount"/>
+	<result property="discountPrice" column="discountPrice"/>
+	<result property="firstPrice" column="firstPrice"/>
+</resultMap>
+<!--查询-->
+
+<select id='findGoodsesList' resultMap='Goodses'>
+SELECT
+	id,
+	name,
+	car_price,
+	jeep_price,
+	info,
+	url,
+	status,
+	create_time,
+	extra,
+	card_list,
+	discountPrice,
+	washCount,
+	firstPrice
+FROM goodses
+<dynamic prepend="WHERE">
+<isNotEmpty prepend="AND" property="userId">
+INSTR(USER_ID,#userId#)>0
+</isNotEmpty>
+</dynamic>
+</select>
+<!--新增-->
+<insert id="addGoods" parameterClass="goodses">
+	INSERT INTO goodses(
+	id,
+	name,
+	car_price,
+	jeep_price,
+	info,
+	url,
+	status,
+	create_time,
+	extra,
+	card_list
+)VALUES(
+	#id#,
+	#name#,
+	#carPrice#,
+	#jeepPrice#,
+	#info#,
+	#url#,
+	#status#,
+	#createTime#,
+	#extra#,
+	#cardList#
+)
+</insert>
+<!--修改-->
+<update id="updVipManage" parameterClass="goodses">
+	UPDATE
+	goodses
+	SET
+	id=#id#,
+	name=#name#,
+	car_price=#carPrice#,
+	jeep_price=#jeepPrice#,
+	info=#info#,
+	url=#url#,
+	status=#status#,
+	create_time=#createTime#,
+	extra=#extra#,
+	card_list=#cardList#
+ 	WHERE
+	ID=#id#
+</update>
+<!--删除-->
+<delete id="delelete" parameterClass="java.util.Map">
+	DELETE FROM
+	goodses
+	WHERE
+	ID IN
+	<iterate property="id" conjunction="," close=")" open="(">
+	#id[]#
+	</iterate>
+</delete>
+</sqlMap>

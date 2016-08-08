@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>充值</title>
+		<link rel="stylesheet" href="${res}/css/money/css/frozen.min.css">
+		<link rel="stylesheet" href="${res}/css/money/css/dropload.css">
+		<link rel="stylesheet" href="${res}/css/money/css/gg.css">
+			<script src="${res}/scripts/xc/jquery.min.js"></script>
+		<script>
+			//ajax微信付款，首先获取jsParam
+			function wxpay(){
+				var money=$('input:radio:checked').attr('money');
+				var zsmoney=$('input:radio:checked').attr('zsmoney');
+				var url="${base}/order/chongzhiWxPay.html";
+				$.ajax({
+					type: "POST",
+					url: url,
+					async : false,
+					data:{"money":money,"zsmoney":zsmoney},
+					dataType: "json",
+					success: function (data) {
+						var jsParam=data;
+						//jsParam=eval("("+jsParam+")");
+						WeixinJSBridge.invoke(
+								'getBrandWCPayRequest'
+								,jsParam
+								,callback
+						);
+					},
+					error: function (msg) {
+						alert("error");
+					}
+				});
+
+			}
+
+			function callback(res){
+				//  返回 res.err_msg,取值
+				// get_brand_wcpay_request:cancel   用户取消
+				// get_brand_wcpay_request:fail  发送失败
+				// get_brand_wcpay_request:ok 发送成功
+				if(res.err_msg=='get_brand_wcpay_request:ok')
+				{
+					//充值成功之后，保存充值记录到数据库中，然后跳转到我的钱包页面
+					var url="${base}/order/savechongzhi.html";
+					window.location.href=url;
+				}
+				else
+				{
+					//var msg='支付失败,请重新支付.';
+					//alert(msg);
+					//alert(res.err_code+" err_desc="+res.err_desc+" err_msg="+res.err_msg);
+				}
+			};
+		</script>
+	</head>
+	<body ontouchstart="" class="gg-body">
+		<div id="gg">
+			<div id="mark"></div>
+			<section id="gg-content" class="ui-container gg-property_cash_buy">
+				<section id="content">
+					<section id="gg_property_cash-content">
+						<ul class="ui-list">
+							[@findChongZhiList]
+								[#if chongzhiList?? &&chongzhiList?size>0]
+									[#list chongzhiList as chongzhi]
+										<li class="gg_property_cash_buy">
+											<div class="gg_property_cash-flag">
+												<span class="gg-property_cash_style_min">￥</span>
+												<span class="gg-property_cash_style_max">${(chongzhi.money)?default('')?string('#.##')}</span>
+											</div>
+											<div class="ui-list-info gg-property_cash-info">
+												<div class="gg-property_cash-info-bg">
+													<h4 class="ui-nowrap gg-property_cash-info-bg-font">&nbsp;
+														<span class="gg-property_cash_style_min">再送￥</span>
+														<span class="gg-property_cash_style_mid">${(chongzhi.zsmoney)?default('')?string('#.##')}</span>
+														<span class="gg-property_cash_style_min">价值:￥${chongzhi.totalMoney!''}</span></h4>
+													<p class="ui-nowrap" style="padding-top: 10px">
+														<span class="gg-property_cash_style_min" style="color: #D0C9C9">&nbsp;·&nbsp;赠送金额有效期：365天</span>
+													</p>
+												</div>
+											</div>
+											<div class="ui-list-action" style="width: 40px;">
+												<label class="ui-radio " style="margin-top: 6px">
+													<input type="radio" id="typeid_${chongzhi.id!''}" money="${chongzhi.money!''}" zsmoney="${chongzhi.zsmoney!''}" value="${chongzhi.id!''}" name="paytype" style="margin-left:10px;margin-top: 24px;" [#if chongzhi_index==0]checked="true" [/#if]> </label>
+											</div>
+											<label id="${chongzhi.id!''}" for="typeid_${chongzhi.id!''}" class="mask-event"></label>
+										</li>
+									[/#list]
+								[/#if]
+							[/@findChongZhiList]
+
+						</ul>
+					</section>
+					<footer class="ui-footer gg-footer gg-property_cash-footer" id="property-footer">
+						<div class="gg-property_cash_referral">
+							<input type="text" id="empNo" name="empNo" placeholder="请输入洗车员工号，没有请忽略"> </div>
+						<div class="ui-row-flex">
+							<div class="ui-col ui-col-4">
+								<li class="ui-border-t">
+									<label class="ui-checkbox-s gg-property-footer-button-bottom">
+										<input type="checkbox" checked="" id="pay_annotation_title"> </label>
+									<span id="property_cash_agreement_info" >接受购买及退款协议</span>
+								</li>
+							</div>
+							<div class="ui-col ui-col-1">
+								<li class="ui-border-t">
+									<div class="ui-list-info"> &nbsp; </div>
+								</li>
+							</div>
+						</div>
+						<div class="ui-footer-btn gg-property_cash_foot-div">
+							<ul class="ui-tiled ui-border-t " id="g_property_bu">
+								<li id="coupon_buy_alipay" class="gg-property-r gg-property-t-buton-backgroud">
+									<div onclick="javascript:wxpay()">
+										<img  class="gg-property-r-text-div-text" src="${res}/css/money/img/weixin.png">&nbsp;&nbsp;微信支付
+									</div>
+								</li>
+							</ul>
+						</div>
+					</footer>
+				</section>
+			</section>
+		</div>
+
+	</body>
+
+</html>

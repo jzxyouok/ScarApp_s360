@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>选择品牌</title>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="${res}/css/ggwash/app.min.css">
+    <link rel="stylesheet" href="${res}/css/ggwash/iconfont.css">
+    <link rel="stylesheet" href="${res}/css/ggwash/carType.css">
+    <script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+    <script>
+        $(function(){
+            $(".category-item").bind('click',function(){
+                var carType=$(this).attr('data-name');
+                //把此carType赋值到页面
+               // var url="${base}/washcar/index.html?carType="+carType;
+               // window.location.href=url;
+                $("#carType",window.parent.document).val(carType);
+
+                $("#carTypeIframe",window.parent.document).hide();
+                $("#myform",window.parent.document).show();
+            })
+        })
+    </script>
+</head>
+
+<body style="overflow-y:scroll">
+<div class="app-page" data-page="brdSection">
+
+    <div class="app-content" style="background: #fff">
+        <ul class="z-category">
+
+            <li class="item">
+						<span class="category">
+                            <span class="left">
+                                A
+                            </span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list" style="display: block">
+                    <li class="category-item" data-id="5" data-name="奥迪">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/a32e1245-91b3-4a26-9044-203bd5d69cfa.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">奥迪</span>
+                    </li>
+                    <li class="category-item" data-id="26" data-name="阿尔法罗密欧">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/c3702c87-d198-4672-8eaf-7253f9faf326.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">阿尔法罗密欧</span>
+                    </li>
+                    <li class="category-item" data-id="27" data-name="阿斯顿马丁">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/68cca5ad-26e7-4673-af15-7d74af580fba.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">阿斯顿马丁</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">B</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="1" data-name="奔驰">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/2879513c-c907-4665-85a9-e997f296d5bd.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">奔驰</span>
+                    </li>
+                    <li class="category-item" data-id="3" data-name="本田">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/db1ac8b9-17d3-4ce8-aad0-b7aae1d15912.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">本田</span>
+                    </li>
+                    <li class="category-item" data-id="4" data-name="宝马">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150825/thumb/739783c8-e7cb-4fd9-a24c-9b6ec906120b.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">宝马</span>
+                    </li>
+                    <li class="category-item" data-id="13" data-name="比亚迪">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/7f99568f-fe83-43bf-ad57-ccfc35ee4427.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">比亚迪</span>
+                    </li>
+                    <li class="category-item" data-id="15" data-name="布加迪威龙">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/31aa2137-690c-4ca5-b97a-fb39f57c8969.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">布加迪威龙</span>
+                    </li>
+                    <li class="category-item" data-id="17" data-name="别克">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/b538e2b1-19ad-4944-b56d-ddd9636113bc.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">别克</span>
+                    </li>
+                    <li class="category-item" data-id="28" data-name="巴博斯">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/b1430bc0-be7e-46b8-b59f-986e5c1cb65b.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">巴博斯</span>
+                    </li>
+                    <li class="category-item" data-id="29" data-name="保时捷">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/60994acb-ff9f-480f-b50b-4e53d4508714.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">保时捷</span>
+                    </li>
+                    <li class="category-item" data-id="30" data-name="宝骏">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/007a9011-0a62-4353-b2d1-d7be9e6c9c1d.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">宝骏</span>
+                    </li>
+                    <li class="category-item" data-id="31" data-name="北汽幻速">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/58da708b-ed83-43e1-92f5-8a2fdaa6ed56.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">北汽幻速</span>
+                    </li>
+                    <li class="category-item" data-id="32" data-name="北汽绅宝">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/20b6f406-c4bd-4eae-91e0-8ddbe764b398.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">北汽绅宝</span>
+                    </li>
+                    <li class="category-item" data-id="33" data-name="奔腾">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/108a93fc-12d5-47b5-9fb1-344a295c9bab.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">奔腾</span>
+                    </li>
+                    <li class="category-item" data-id="34" data-name="宾利">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/cb8b01c2-b03b-4e8f-9fb3-57c55215b687.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">宾利</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">C</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="35" data-name="昌河">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/2a7bb272-7b23-482d-bb85-7195715cd653.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">昌河</span>
+                    </li>
+                    <li class="category-item" data-id="36" data-name="长安">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/97a424f7-6150-45d2-b72a-d0ea16ce5eb8.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">长安</span>
+                    </li>
+                    <li class="category-item" data-id="37" data-name="长城">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/8b87b67c-4529-4a83-be89-568064a03432.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">长城</span>
+                    </li>
+                    <li class="category-item" data-id="38" data-name="成功">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/201af302-2916-4d12-806a-403f98c8565a.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">成功</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">D</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="6" data-name="大众">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/65a2df0c-0065-4e60-82ac-8e087b28813b.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">大众</span>
+                    </li>
+                    <li class="category-item" data-id="25" data-name="东风汽车">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/afce736f-f5b8-41df-98d8-a8b96a58f86f.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">东风汽车</span>
+                    </li>
+                    <li class="category-item" data-id="39" data-name="DS">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/209500bd-fc47-41ed-a518-4931e91a5808.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">DS</span>
+                    </li>
+                    <li class="category-item" data-id="40" data-name="大迪">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/41b16ef8-3e33-481a-a0bf-1a001db1b407.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">大迪</span>
+                    </li>
+                    <li class="category-item" data-id="41" data-name="道奇">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/bd66aebc-cbaf-4f24-8c00-d4465cbb136c.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">道奇</span>
+                    </li>
+                    <li class="category-item" data-id="42" data-name="东南">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/4fa39bbd-67a7-489f-a723-91b451227302.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">东南</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">F</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="2" data-name="丰田">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/640d1113-f29b-4500-9f56-59f430c8e6d8.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">丰田</span>
+                    </li>
+                    <li class="category-item" data-id="16" data-name="福特">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/dbd81411-646f-44de-bccb-cb1027e2d3b3.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">福特</span>
+                    </li>
+                    <li class="category-item" data-id="43" data-name="FM Auto">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d3cda1d8-f060-46b1-a6d0-faa43f4bb294.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">FM Auto</span>
+                    </li>
+                    <li class="category-item" data-id="44" data-name="Fisker">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/312896b2-f281-4940-aaa1-6ae2f6fc8fa2.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">Fisker</span>
+                    </li>
+                    <li class="category-item" data-id="45" data-name="菲亚特">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/60fc4bff-b5ec-42bd-9d32-257086c06360.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">菲亚特</span>
+                    </li>
+                    <li class="category-item" data-id="46" data-name="福迪">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/48265805-fe5e-485f-ae3e-40595a5a574f.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">福迪</span>
+                    </li>
+                    <li class="category-item" data-id="47" data-name="福汽启腾">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/43fdb1aa-817c-4d07-bcf9-52b9c64dc9a3.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">福汽启腾</span>
+                    </li>
+                    <li class="category-item" data-id="48" data-name="福田">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/51379aab-8b93-4a91-9e60-1477f86d4832.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">福田</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">G</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="49" data-name="GMC">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/2d20031f-8eaf-41e6-832c-9545ddc5ada6.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">GMC</span>
+                    </li>
+                    <li class="category-item" data-id="50" data-name="观致">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/1339b3b7-f365-4f28-b5bb-200d10de6174.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">观致</span>
+                    </li>
+                    <li class="category-item" data-id="51" data-name="光冈">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/0d123e4d-9ccd-4764-8ca5-118649414f7a.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">光冈</span>
+                    </li>
+                    <li class="category-item" data-id="52" data-name="广汽传祺">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/b9118ea3-bcf9-4375-b7b6-6e07939e7f8d.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">广汽传祺</span>
+                    </li>
+                    <li class="category-item" data-id="53" data-name="广汽吉奥">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/9a78e6de-8d58-4db7-87ad-5cb823b64d95.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">广汽吉奥</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">H</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="21" data-name="悍马">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/0faa4462-ab12-4491-9d5c-a47bd2d9bce2.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">悍马</span>
+                    </li>
+                    <li class="category-item" data-id="54" data-name="哈飞">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/7dbdc410-594d-44f5-994e-b20236515022.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">哈飞</span>
+                    </li>
+                    <li class="category-item" data-id="55" data-name="哈弗">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d2aedd89-87c4-41ca-823e-f422d0f8a076.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">哈弗</span>
+                    </li>
+                    <li class="category-item" data-id="56" data-name="海格">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/8df5809d-e144-4ebc-b260-063fcfbe5f44.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">海格</span>
+                    </li>
+                    <li class="category-item" data-id="57" data-name="海马">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/e0d21442-5496-4534-9b3c-ab5e14b65f42.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">海马</span>
+                    </li>
+                    <li class="category-item" data-id="58" data-name="海马郑州">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/b5f56573-08b5-4204-9f44-54be454cd0be.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">海马郑州</span>
+                    </li>
+                    <li class="category-item" data-id="59" data-name="恒天">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/4b3ccdd0-41aa-44ee-b3c0-c7bd8fd1d557.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">恒天</span>
+                    </li>
+                    <li class="category-item" data-id="60" data-name="红旗">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/389991bf-18c2-4128-8ebc-e262abce5ad1.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">红旗</span>
+                    </li>
+                    <li class="category-item" data-id="61" data-name="华普">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/2aebfbf9-68a1-415a-a61f-32a3493f8b30.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">华普</span>
+                    </li>
+                    <li class="category-item" data-id="62" data-name="华颂">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/be8c1f68-7751-4006-9ba0-a5f33d862ac5.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">华颂</span>
+                    </li>
+                    <li class="category-item" data-id="63" data-name="华泰">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/1487534d-1023-4a00-90df-491bc16eb184.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">华泰</span>
+                    </li>
+                    <li class="category-item" data-id="64" data-name="黄海">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d672dc8c-4556-4aaf-ace3-861460cd2c6e.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">黄海</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">J</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="8" data-name="捷豹">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/eef747d5-ea9e-48be-855a-b54d079a7dba.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">捷豹</span>
+                    </li>
+                    <li class="category-item" data-id="14" data-name="江淮">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/78ac06a6-a8f0-4756-ba05-a8a066f2a147.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">江淮</span>
+                    </li>
+                    <li class="category-item" data-id="19" data-name="Jeep">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/b5cc800e-1456-4d4e-b496-820dce92cbfc.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">Jeep</span>
+                    </li>
+                    <li class="category-item" data-id="65" data-name="吉利汽车">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/23027912-f706-429c-bbf4-b4e66aaf8fd0.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">吉利汽车</span>
+                    </li>
+                    <li class="category-item" data-id="66" data-name="金杯">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/c27c0e5a-eca5-4e12-8dd3-860e3c8538eb.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">金杯</span>
+                    </li>
+                    <li class="category-item" data-id="67" data-name="金龙汽车">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/3fe6c7e9-2191-4c8c-b2e4-f5c9e9da256e.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">金龙汽车</span>
+                    </li>
+                    <li class="category-item" data-id="68" data-name="金旅">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/17231c65-dbad-4e38-82db-8a2d61ee0c3b.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">金旅</span>
+                    </li>
+                    <li class="category-item" data-id="69" data-name="九龙">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/e700c83d-269f-42d9-b8b7-7d7182e349d2.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">九龙</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">K</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="20" data-name="凯迪拉克">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/77095e59-1b79-4e75-aa2e-5c9fb1e08458.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">凯迪拉克</span>
+                    </li>
+                    <li class="category-item" data-id="70" data-name="KTM">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/563b4221-2177-4a36-88ec-2a14c8fddc80.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">KTM</span>
+                    </li>
+                    <li class="category-item" data-id="71" data-name="卡尔森">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/8adcdeca-2d54-4683-9f2e-65c02b625eab.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">卡尔森</span>
+                    </li>
+                    <li class="category-item" data-id="72" data-name="卡威汽车">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/79f6421d-965b-4ded-a295-788cc6a4cc14.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">卡威汽车</span>
+                    </li>
+                    <li class="category-item" data-id="73" data-name="开瑞">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/2e227fa8-c630-4e2d-997b-aa25e8febf93.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">开瑞</span>
+                    </li>
+                    <li class="category-item" data-id="74" data-name="凯马">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/caabd208-d83e-415f-b962-131e2c334397.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">凯马</span>
+                    </li>
+                    <li class="category-item" data-id="75" data-name="凯翼">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/c0c5d9fb-c079-4b26-b567-88076a8e269a.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">凯翼</span>
+                    </li>
+                    <li class="category-item" data-id="76" data-name="康迪">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/92a79865-0dd9-40e8-afd9-3e4bed92bef4.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">康迪</span>
+                    </li>
+                    <li class="category-item" data-id="77" data-name="科尼赛克">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d249b13a-d9f6-4af4-acae-5f7abadcf563.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">科尼赛克</span>
+                    </li>
+                    <li class="category-item" data-id="78" data-name="克莱斯勒">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/729e4cf4-e91e-4c8f-9b41-47a66cefe277.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">克莱斯勒</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">L</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="11" data-name="路虎">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/49eddf24-1537-4109-acbe-4c0580983d27.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">路虎</span>
+                    </li>
+                    <li class="category-item" data-id="22" data-name="林肯">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/739740cc-2aed-47e7-86e0-d5ae8d0a6dee.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">林肯</span>
+                    </li>
+                    <li class="category-item" data-id="23" data-name="雷克萨斯">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/10cf4275-0f19-4b36-b380-96a68a63823a.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">雷克萨斯</span>
+                    </li>
+                    <li class="category-item" data-id="79" data-name="兰博基尼">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d35c3cce-7ce6-433f-9874-889799f0b884.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">兰博基尼</span>
+                    </li>
+                    <li class="category-item" data-id="80" data-name="劳斯莱斯">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/d852fb3a-9e5a-4e64-aa4b-6c1f9bff0c2a.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">劳斯莱斯</span>
+                    </li>
+                    <li class="category-item" data-id="81" data-name="雷诺">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150826/thumb/541bb467-f720-47b5-bd92-7f0a936106da.png');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">雷诺</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">M</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="7" data-name="玛莎拉蒂">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/d70b99b3-a7f4-4117-91df-5adcf9b75140.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">玛莎拉蒂</span>
+                    </li>
+                    <li class="category-item" data-id="18" data-name="马自达">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/cff074d8-091e-4278-8a4b-77b92abdd4e9.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">马自达</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">Q</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="83" data-name="起亚">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20151012/thumb/a3b1ea10-990f-4511-a6e4-1685ad08706a.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">起亚</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">R</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="10" data-name="日产">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150825/thumb/8a47382c-85ac-42ad-9516-e70f58fc94e8.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">日产</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">S</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="84" data-name="斯巴鲁">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20151112/thumb/2c6589fb-d20e-4e60-8953-c755539654ae.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">斯巴鲁</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">X</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="9" data-name="雪佛兰">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150825/thumb/46cf7fd2-6666-4988-a4b0-dcd9f85c2a40.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">雪佛兰</span>
+                    </li>
+                    <li class="category-item" data-id="12" data-name="雪铁龙">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/03a25c9a-f0f8-4711-ab24-0caa19a44a13.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">雪铁龙</span>
+                    </li>
+                    <li class="category-item" data-id="82" data-name="现代">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150925/thumb/f0aa618d-e021-443e-9520-d9a4f3a1091e.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">现代</span>
+                    </li>
+                    <li class="category-item" data-id="83" data-name="夏利">
+                        <span class="category-logo" style="background-image: url('http://weixin.xichechaoren.cn/uat/media/brand/20150925/thumb/f0aa618d-e021-443e-9520-d9a4f3a1091e.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">夏利</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+						<span class="category">
+                            <span class="left">Y</span>
+						<span class="right"><i class="icon iconfont"></i></span>
+						<span class="clear"></span>
+						</span>
+                <ul class="category-list">
+                    <li class="category-item" data-id="24" data-name="英菲尼迪">
+                        <span class="category-logo" style="background-image: url('${res}/images/carType/2240f8bc-265e-41cd-9cad-2bbd0661b1fa.jpg');background-size: contain;background-position: center;background-repeat: no-repeat"></span>
+                        <span class="label">英菲尼迪</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>个人中心</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="${res}/css/xc/normalize.css" rel="stylesheet">
+     <link href="${res}/css/xc/main.css" rel="stylesheet" />
+    <link href="${res}/css/xc/xiche.css" rel="stylesheet">
+    <script src="${res}/scripts/xc/modernizr-2.8.3.min.js"></script>
+    </head>
+
+<body>
+<div class="loading" style="display:none;">
+		<div class="loadmodal"></div>
+	    <span class="" id="turnPic"></span>
+	    <p class="tipTxt">数据处理中，请耐心等待...</p>
+	</div>
+<!--[if lt IE 8]>
+  <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- site or application content here begin -->
+<div id="wrapper" style="overflow:hidden">
+
+  <!-- the content -->
+  <div id="content" role="main">
+      <!-- 内容列表 begin -->
+      <section>
+          <div class="personal-center">
+              <ul><!--
+                  <li class="my-account">
+                      <a href="/user/logout.html" class="clearfix">
+                          <i class="account-icon"></i>
+                          <font>账号</font>
+                          <font class="phone-num">13717625140</font>
+                      </a>
+                  </li>
+                  --><li>
+                      <a href="/center/order.html" class="clearfix">
+                          <i class="my-order-icon"></i>
+                          <font>我的订单</font>
+                          <i class="right-arrow"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/center/address.html" class="clearfix">
+                          <i class="usual-address-icon"></i>
+                          <font>常用地址</font>
+                          <i class="right-arrow"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/center/car.html" class="clearfix">
+                          <i class="my-car-icon"></i>
+                          <font>我的爱车</font>
+                          <i class="right-arrow"></i>
+                          <font class="right-word">${hcount?default('0')}辆</font>
+                       </a>
+                  </li>
+                  <li>
+                      <a href="/center/coupon.html" class="clearfix">
+                          <i class="coupon-icon"></i>
+                          <font>优惠劵</font>
+                          <i class="right-arrow"></i>
+                          <font class="right-word">1张</font>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/center/buycouponindex.html" class="clearfix">
+                          <i class="by-coupon-icon"></i>
+                          <font>购买优惠劵</font>
+                          <i class="right-arrow"></i>
+                          <font class="right-word qg">6折抢购</font>
+                      </a>
+                  </li>
+                   <li>
+                      <a href="/center/checkcoupon.html" class="clearfix">
+                          <i class="coupon-icon"></i>
+                          <font>抢优惠券</font>
+                          <i class="right-arrow"></i>
+                      </a>
+                  </li>
+
+                </ul><!--
+              <div class="btn-exit"><a href="/user/logout.html">退出</a></div>
+          -->
+          </div>
+      </section>
+      <!-- 内容列表 end -->
+  </div>
+  <!-- the content end -->
+  <!-- the footer begin -->
+  <footer role="contentinfo">
+
+  </footer>
+  <!-- the footer end -->
+</div>
+
+</body></html>

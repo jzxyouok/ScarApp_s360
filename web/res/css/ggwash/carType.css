@@ -1,0 +1,314 @@
+.info-list {
+    list-style: none;
+    width: 100%;
+    padding: 20px 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.info-list>li {
+    background: #fff;
+    list-style: none;
+    margin:0 0 12px 0;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden;
+    border:1px solid #ddd;
+}
+
+.info-title {
+    height: 28px;
+    line-height: 28px;
+    color: #444;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px 16px 0 16px;
+}
+
+.info-content {
+    color: #666;
+    line-height: 24px;
+    min-height: 48px;
+    font-size: 0.8em;
+    padding: 5px 14px;
+}
+
+.info-list .left {
+    float: left;
+}
+
+.info-list .right {
+    float: right;
+}
+
+.info-list .clear {
+    clear: both;
+}
+
+.info-list dd, .info-list dl {
+    margin: 0;
+    padding: 0;
+}
+
+.info-list dl {
+    padding: 5px 0;
+}
+
+.car-list .show-delete {
+    left: -60px;
+    transition: all .3s;
+}
+
+.car-list .delete-col {
+    position: absolute;
+    top: 0;
+    right: -60px;
+    line-height: 100%;
+    text-align: center;
+    display: none;
+    vertical-align: middle;
+    height: 100% !important;
+    line-height: 100% !important;
+    width: 60px;
+    /*overflow: hidden;*/
+    z-index: 10;
+    color: #666;
+
+}
+
+.show-delete .delete-col {
+    display: block;
+}
+
+.delete-col i {
+    position: absolute;
+    font-size: 1.6em !important;
+    width: 60px;
+    height: 2em !important;
+    line-height: 2em;
+    top: 50%;
+    margin-top: -1em;
+    display: block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.clr-list {
+    display: block;
+    padding: 20px 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.clr-list li {
+    float: left;
+    list-style: none;
+    width: 25%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-bottom: 8px;
+}
+
+.clr-list .clr-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 5px;
+    background: #fff;
+}
+
+.clr-list .clr-view {
+    display: block;
+    width: 100%;
+    height: 48px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.clr-list .clr-name {
+    height: 32px;
+    font-size: 1.2em;
+    font-weight: bold;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 32px;
+    text-align: center;
+}
+.category-list {
+    list-style: none;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 24px;
+    width: 100%;
+    font-size: 0.9em;
+    display: block;
+}
+
+.category-list li {
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    height: 48px;
+    line-height: 32px;
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEEE;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.category-list li:last-child {
+    border-bottom-color: #fff;
+}
+
+.category-list .label {
+    float: left;
+}
+
+.category-logo {
+    display: block;
+    width: 32px;
+    height: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+    position: relative;
+    float: left;
+    margin-right: 2px;
+}
+
+.z-category {
+    list-style: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+
+}
+
+.z-category > li {
+    list-style: none;
+    font-size: 1.1em;
+    /*font-weight: bold;*/
+    color: #888;
+    margin-top: -1px;
+    width: 100%;
+}
+
+.z-category .category {
+    height: 48px;
+    width: 100%;
+    line-height: 48px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+    margin:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    /*padding: 0 20px;*/
+}
+
+.z-category .category .left {
+    width: 50%;
+    display: block;
+    float: left;
+    text-align: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 20px;
+    line-height: 46px;
+    vertical-align: middle;
+    line-height: 46px;
+}
+
+.z-category .category .right {
+    width: 50%;
+    display: block;
+    float: left;
+    text-align: right;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 20px;
+    height: 46px;
+    vertical-align: middle;
+    line-height: 46px;
+}
+
+.z-category .show {
+    display: block;
+}
+.clear {
+    clear: both;
+}
+.action{
+    display: block;
+    width: 100%;
+    height: 32px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    border-bottom: none;
+    background:#f7f7f7 !important;
+    border-bottom-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+}
+.action-list{
+    width: 100%;
+    display: block;
+    padding:0;
+    margin:0;
+    height: 32px;
+    list-style: none;
+    position: relative;
+    border-bottom: none;
+    background:#f7f7f7 !important;
+}
+.action-list li{
+    float: left;
+    display: block;
+    color: #777;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    height: 32px;
+    line-height: 32px;
+    border-right: 1px solid #eee !important;
+    position: relative;
+    text-align: center;
+    border-bottom: none;
+    background:#f7f7f7 !important;
+}
+.action-list li:last-child{
+    border-right-color: #f7f7f7 !important;
+}
+.r2 li{
+    width: 50% !important;
+}
+.r3 li{
+    width: 33.3%;
+}

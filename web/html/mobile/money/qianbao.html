@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>我的钱包</title>
+		<link rel="stylesheet" href="${res}/css/money/css/frozen.min.css">
+		<link rel="stylesheet" href="${res}/css/money/css/dropload.css">
+		<link rel="stylesheet" href="${res}/css/money/css/gg.css">
+		<script src="${res}/scripts/lib/jquery/jquery.min.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function(){
+				$("#property_index_charge").bind("click",function(){
+					var url="${base}/order/chongzhi.html";
+					window.location.href=url;
+				})
+				//wash car coupon page
+				$("#washCarCouponDiv").bind("click",function(){
+					var url="${base}/mycoupon.html";
+					window.location.href=url;
+				})
+				//vip coupon page
+				$("#vipCouponDiv").bind("click",function(){
+					var url="${base}/order/mycoupon.html";
+					window.location.href=url;
+				})
+				//button cancel
+				$("#property_index_menu_cancel").bind('click',function(){
+					$("#property_index_menu").removeClass('show');
+				});
+				//weixin pay
+				$(".gg-property_index_menu_pay").bind('click',function(){
+					wxpay();
+				})
+
+			})
+			function showPayType(id){
+				var money=$("#id").attr('data-money');
+				var zsmoney=$("#id").attr('data-zsmoney');
+				$("#money").val(money);
+				$("#zsmoney").val(zsmoney);
+				$("#property_index_menu").addClass('show');
+			}
+			//ajax微信付款，首先获取jsParam
+			function wxpay(){
+				var money=$("#money").val();
+				var zsmoney=$("#zsmoney").val();
+				var url="${base}/order/getPayParam.html";
+				$.ajax({
+					type: "POST",
+					url: url,
+					async : false,
+					dataType: "json",
+					success: function (data) {
+						var jsParam=data;
+						WeixinJSBridge.invoke(
+								'getBrandWCPayRequest'
+								,jsParam
+								,callback
+						);
+					},
+					error: function (msg) {
+						alert("error");
+					}
+				});
+
+			}
+
+			function callback(res){
+				//  返回 res.err_msg,取值
+				// get_brand_wcpay_request:cancel   用户取消
+				// get_brand_wcpay_request:fail  发送失败
+				// get_brand_wcpay_request:ok 发送成功
+				if(res.err_msg=='get_brand_wcpay_request:ok')
+				{
+					//充值成功之后，保存充值记录到数据库中，然后跳转到我的钱包页面
+					var url="${base}/order/mymoney.html";
+					window.location.href=url;
+				}
+				else
+				{
+					//var msg='支付失败,请重新支付.';
+					//alert(msg);
+					//alert(res.err_code+" err_desc="+res.err_desc+" err_msg="+res.err_msg);
+				}
+			};
+		</script>
+	</head>
+	<body ontouchstart="" class="gg-body">
+		<input type="hidden" id="money">
+		<input type="hidden" id="zsmoney">
+		<div id="gg">
+			<div id="mark"></div>
+			<section id="gg-content" class="ui-container gg-property_index">
+				<section id="content">
+					<header class="ui-header ui-form" id="property_index_header">
+					<!--	<div class="ui-form-item ui-form-item-r gg-property_index_headcoupon">
+							<input type="text" id="property_index_code" placeholder="请输入洗车券或余额兑换码">
+							<button type="button" id="property_index_bind" class="ui-border-l ui-btn gg-btn-green">兑换</button>
+						</div>-->
+						<ul class="ui-list ui-list-text">
+							<li class="gg-property_index_moneyline">
+								<div class="ui-list-info">
+									<p class="gg-property_index_money_title">账户余额（元）</p>
+									<p class="gg-property_index_money_desc">
+										[@find_user_byId userId="${_user_key.userId!''}"]
+										[#if account??]
+										${account!'0'}
+										[/#if]
+										[/@find_user_byId]
+									</p>
+								</div>
+								<div class="ui-list-action">
+									<button type="button" class="ui-btn gg-btn-green" id="property_index_charge">立即充值</button>
+									<span class="gg-property_index_msg">充值赠大礼，洗车低至19.5元</span>
+								</div>
+							</li>
+						</ul>
+						<ul class="ui-tiled ui-border-tb gg-property_index_infoline">
+							<li class="ui-border-r">
+								<span class="gg-property_index_head_img gg-property_index_img_cash"></span>
+								<span class="ui-nowrap">充值：0.00元</span>
+							</li>
+							<li>
+								<span class="gg-property_index_head_img gg-property_index_img_wallet"></span>
+								<span class="ui-nowrap">赠送：0.00元</span>
+							</li>
+						</ul>
+						<div class="gg-property_index_callcenterinfo">
+							充值有疑虑？请猛戳-&gt;
+							<span id="property_index_callcenter">客服妹子</span>。
+						</div>
+					</header>
+					<!--
+						<footer class="ui-footer gg-property_index_footer_cash_hot_pay" id="property_index_footer" style="display:none">
+						<div class="gg_property_index_navlist">
+							<hr> <span>快捷充值</span> </div>
+						<ul class="ui-tiled gg-property_index_subbottom ui-whitespace">
+							[@findChongZhiList count="3"]
+							[#if chongzhiList?? &&chongzhiList?size>0]
+							[#list chongzhiList as chongzhi]
+							<li class="gg-property_index_cash_hot_pay ui-grid-halve-img" data-money="${chongzhi.money?default('')}" data-zsmoney="${chongzhi.zsmoney?default('')}" id="${chongzhi.id!''}" onclick="showPayType('${chongzhi.id}')">
+								<i class="ui-nowrap">
+									<span class="gg-property_index_cash_account">${chongzhi.money?default('')?string('#.##')}元</span>
+								</i>
+								<br>
+								<i class="ui-nowrap">
+									<span class="gg-property_index_cash_gift">赠送</span>
+									<span class="gg-property_index_cash_gift_account">${chongzhi.zsmoney?default('')?string('#.##')}元</span>
+								</i>
+								<span class="gg-property_index_safe"></span>
+							</li>
+							[/#list]
+							[/#if]
+							[/@findChongZhiList]
+						</ul>
+					</footer>
+					-->
+					<section id="property_index_content">
+						<ul class="ui-list ui-list-one ui-list-link ui-list-active">
+							<li class="ui-border-t gg-property_index_item" data-href="#act=property_coupon">
+								<div class="ui-list-icon gg-property_index_img_g">
+									<span class="gg-property_index_img gg-property_index_img_coupon"></span>
+								</div>
+								<div class="ui-list-info">
+									<h4 class="ui-nowrap">洗车券</h4>
+									<div class="ui-txt-info" id="washCarCouponDiv">
+										[@findWashCouponCount userId="${_user_key.userId!''}"]
+										${washCouponCount!'0'}张
+										[/@findWashCouponCount]
+									</div>
+								</div>
+							</li>
+							<li class="ui-border-t gg-property_index_item" data-href="#act=property_discount">
+								<div class="ui-list-icon gg-property_index_img_g">
+									<span class="gg-property_index_img gg-property_index_img_discount"></span>
+								</div>
+								<div class="ui-list-info">
+									<h4 class="ui-nowrap">优惠券</h4>
+									<div class="ui-txt-info" id="vipCouponDiv">
+										[@findVipCouponCount userId="${_user_key.userId!''}"]
+											${vipCouponCount!'0'}张
+										[/@findVipCouponCount]
+									</div>
+								</div>
+							</li>
+							<li class="ui-border-t gg-property_index_item" data-href="#act=property_wallet">
+								<div class="ui-list-icon gg-property_index_img_g">
+									<span class="gg-property_index_img gg-property_index_img_wallet"></span>
+								</div>
+								<div class="ui-list-info">
+									<h4 class="ui-nowrap">红包</h4>
+									<div class="ui-txt-info">${account?default('0')}元</div>
+								</div>
+							</li>
+						</ul>
+						<div class="ui-actionsheet" id="property_index_menu">
+							<div class="ui-actionsheet-cnt">
+								<h4>请选择支付方式</h4>
+								<button class="gg-property_index_menu_pay" data-type="weixin">微信支付</button>
+							<!--	<button class="gg-property_index_menu_pay" data-type="alipay">支付宝支付</button>-->
+								<h4>
+									<label class="ui-checkbox-s">
+										<input type="checkbox" name="checkbox" checked="" id="property_index_annotation_check">
+									</label>
+									<span id="property_index_annotation"> 接受购买及提款协议 </span>
+								</h4>
+								<button id="property_index_menu_cancel">取消</button>
+							</div>
+						</div>
+					</section>
+				</section>
+			</section>
+		</div>
+
+	</body>
+
+</html>

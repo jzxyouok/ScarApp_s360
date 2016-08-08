@@ -1,0 +1,157 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ggwash.mobile.sendOrder">
+	<typeAlias alias="sendOrder" type="com.zero2ipo.common.entity.SendOrder" />
+	<resultMap class="sendOrder" id="sendOrderMap">
+		<result property="id" column="ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="content" column="CONTENT" />
+		<result property="operatorId" column="OPERATOR_ID" />
+		<result property="operatorDate" column="OPERATOR_DATE" />
+		<result property="finishDate" column="FINISH_DATE" />
+		<result property="status" column="STATUS" />
+		<result property="beforePhoto1" column="BEFORE_PHOTO1" />
+		<result property="beforePhoto2" column="BEFORE_PHOTO2" />
+		<result property="beforePhoto3" column="BEFORE_PHOTO3" />
+		<result property="beforePhoto4" column="BEFORE_PHOTO4" />
+		<result property="afterPhoto1" column="AFTER_PHOTO1" />
+		<result property="afterPhoto2" column="AFTER_PHOTO2" />
+		<result property="afterPhoto3" column="AFTER_PHOTO3" />
+		<result property="afterPhoto4" column="AFTER_PHOTO4" />
+	</resultMap>
+<!--查询-->
+<!-- 根据Id查信息 -->
+	<select id="findSendOrderById" resultMap="sendOrderMap">
+	 SELECT
+		ID,
+		ORDER_ID,
+		USER_ID,
+		CONTENT,
+		OPERATOR_ID,
+		OPERATOR_DATE,
+		FINISH_DATE,
+		STATUS,
+		BEFORE_PHOTO1,
+		BEFORE_PHOTO2,
+		BEFORE_PHOTO3,
+		BEFORE_PHOTO4,
+		AFTER_PHOTO1,
+		AFTER_PHOTO2,
+		AFTER_PHOTO3,
+		AFTER_PHOTO4
+		FROM
+		BSB_SEND_ORDER
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="id">
+				ID=#id#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderId">
+				ORDER_ID=#orderId#
+			</isNotEmpty>
+		</dynamic>
+		limit 0,1
+	</select>
+		<!-- 派单列表信息查询 -->
+	<select id="findSendOrderList" resultMap="sendOrderMap">
+		SELECT ID, ORDER_ID, USER_ID, OPERATOR_DATE,CONTENT,FINISH_DATE,OPERATOR_ID, STATUS,
+		BEFORE_PHOTO1,
+		BEFORE_PHOTO2,
+		BEFORE_PHOTO3,
+		BEFORE_PHOTO4,
+		AFTER_PHOTO1,
+		AFTER_PHOTO2,
+		AFTER_PHOTO3,
+		AFTER_PHOTO4
+		FROM
+		BSB_SEND_ORDER
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="status">
+				STATUS=#status#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="userId">
+				USER_ID=#userId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startDate">
+				FINISH_DATE BETWEEN #startDate# AND #endDate#
+			</isNotEmpty>
+
+		</dynamic>
+		order by OPERATOR_DATE desc
+	</select>
+	<!--根据订单id查询派单信息-->
+	<select id="findSendOrderByOrderId" resultMap="sendOrderMap">
+		SELECT ID, ORDER_ID, USER_ID, OPERATOR_DATE,CONTENT,FINISH_DATE,OPERATOR_ID, STATUS,
+		BEFORE_PHOTO1,
+		BEFORE_PHOTO2,
+		BEFORE_PHOTO3,
+		BEFORE_PHOTO4,
+		AFTER_PHOTO1,
+		AFTER_PHOTO2,
+		AFTER_PHOTO3,
+		AFTER_PHOTO4
+		FROM
+		BSB_SEND_ORDER
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="orderId">
+				ORDER_ID=#orderId#
+			</isNotEmpty>
+		</dynamic>
+		order by OPERATOR_DATE desc
+		limit 0,1
+	</select>
+	<!-- 派单信息列表    总条数查询 -->
+	<select id="findSendOrderListCount" resultClass="java.lang.Integer">
+		SELECT COUNT(0) FROM BSB_SEND_ORDER
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="vipNo">
+				INSTR(STATUS,#status#)>0</isNotEmpty>
+		</dynamic>
+	</select>
+<!--新增-->
+	<insert id="addSendOrder" parameterClass="sendOrder"> INSERT INTO
+		BSB_SEND_ORDER(ORDER_ID, USER_ID, CONTENT, OPERATOR_ID, STATUS,OPERATOR_DATE,FINISH_DATE,returnCode,returnMsg
+		)VALUES(#orderId#, #userId#, #content#, #operatorId#, #status#,now(),#finishDate#,#returnCode#,#returnMsg#)
+	</insert>
+	<!-- 修改 -->
+	<update id="updSendOrder" parameterClass="sendOrder">
+	UPDATE
+		BSB_SEND_ORDER
+		set
+		OPERATOR_DATE=now(),
+		FINISH_DATE=now()
+			<isNotEmpty prepend="," property="content">
+				CONTENT=#content#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="status">
+				STATUS=#status#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="beforePhoto1">
+				BEFORE_PHOTO1=#beforePhoto1#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="beforePhoto2">
+				BEFORE_PHOTO2=#beforePhoto2#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="beforePhoto3">
+				BEFORE_PHOTO3=#beforePhoto3#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="beforePhoto4">
+				BEFORE_PHOTO4=#beforePhoto4#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="afterPhoto1">
+				AFTER_PHOTO1=#afterPhoto1#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="afterPhoto2">
+				AFTER_PHOTO2=#afterPhoto2#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="afterPhoto3">
+				AFTER_PHOTO3=#afterPhoto3#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="afterPhoto4">
+				AFTER_PHOTO4=#afterPhoto4#
+			</isNotEmpty>
+		WHERE
+			ORDER_ID=#orderId#
+		</update>
+
+</sqlMap>

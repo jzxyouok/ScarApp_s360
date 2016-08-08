@@ -1,0 +1,45 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="bsb.mobile.serviceproject">
+<typeAlias alias="spEntity" type="com.zero2ipo.common.entity.ServiceProject"/>
+<resultMap class="spEntity" id="spMap">
+	<result property="id" column="ID"/>
+	<result property="price" column="PRICE"/>
+	<result property="name" column="NAME"/>
+	<result property="orignPrice" column="ORIGN_PRICE"/>
+	
+</resultMap>
+<!--查询-->
+
+<select id='findAllList' resultMap='spMap'>
+SELECT
+	ID,
+	PRICE,
+	NAME,
+	ORIGN_PRICE
+	
+FROM SERVICE_PROJECT
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="AND" property="id">
+	ID=#id#
+	</isNotEmpty>
+	
+</dynamic>
+	
+</select>
+<select id='findById' resultMap='spMap'>
+SELECT
+	ID,
+	PRICE,
+	NAME,
+	ORIGN_PRICE
+FROM SERVICE_PROJECT
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			ID=#id#
+		</isNotEmpty>
+		
+	</dynamic>
+</select>
+
+</sqlMap>

@@ -1,0 +1,62 @@
+body { background-image: url(img/ricepaper.png) }
+
+a {
+    position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: rgba(219,87,5,1);
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: 700;
+    font-size: 3em;
+    display: block;
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 300px auto;
+    width: 200px;
+    text-align: center;
+
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+}
+
+a:active {
+    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+}
+
+@font-face {
+    font-family: 'Yanone Kaffeesatz';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Yanone Kaffeesatz Bold'), local('YanoneKaffeesatz-Bold'), url(font/We_iSDqttE3etzfdfhuPRWwXwFHHZlCwprwJOQ-Se7k.woff) format('woff');
+}
+
+.conter_cgv{width:90%;margin:0 auto; padding-top:15%; background:url(img/zq_pic.png) center top no-repeat; background-size:15%; margin-top:10%; text-align:center;}
+.conter_cgv img{margin:0 auto; padding-bottom:2%}
+.conter_cgv p{font-size:14px; padding-bottom:1%}
+.conter_cgv p strong{font-size:24px; color:#e89b01;font-weight:bold;}
+.conter_cgv p a{color:#e89b01; }
+.cov_p{padding:2% 0%;}
+
+.yytz{margin:0 auto; text-align:center; margin-top:3%;}
+.yytz a{font-size:16px; color:#fff;background:#e89b01;border-radius:30px; padding:2% 0%;text-align:center;display:block;width: 90%;margin: 0 auto;}
+.yytz_over a{background: #a3a1a1;}
+
+
+.conter_cgv2{width:90%;margin:0 auto; padding-top:15%; background:url(img/x.png) center top no-repeat; background-size:15%; margin-top:10%; text-align:center;}
+.conter_cgv2 img{margin:0 auto; padding-bottom:2%}
+.conter_cgv2 p{font-size:14px; padding-bottom:1%}
+.conter_cgv2 p strong{font-size:24px; color:#e89b01;font-weight:bold;}
+.conter_cgv2 p a{color:#e89b01; }
+.cov_p{padding:2% 0%;}
