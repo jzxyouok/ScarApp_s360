@@ -181,9 +181,10 @@ $( document ).ready(function(e) {
 
     /* 单选按钮 */
     $( ".theradio" ).click( function(){
+        var rootUrl=$("#rootUrl").val();
         if( $( this ).hasClass( "on" ) ){
             $( this ).removeClass( "on" );
-            $( this ).attr( "src","../res/css/xc/img/radio_unsel.png" );
+            $( this ).attr( "src",rootUrl+"/res/css/xc/img/radio_unsel.png" );
             $( this ).closest( ".radioGroup" ).siblings().find( ".theradio" ).removeClass( "on" );
             $('#carSeatsId').val('');
             $('#carSeats').val('');
@@ -196,9 +197,9 @@ $( document ).ready(function(e) {
         } else {
             $( ".inputcarinfo" ).hide();
             $( this ).addClass( "on" );
-            $( this ).attr( "src","../res/css/xc/img/radio_sel.png" );
+            $( this ).attr( "src",rootUrl+"/res/css/xc/img/radio_sel.png" );
             $( this ).closest( ".radioGroup" ).siblings().find( ".theradio" ).removeClass( "on" );
-            $( this ).closest( ".radioGroup" ).siblings().find( ".theradio" ).attr( "src","../res/css/xc/img/radio_unsel.png" );
+            $( this ).closest( ".radioGroup" ).siblings().find( ".theradio" ).attr( "src",rootUrl+"/res/css/xc/img/radio_unsel.png" );
             $('#carSeatsId').val($(this).attr('carSeatsId'));
             $('#carSeats').val($(this).attr('carSeats'));
             $('#carColor').val($(this).attr('carColor'));
@@ -217,7 +218,7 @@ $( document ).ready(function(e) {
         event.preventDefault();
         if( !$( this ).hasClass( "on" ) ){
             $( this ).addClass( "on" )
-            $( this ).append( "<img class='selected i_b v_m' src='../res/css/xc/img/selected.png'>" );
+            $( this ).append( "<img class='selected i_b v_m' src=rootUrl+'/res/css/xc/img/selected.png'>" );
             $( this ).closest( "h1" ).siblings( "h1" ).find( "img" ).remove();
             $( this ).closest( "h1" ).siblings( "h1" ).removeClass( "on" );
             var washAddr=$(this).attr('washAddr');
@@ -236,7 +237,8 @@ $( document ).ready(function(e) {
     /* 新增车辆 */
     $( ".addcar" ).click( function(){
         $( ".inputcarinfo" ).show();
-        $( this ).closest( "section" ).siblings().find( ".theradio" ).removeClass( "on" ).attr( "src","../res/css/xc/img/radio_unsel.png" );
+        var rootUrl=$("#rootUrl").val();
+        $( this ).closest( "section" ).siblings().find( ".theradio" ).removeClass( "on" ).attr( "src",rootUrl+"/res/css/xc/img/radio_unsel.png" );
         $('#carSeatsId').val('');
         $('#carSeats').val('');
         $('#carColor').val('');

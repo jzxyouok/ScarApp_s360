@@ -209,7 +209,7 @@ public class UserAction {
 	public Map<String,Object> loginPostForMobileCode(HttpServletRequest request,
 										HttpServletResponse response, ModelMap model, String mobile) {
 		Map<String,Object> map=new HashMap<String, Object>();
-		String page = "/";
+		String page = "/index.html";
 		Users user = userServices.findUserByUsernameAndPassword(mobile,"");
 		String openid=SessionHelper.getStringAttribute(request, MobileContants.USER_OPEN_ID_KEY);
 		if (user != null) {

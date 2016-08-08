@@ -176,7 +176,7 @@ html,body,#wrapper{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-#washAddrShow,#washInfoShow{
+#washAddrShow{
     display: inline-block;
     width: 95%;
     max-width: 100%;
@@ -189,7 +189,32 @@ html,body,#wrapper{
     font-size: 1.5rem;
     font-family: 'Microsoft YaHei','SimHei','Arial';
 }
-
+#mobileShow{
+    display: inline-block;
+    width: 95%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    border: none;
+    height: 83%;
+    font-size: 1.5rem;
+    font-family: 'Microsoft YaHei','SimHei','Arial';
+}
+#washInfoShow{
+    display: inline-block;
+    width: 95%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    border: none;
+    height: 83%;
+    font-size: 1.5rem;
+    font-family: 'Microsoft YaHei','SimHei','Arial';
+}
 .b_none{
     border: none;
 }

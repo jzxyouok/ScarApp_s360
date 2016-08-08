@@ -265,10 +265,24 @@ public class DynamicMobilePageAct {
 			//获取当前登录的用户id
 			Users user=(Users) SessionHelper.getAttribute(request, MobileContants.USER_SESSION_KEY);
 			if(!StringUtil.isNullOrEmpty(user)){
-				Car car= (Car) request.getSession().getAttribute(MobileContants.CAR_SESSION_KEY);
+				Object object= request.getSession().getAttribute(MobileContants.CAR_SESSION_KEY);
+				Car car=null;
+				if(object instanceof Car){
+					car=(Car)object;
+				}else{
+					car=new Car();
+				}
 				mv.addObject("bo",car);
 				mv.addObject("couponMoney", couponMoney);
-				List<String> preDates= (List<String>) request.getSession().getAttribute(MobileContants.PRE_DATES_KEY);//保存录入的车辆信息到缓存中
+				Object o=request.getSession().getAttribute(MobileContants.PRE_DATES_KEY);
+				List<String> preDates=null;
+				if(!StringUtil.isNullOrEmpty(o)){
+					preDates= (List<String>) request.getSession().getAttribute(MobileContants.PRE_DATES_KEY);//保存录入的车辆信息到缓存中
+				}else{
+					String days=coreService.getValue(CodeCommon.PRE_TIME_DAYS);
+					String hours=coreService.getValue(CodeCommon.PRE_TIME_HOURS);
+				    preDates=DateUtil.getLast2Hours(Integer.parseInt(days),Integer.parseInt(hours));
+				}
 				mv.addObject("preDates",preDates);
 				//if(user.getUserId().equals("13717625140")){
 					//mv.setViewName("mobile/xc/test");

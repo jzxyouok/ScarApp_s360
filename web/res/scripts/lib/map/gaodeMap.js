@@ -29,9 +29,10 @@ function getMyCurrentLocation(){
 function onComplete(data) {
 	lng=data.position.getLng();
 	lat=data.position.getLat();
-	queryAreaLogin(lng,lat);
 	$("#lng").val(lng);
 	$("#lat").val(lat);
+	queryAreaLogin(lng,lat);
+
 	var geocoder=null;
 	AMap.plugin('AMap.Geocoder',function(){
 		 geocoder = new AMap.Geocoder({

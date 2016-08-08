@@ -35,6 +35,7 @@
     <script>
     var sum=0;
     $(document).ready(function(e) {
+
 /*        /!* 多选按钮 *!/
         $( ".radiooper").click( function(){
         	var sum_pirce=parseFloat($("#total").html());
@@ -75,89 +76,12 @@
         });*/
         /**选择优惠券**/
         $("#selectVipCouponBtn").click(function(){
-
             $("#myform").hide();
             $("#vipCouponIframe").show();
         })
 
     });
-     /*获取所有选中的服务*/
-  function getServicesProjectIds(){
-  	var ids="";
-  	$("img").each(function(){
-  			var src=$(this).attr("src");
-  			if(src.indexOf("radio_sel.png")>0){
-  				ids+=$(this).attr("ids")+",";
-  			}
-  		})
-  		ids=ids.substring(0,ids.length-1);
-  		return ids;
-  }
-    var can_pay=1;
-    function money(){
-     var total=  $("#total").html();
-            var ids=getServicesProjectIds();
-            window.location.href="${base}/pay/moneypay?ids="+ids+"&total="+total+"&id=${carId!''}&addressId=${addressId!''}";
-    }
-    function pay() {
-        if(can_pay==1){
-            can_pay=0;
-           var total=  $("#total").html();
-           var ids=getServicesProjectIds();
-            if(''==ids||null==ids){
-                alert("请选择服务项目");
-                return ;
-            }
 
-          window.location.href="${base}/pay/config?ids="+ids+"&total="+total+"&id=${carId!''}&addressId=${addressId!''}";
-            return;
-            $.ajax({
-                type:'POST',
-                url:'${base}/pay/prepay',
-                data:{total:total},
-                dataType:'json',
-                timeout:999999,
-                success:function(data){
-                    //hideloading();
-                   // alert(data.status);
-                    //alert(data.status==1);
-                    if(data.status==1){
-                   // alert("3");
-                      var jsParam=data.jsParam;
-                   // alert(jsParam);
-     					wxpay(jsParam);
-
-                }
-            },error:function(){
-            }
-        })
-    }
-}
-   function wxpay(jsParam){
-	WeixinJSBridge.invoke(
-		'getBrandWCPayRequest'
-		,jsParam
-		,callback
-	);
-}
-
-function callback(res){
-	//  返回 res.err_msg,取值
-	// get_brand_wcpay_request:cancel   用户取消
-    // get_brand_wcpay_request:fail  发送失败
-    // get_brand_wcpay_request:ok 发送成功
-     WeixinJSBridge.log(res.err_msg);
-     if(res.err_msg=='get_brand_wcpay_request:ok')
-     {
-     	showPayResult();
-     }
-	else
-	{
-		var msg='支付失败,请重新支付.';
-		alert(msg);
-		 alert(res.err_code+" err_desc="+res.err_desc+" err_msg="+res.err_msg);
-	}
-};
     </script>
     </head>
 <body>
@@ -166,7 +90,17 @@ function callback(res){
     <span class="" id="turnPic"></span>
     <p class="tipTxt">数据处理中，请耐心等待...</p>
 </div>
-<form id="myform">
+<form id="myform" action="${base}/xd.html" method="post">
+  <input type="hidden" id="lng" name="lng">
+  <input type="hidden" id="lat" name="lat">
+  <input type="hidden" id="mobile" name="mobile">
+  <input type="hidden" id="preTime" name="preTime">
+  <input type="hidden" id="carNo" name="carNo">
+  <input type="hidden" id="carType" name="carType">
+  <input type="hidden" id="carColor" name="carColor">
+  <input type="hidden" id="washAddr" name="washAddr">
+  <input type="hidden" id="washInfo" name="washInfo">
+<input type="hidden" id="couponId" name="couponId" value="${couponId!''}"/>
 <!-- the content -->
     <div id="wrapper">
         <!-- 服务内容说明 -->
@@ -322,12 +256,12 @@ function callback(res){
                 <p  class="payment clearfix" id="wxpayTr">
                     <input type="hidden" id="totalPrice" name="totalPrice">
                     <input type="hidden" id="projectName" name="projectName">
-                    <span class="btn_wx" onclick="pay()"><a>微信支付</a></span>
-                    <span class="btn_wx" onclick="money()" style="background-color:red;margin-right:15px;"><a>现金支付</a></span>
+                    <span class="btn_wx" onclick="weixinPay()"><a>微信支付</a></span>
+                    <span class="btn_wx" onclick="money_pay()" style="background-color:red;margin-right:15px;"><a>现金支付</a></span>
                 </p>
                 <div style="padding-top: 15px;"></div>
                 <article class="btnoper" id="qbpayTr" style="display: none;">
-                    <span class="btn_orange" onclick="pay()"><a>提交订单</a></span>
+                    <span class="btn_orange" onclick="qbpay()"><a>提交订单</a></span>
                 </article>
                 <article class="btnoper" id="youhuiquanTr" style="display: none;">
                     <span class="btn_orange" onclick="yhqPay()"><a>提交订单</a></span>

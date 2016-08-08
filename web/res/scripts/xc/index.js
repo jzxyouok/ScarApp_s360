@@ -62,7 +62,7 @@ $(".autoaddr").live('click',function(){
         var carColor=$("#carColor").val();
         var carNo=$('#carNo').val();
         var washAddr=$('#washAddrShow').val();
-        var mobile=$('#washInfoShow').val();
+        var mobile=$('#mobileShow').val();
         $("#washAddr").val(washAddr);
         $('#mobile').val(mobile);
         if(carNo==""||carNo==null||(carNo.indexOf('鄂A'>0)&&carNo.length==2)){
@@ -102,6 +102,16 @@ $(".autoaddr").live('click',function(){
             return false;
         }
         //$("#myform").submit();
+        //给子界面传递值
+        $('#serviceProjectframe').contents().find("#mobile").val(mobile);
+        $('#serviceProjectframe').contents().find("#carNo").val(carNo);
+        $('#serviceProjectframe').contents().find("#carColor").val(carColor);
+        $('#serviceProjectframe').contents().find("#carType").val(carType);
+        $('#serviceProjectframe').contents().find("#preTime").val(preTime);
+        $('#serviceProjectframe').contents().find("#washAddr").val(washAddr);
+        $('#serviceProjectframe').contents().find("#washAddr").val(washAddr);
+        $('#serviceProjectframe').contents().find("#lat").val($("#lat").val());
+        $('#serviceProjectframe').contents().find("#lng").val($("#lng").val());
         $("#myform").hide();
         $("#serviceProjectframe").show();
 

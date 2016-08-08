@@ -36,6 +36,7 @@ $(document).ready(function(e) {
             $("#youhuiquanTr").hide();
             $("#qbpayTr").hide();
             $("#wxpayTr").hide();
+            $("#total").html(0);
         }else{
             getTotalPrice();
         }
@@ -137,29 +138,32 @@ function getTotalPrice(){
             }
         }else{
             //不使用钱包余额付款
-            chongzhiQianBao();
+            chongzhiQianBao(sumPrice);
         }
     }else{
         //重置钱包余额
-        chongzhiQianBao();
+        chongzhiQianBao(sumPrice);
     }
-   /* var s=parseFloat(sumPrice).toFixed(2);
+
+
+}
+//不使用余额付款
+function chongzhiQianBao(sumPrice){
+    var s=parseFloat(sumPrice).toFixed(2);
     if(s<=0){
+        $("#total").html(0);//总额
         $("#qbpayTr").hide();
         $("#wxpayTr").hide();
         $("#youhuiquanTr").show();
 
     }else {
+        $("#total").html(sumPrice);//总额
         $("#youhuiquanTr").hide();
         $("#sum").html(sumPrice);
-    }*/
-
-}
-//不使用余额付款
-function chongzhiQianBao(){
+        $("#wxpayTr").show();
+    }
     $("#qbdk").html(0);//余额抵扣
-    $("#qbpayTr").hide();
-    $("#wxpayTr").show();
+
 }
 //选择服务项目,需要把服务项目名称和总金额传递过去
 function weixinPay(){

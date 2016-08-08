@@ -40,6 +40,9 @@
     <form action="${base}/car/wait_washer.html" method="post" id="myform">
     <input type="hidden" id="carColor" name="carColor"/>
     <input type="hidden" id="rootUrl" name="rootUrl" value="${base}"/>
+    <input type="hidden" id="sid" name="sid"/>
+    <input type="hidden" id="lng" name="lng" value="${bo.lng!''}">
+    <input type="hidden" id="lat" name="lat" value="${bo.lat!''}">
         <!-- 历史车辆 -->
         <article class="carrecord">
             <header>历史车辆</header>
@@ -49,15 +52,15 @@
             [#list historyCars as car]
             	 <div class="carinfo radioGroup">
                     [#if car_index==0]
-                    <img class="radio theradio on" src="${res}/css/xc/img/radio_sel.png" id="${car.id!''}"   carNo="${car.carNo}"  carColor="${car.carColor}" carSeats="${car.carSeats}"  carColorId="${car.carColor}" carSeatsId="${car.carSeats}"/>
+                    <img class="radio theradio on" src="${base}/res/css/xc/img/radio_sel.png" id="${car.id!''}"   carNo="${car.carNo!''}"  carColor="${car.carColor!''}" carSeats="${car.carSeats!''}"  carColorId="${car.carColor!''}" carSeatsId="${car.carSeats!''}"/>
                     [#else]
-                    <img class="radio theradio" src="${res}/css/xc/img/radio_unsel.png" id="${car.id!''}"  carNo="${car.carNo}"  carColor="${car.carColor}" carSeats="${car.carSeats}" carColorId="${car.carColor}" carSeatsId="${car.carSeats}"/>
+                    <img class="radio theradio" src="${base}/res/css/xc/img/radio_unsel.png" id="${car.id!''}"  carNo="${car.carNo!''}"  carColor="${car.carColor!''}" carSeats="${car.carSeats!''}" carColorId="${car.carColor!''}" carSeatsId="${car.carSeats!''}"/>
                     [/#if]
                 	<span class="carbrand v_m">
-                    	${car.carNo}
+                    	${car.carNo!''}
                     </span>
-                    <span class="carcolor p_r">${car.carColor}</span>
-                    <span class="carseat v_m">${car.carSeats}</span>
+                    <span class="carcolor p_r">${car.carColor!''}</span>
+                    <span class="carseat v_m">${car.carType!''}</span>
                 </div>
             [/#list]
             [/#if]
@@ -180,12 +183,16 @@
 					<input type="hidden" id="washAddr" name="washAddr"/>
                 </p>
                 <p class="clearfix" >
-                    <input type="text" id="washInfoShow" placeholder="手机号码" value="${_user_key.phoneNum!''}">
+                    <input type="text" id="mobileShow" placeholder="手机号码" value="${_user_key.phoneNum!''}">
                		<input type="hidden" id="mobile" name="mobile" value="${_user_key.phoneNum!''}"/>
                 </p>
 
-
-
+            </div>
+            <div class="oneline p_r">
+                <p class="clearfix" >
+                    <textarea  id="washInfoShow" placeholder="备注" >${bo.washInfo!''}</textarea>
+                    <input type="hidden" id="washInfo" name="washInfo" value="${bo.washInfo!''}"/>
+                </p>
             </div>
             <p class="prompt" style="border-top: 0.07rem solid #ddd;">
              [@directory_code codeValue="service_range_info"]
