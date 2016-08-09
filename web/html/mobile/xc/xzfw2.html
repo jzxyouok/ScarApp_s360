@@ -81,7 +81,19 @@
         })
 
     });
+    function money_pay(){
+        var projectName=$("#projectName").val();//服务项目
+        if(''==projectName||null==projectName){
+            alert("请选择服务项目");
+            return ;
+        }else{
+            $("#totalPrice").val($("#total").html());
+            var url="${base}/washcar/moneyPay.html";
+            $('#myform').attr('action',url);
+            $("#myform").submit();
+        }
 
+    }
     </script>
     </head>
 <body>

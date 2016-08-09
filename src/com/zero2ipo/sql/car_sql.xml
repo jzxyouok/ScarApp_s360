@@ -46,6 +46,9 @@ FROM CAR
 	<isNotEmpty prepend="AND" property="mobile">
 		MOBILE=#mobile#
 	</isNotEmpty>
+	<isNotEmpty prepend="AND" property="carNo">
+		CAR_NO=#carNo#
+	</isNotEmpty>
 </dynamic>
 	ORDER BY CREATE_TIME DESC
 </select>
@@ -57,7 +60,9 @@ FROM CAR
 	<isNotEmpty prepend="AND" property="userId">
 	USER_CAR_ID=#userId#
 	</isNotEmpty>
-
+	<isNotEmpty prepend="AND" property="carNo">
+		CAR_NO=#carNo#
+	</isNotEmpty>
 	<isNotEmpty prepend="AND" property="mobile">
 		MOBILE=#mobile#
 	</isNotEmpty>

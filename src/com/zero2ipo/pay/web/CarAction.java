@@ -409,18 +409,16 @@ public class CarAction {
 				car.setUserCarId(user.getUserId());
 				//首页判断此车辆是否存在
 				Map<String,Object> queryMap=new HashMap<String,Object>();
-				queryMap.put("mobile",user.getPhoneNum());
+				queryMap.put("carNo",car.getCarNo());
 				Car isExsit=null;
-				List<Car> historyCar=historyCarService.findAllList(queryMap);
-				if(historyCar.size()>0){
-					isExsit=historyCar.get(0);
-				}
-				if(StringUtil.isNullOrEmpty(isExsit)){
+				int count=historyCarService.findAllListCount(queryMap);
+				if(count<=0){
 					carId= historyCarService.add(car);//新增
 					car.setId(carId);
 					isExsit=car;
 					if(carId>0){
 						flag=true;
+						isExsit.setId(carId);
 					}
 				}else{//更新
 					queryMap.put("userCardId", user.getUserId());
@@ -480,48 +478,9 @@ public class CarAction {
 				//下完单后是否开启自动派单功能
 				String autoPaiDan=coreService.getValue(CodeCommon.AUTO_PAIDAN);
 				if(CodeCommon.AUTO_PAIDAN_FLAG.equals(autoPaiDan)){
-					//根据经纬度派单给最近的洗车工师父
-				/**	SendOrder sendOrder=new SendOrder();
-					order.setOrderId(orderId+"");
-					//根据经纬度获取最近的洗车工师父
-					AdminBo bo=userServices.findAdminByLatLng(lat,lng);
-					sendOrder.setCarNo(order.getCarNum());
-					sendOrder.setOrderId(orderId+"");
-					sendOrder.setName(isExsit.getName());
-					sendOrder.setPreTime(isExsit.getPreTime());
-					sendOrder.setMobile(isExsit.getMobile());
-					sendOrder.setSendOrderTime(com.zero2ipo.framework.util.DateUtil.getCurrentTime());
-					sendOrder.setUserId(bo.getUserId());
-					sendOrder.setOperatorId(user.getUserId());
-					sendOrder.setStatus(MobileContants.SEND_ORDER_STATUS_1);
-					sendOrderService.addSendOrder(sendOrder);
-					**/
 					//派单完成后是否给管理员发送短信或者微信
 					ServletContext application =request.getSession().getServletContext();
 					isAutoQiangDanMethod(request,application,order);
-				/**	String isSendMessage=coreService.getValue(CodeCommon.IS_SENDMESSAGE_TO_ADMIN);
-					if(CodeCommon.IS_SENDMESSAGE_TO_ADMIN_FLAG.equals(isSendMessage)){//开启给管理发送派单短信通知
-						String sendMessageFlag=coreService.getValue(CodeCommon.SEND_MESSAGE_FLAG);
-						if(CodeCommon.SEND_MESSAGE_DUANXIN.equals(sendMessageFlag)){
-							//发送短信通知
-						}
-						if(CodeCommon.SEND_MESSAGE_WEIXIN.equals(sendMessageFlag)){
-							//发送微信通知
-							String openId=bo.getIp();//获取洗车工绑定的微信openid
-							String templateMessageId=coreService.getValue(CodeCommon.PAIDAN_TEMPLATE_MESSAGE);
-							String washType=order.getWashType();
-							//查询域名
-							String  domain=coreService.getValue(CodeCommon.DOMAIN);
-							String url=domain+"/renwu/order"+orderId+".html";
-							WxTemplate wxTemplate= TemplateMessageUtils.getWxTemplateToAdmin(openId,templateMessageId,url,orderNo, com.zero2ipo.framework.util.DateUtil.getCurrentTime(),isExsit.getName(),isExsit.getCarNo(),isExsit.getWashAddr(),order.getWashTime(),washType);
-							//发送模板消息
-							String appId=coreService.getValue(CodeCommon.APPID);
-							String appsecret=coreService.getValue(CodeCommon.APPSECRET);
-							coreService.send_template_message(appId,appsecret,openId,wxTemplate);
-
-						}
-					}**/
-
 				}
 				//如果订单 保存 成功的话 ，减去 用户已经使用 的洗车券
 				if(orderId>1){
