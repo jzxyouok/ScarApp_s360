@@ -513,19 +513,17 @@ public class CarAction {
 			queryMap.put("status",MobileContants.status_1);//限制是成功的订单
 			int count=orderService.findIsOrNotFirstOrder(queryMap);
 			System.out.println("WACH COUNT========================================"+count);
-			if(count<=1){
+		/*	if(count<=1){
 				mv.setViewName(MobilePageContants.DA_ZHUAN_PAN_PAGE);
-			}else{
+			}else{*/
 				mv.setViewName(MobilePageContants.PAY_BY_WEIXIN_PAGE);
 				Map<String,Object> query=new HashMap<String,Object>();
 				query.put("id", orderId);
 				mv.addObject("orderId", orderId);
 				Order order=orderService.findById(query);
 				mv.addObject("order",order);
-			}
-
+			/*}*/
 		}
-
 		return mv;
 	}
 
@@ -724,13 +722,10 @@ public class CarAction {
 				car.setUserCarId(user.getUserId());
 				//首页判断此车辆是否存在
 				Map<String,Object> queryMap=new HashMap<String,Object>();
-				queryMap.put("mobile",user.getPhoneNum());
+				queryMap.put("carNo",car.getCarNo());
 				Car isExsit=null;
-				List<Car> historyCar=historyCarService.findAllList(queryMap);
-				if(historyCar.size()>0){
-					isExsit=historyCar.get(0);
-				}
-				if(StringUtil.isNullOrEmpty(isExsit)){
+				int count=historyCarService.findAllListCount(queryMap);
+				if(count<=0){
 					carId= historyCarService.add(car);//新增
 					car.setId(carId);
 					isExsit=car;
@@ -822,13 +817,10 @@ public class CarAction {
 				car.setUserCarId(user.getUserId());
 				//首页判断此车辆是否存在
 				Map<String,Object> queryMap=new HashMap<String,Object>();
-				queryMap.put("mobile",user.getPhoneNum());
+				queryMap.put("carNo",car.getCarNo());
 				Car isExsit=null;
-				List<Car> historyCar=historyCarService.findAllList(queryMap);
-				if(historyCar.size()>0){
-					isExsit=historyCar.get(0);
-				}
-				if(StringUtil.isNullOrEmpty(isExsit)){
+				int count=historyCarService.findAllListCount(queryMap);
+				if(count<=0){
 					carId= historyCarService.add(car);//新增
 					car.setId(carId);
 					isExsit=car;
@@ -944,13 +936,10 @@ public class CarAction {
 			car.setUserCarId(user.getUserId());
 			//首页判断此车辆是否存在
 			Map<String,Object> queryMap=new HashMap<String,Object>();
-			queryMap.put("mobile",user.getPhoneNum());
+			queryMap.put("carNo",car.getCarNo());
 			Car isExsit=null;
-			List<Car> historyCar=historyCarService.findAllList(queryMap);
-			if(historyCar.size()>0){
-				isExsit=historyCar.get(0);
-			}
-			if(StringUtil.isNullOrEmpty(isExsit)){
+			int count=historyCarService.findAllListCount(queryMap);
+			if(count<=0){
 				carId= historyCarService.add(car);//新增
 				car.setId(carId);
 				isExsit=car;

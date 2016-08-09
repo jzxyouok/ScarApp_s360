@@ -13,7 +13,8 @@ public class MobilePageContants {
 
 	public static final String FM_PAGE_WDXCQ = "mobile/user/washCoupon"; //我的洗车券
 	public static final String FM_PAGE_GMXCQ = "pay/couponbuy"; //购买洗车券
-	public static final String DA_ZHUAN_PAN_PAGE = "plugins/dazhuanpan/dazhuanpan"; //大转盘抽奖页面
+	//public static final String DA_ZHUAN_PAN_PAGE = "plugins/dazhuanpan/dazhuanpan"; //大转盘抽奖页面
+	public static final String DA_ZHUAN_PAN_PAGE = "mobile/user/myOrder"; //订单详情页面
 
 	public static final String FM_PAGE_MAIN = "mobile/xc/index";    	//主页
 	public static final String PAGE_MAIN = "mobile/xc/main";    	//主页

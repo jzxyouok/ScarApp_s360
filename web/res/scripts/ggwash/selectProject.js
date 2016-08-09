@@ -124,7 +124,7 @@ function getTotalPrice(){
             if(f>0){//钱包余额充足，就没必要使用微信支付了，直接下单扣除钱包余额就可以了
                 $("#qbdk").html(sumPrice);//余额抵扣
                 $("#sum").html(sumPrice);
-                $("#total").html(0);
+                $("#total").html(sumPrice);
                 $("#qbpayTr").show();
                 $("#wxpayTr").hide();
                 $("#youhuiquanTr").hide();
